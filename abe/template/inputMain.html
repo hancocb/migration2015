@@ -86,7 +86,7 @@
   </div><hr><br>
 
   <form name="inputMain" method="POST" action="bmpMain" target="new">
-    
+    {% csrf_token %}
   <div style="color:blue;">
     <span style="font-weight:bold;">Step 1. Input watershed land use area (ac) </span>
   </div>
@@ -175,9 +175,14 @@
   <table style="width:800px; border:0;">
   <tbody>
   <tr class="center">
+
       <td style="text-align:left">
         <input type="text" size="30" style="text-align:left;width:150px;border-width:0px;font-size:11pt" name="LocName" value="Select CLIGEN Station">
       </td> 
+
+      <!-- visiable when location is selected -->
+      <td> <input type=hidden name="GraphButton" style='width:200px;height:30px;cursor:hand' value='History Rainfalls' onClick="javascript:window.open('simpleGraph', 'GraphWindow', 'status=0,toolbar=0,height=500px,width=710px' ); "> 
+      </td>
 
       <td>
         <input type="button" style="width:200px;height:30px;cursor:hand" value="CLIGEN Map" 
@@ -306,9 +311,12 @@
 
   <!-- begin of step4-->
   <span style="font-weight:bold; color:blue;">Step 4. Modify the Universal Soil Loss Equation (USLE) parameters</span>
-    <input type="button" style="width:240px;height:30px;cursor:hand" value="County Data" onclick="javascript:window.open('CountyData.cgi?numWSD=1','CountyData',status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=780);"> 
+    <input type="button" style="width:240px;height:30px;cursor:hand" 
+    value="County Data" 
+    onclick="javascript:window.open('CountyData.cgi?numWSD={{req.POST.numWSD}}','CountyData','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=780');"> 
     <span style=" font-size:0.82em; color:red;"> *The state and county of the CLIGEN station will be the default for soil data properties. 
     </span> <br> 
+
   <table border="1" style="margin: 0 auto; width:1000px">
     <tbody><tr style="text-align:middle">
       <td style="text-align:center; background-color:#BDBDBD; width:50px" rowspan="2">Watershed</td>
@@ -365,7 +373,7 @@
   </span>
     <input type="button" style="width:250x;height:30px;cursor:hand;" 
     value="Change soil type and CN inputs" 
-    onclick="updateSHG();javascript:window.open('./optMain.cgi?numWSD=1';,'STEPL_DB_online','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=900');">
+    onclick="javascript:window.open('./optMain.cgi?numWSD={{req.POST.numWSD}}','STEPL_DB_online','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=900');">
 <hr>
 
   <div style="color:blue; font-style:italic">If you want to change DBs, click button. </div>
@@ -423,7 +431,7 @@
   <hr>
   <span style="color:blue; font-style:italic">If you want to input Gully and Streambank Erosion, click the button.</span>
   <input type="button" style="width:240px;height:30px;cursor:hand" value="Gully &amp; Streambank Erosion" 
-    onclick="javascript:window.open('./GS1.cgi?numWSD=1&amp;numSTR=0&amp;numGLY=6',
+    onclick="javascript:window.open('./GS1.cgi?numWSD={{req.POST.numWSD}}&amp;numSTR={{req.POST.numSTR}}&amp;numGLY={{req.POST.numGLY}}',
     'Gully_Streambank','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=900');">
     <hr>
 
@@ -462,6 +470,7 @@
 </form>
 
 <form name="cleanForm" method="POST" action="inputMain" target="_self">
+  {% csrf_token %}
 <input type="hidden" name="numWSD" value="{{req.POST.numWSD}}">
 <input type="hidden" name="numGLY" value="{{req.POST.numGLY}}">
 <input type="hidden" name="numSTR" value="{{req.POST.numSTR}}">
