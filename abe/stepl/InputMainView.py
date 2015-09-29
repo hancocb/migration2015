@@ -2,6 +2,7 @@ from django.views.generic import View
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import Http404
+from models import IndexInput
 
 class InputMainView(View):
     
@@ -12,6 +13,11 @@ class InputMainView(View):
     	# only the data that need to be edit would be written to template html
     	
     	#always use the session as context
+        i = IndexInput(num_watershd=request.POST['numWSD'],
+                        num_gully=request.POST['numGLY'],
+                        num_steambank=request.POST['numSTR'])
+        i.save()
+
         context = request.session
         context['rangeWSD'] = range( 1 , int( request.POST['numWSD'] ) + 1 )
         context['rangeGLY'] = range( 1 , int( request.POST['numGLY'] ) + 1 )
