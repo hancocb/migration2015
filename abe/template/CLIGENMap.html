@@ -41,7 +41,7 @@
             var gmap_satellite = new OpenLayers.Layer.Google("Google Satellite", {sphericalMercator:true, type:G_SATELLITE_MAP});
             var gmap_hybrid = new OpenLayers.Layer.Google("Google Hybrid", {sphericalMercator:true, type:G_HYBRID_MAP});
             var sundials = new OpenLayers.Layer.Vector("Climate Stations", {
-                visibility: true,                   // YSYS
+                visibility: true,                   
                 projection: map.displayProjection,
                 strategies: [new OpenLayers.Strategy.Fixed()],
                 protocol: new OpenLayers.Protocol.HTTP({
@@ -90,25 +90,15 @@
                 null, true, onPopupClose
             );
 
-        //YSYS
-        var myStDsc = extendData[2] ;
-        //var myStNam = feature.attributes.name;
-        top.opener.document.inputMain.LocName.value = myStDsc ;
-       
-        // Pass selected county to Step 4
-        var state = extendData[8];
-        var countyName = extendData[14];
-        top.opener.document.inputMain.State.value = state;
-        top.opener.document.inputMain.CountyName.value = countyName;
-        // End of changes
-
-        document.main.FileName.value = feature.attributes.name ; 
-        //TODO get from session
-        //document.main.ystime.value = top.opener.document.inputMain.ystime.value ;
-        document.main.countyN.value = countyName;
-        document.main.stateN.value = state;
-        document.main.stationN.value = myStDsc;
-
+            var myStDsc = extendData[2] ;
+            top.opener.document.inputMain.LocName.value = myStDsc ;
+            var state = extendData[8];
+            var countyName = extendData[14];
+            top.opener.document.inputMain.State.value = state;
+            top.opener.document.inputMain.CountyName.value = countyName;
+            top.opener.document.inputMain.LocFileName.value = feature.attributes.name ; 
+            // End of changes        
+            
             feature.popup = popup;
             map.addPopup(popup);
         }
@@ -121,10 +111,8 @@
                 delete feature.popup;
             }
         }
-    function cgiRun() {                 // YSYS
+    function cgiRun() {                 
       top.opener.updateCounty();
-      //TODO run fortran program to prepare cligen data
-      //document.main.submit() ;
       window.close()
     }
     </script>
@@ -139,14 +127,6 @@
   </p>
   <div id="map" class="smallmap"></div>
   <div id="docs"></div>
-
-  <form name=main method="POST" action="./runCLIGEN.cgi">
-    <input type=hidden name=FileName>
-    <input type=hidden name=ystime>
-    <input type=hidden name=stationN>
-    <input type=hidden name=stateN>
-    <input type=hidden name=countyN>
-  </form>
 
 
 </body>

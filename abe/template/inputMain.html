@@ -82,7 +82,7 @@
   <a href="https://engineering.purdue.edu/mapserve/ldc/STEPL/index.html">
   <img src="{% static "STEPL_WEB_title.jpg" %}" width="400" alt=""><br><br>
   </a>
-  <div style="font-family:Times New Roman"><b>Input Form</b></div>
+  <div style="font-family:Times New Roman"><b>Input Form{# {{ctx.IndexInput.id}} }</b></div>
   </div><hr><br>
 
   <form name="inputMain" method="POST" action="bmpMain" target="new">
@@ -203,31 +203,30 @@
     var state = document.getElementsByName("State")[0].value;   
     var countyName = document.getElementsByName("CountyName")[0].value;   
     $.ajax({ 
-      url:"CountyData2", 
+      url:"CountyDataJson", 
       type:"GET", 
       data:{
         "State" : state, 
         "County" : countyName, 
-        "numWSD" : {{ req.POST.numWSD }}
       }, 
         success : function(response){     
-          var str = response.split(" ");     
+          var ret = response.ret
           for (var i = 0; i < {{ req.POST.numWSD }}; i++) {      
             
             {% for i in ctx.range5 %} 
-            document.getElementsByName("usleCropland_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = str[0 + i * 20];  
+            document.getElementsByName("usleCropland_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = ret[ {{i}} - 1 ];  
             {%endfor%}
 
             {% for i in ctx.range5 %} 
-            document.getElementsByName("uslePasture_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = str[0 + i * 20];  
+            document.getElementsByName("uslePasture_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = ret[{{i}} + 4  ];  
             {%endfor%}
 
             {% for i in ctx.range5 %} 
-            document.getElementsByName("usleForest_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = str[0 + i * 20];  
+            document.getElementsByName("usleForest_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = ret[{{i}} + 9 ];  
             {%endfor%}
 
             {% for i in ctx.range5 %} 
-            document.getElementsByName("usleUser_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = str[0 + i * 20];  
+            document.getElementsByName("usleUser_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = ret[{{i}} + 14 ];  
             {%endfor%}
           }
         },
@@ -446,6 +445,7 @@
 <!-- hidden form data -->
 <input type="hidden" name="State" value="None">
 <input type="hidden" name="CountyName" value="None">
+<input type="hidden" name="LocFileName" value="None">
 
 {% for w in ctx.rangeWSD %}
 {%for i in ctx.range4%}
