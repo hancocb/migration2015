@@ -1,5 +1,5 @@
 {% load staticfiles %}
-{% load num_filters %}
+{% load simple_tags %}
 
 <!DOCTYPE html>
 <!-- saved from url=(0063)https://engineering.purdue.edu/mapserve/ldc/STEPL/inputMain.cgi -->
@@ -55,6 +55,21 @@
      window.open("http://it.tetratech-ffx.com/steplweb/steplweb.html");
   }
 
+  var CountyDataInput_id = 0;
+  function openCountyLink(){
+     if(CountyDataInput_id > 0){
+        window.open("/admin/stepl/countydatainput/"+CountyDataInput_id,'CountyDataInput', 'status=0,toolbar=1,location=0,menubar=0,scrollbars=1crolling=1,height=600,width=780');
+     }  else{
+        alert("Please choose county first!");
+        openCligenMap();
+     }
+     
+  }  
+
+  function openCligenMap(){
+    window.open('./CLIGENMap','CLIGENMap', 'status=0,toolbar=1,location=0,menubar=0,scrollbars=1crolling=1,height=600,width=780');
+  }
+
   function complete() {  
     if ( document.inputMain.TAreaWSD_01.value == 0.0 ) 
       alert( "At least one input in Step 1 should not be 0. " );
@@ -82,7 +97,7 @@
   <a href="https://engineering.purdue.edu/mapserve/ldc/STEPL/index.html">
   <img src="{% static "STEPL_WEB_title.jpg" %}" width="400" alt=""><br><br>
   </a>
-  <div style="font-family:Times New Roman"><b>Input Form{# {{ctx.IndexInput.id}} }</b></div>
+  <div style="font-family:Times New Roman"><b>Input Form{Session Id: {{ctx.IndexInput.id}} }</b></div>
   </div><hr><br>
 
   <form name="inputMain" method="POST" action="bmpMain" target="new">
@@ -186,7 +201,7 @@
 
       <td>
         <input type="button" style="width:200px;height:30px;cursor:hand" value="CLIGEN Map" 
-          onclick="javascript:window.open('./CLIGENMap','CLIGENMap', 'status=0,toolbar=1,location=0,menubar=0,scrollbars=1crolling=1,height=600,width=780');" >
+          onclick="openCligenMap()" >
       </td> 
       <td style= "text-align:left; font-size:0.82em; padding:20px; color:red; " > 
         *The state and county of the CLIGEN station will be the default for soil data properties.  
@@ -210,7 +225,9 @@
         "County" : countyName, 
       }, 
         success : function(response){     
-          var ret = response.ret
+          var ret = response.ret;
+          CountyDataInput_id = response.CountyDataInput_id
+
           for (var i = 0; i < {{ req.POST.numWSD }}; i++) {      
             
             {% for i in ctx.range5 %} 
@@ -312,7 +329,7 @@
   <span style="font-weight:bold; color:blue;">Step 4. Modify the Universal Soil Loss Equation (USLE) parameters</span>
     <input type="button" style="width:240px;height:30px;cursor:hand" 
     value="County Data" 
-    onclick="javascript:window.open('CountyData.cgi?numWSD={{req.POST.numWSD}}','CountyData','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=780');"> 
+    onclick="openCountyLink()"> 
     <span style=" font-size:0.82em; color:red;"> *The state and county of the CLIGEN station will be the default for soil data properties. 
     </span> <br> 
 
@@ -372,7 +389,7 @@
   </span>
     <input type="button" style="width:250x;height:30px;cursor:hand;" 
     value="Change soil type and CN inputs" 
-    onclick="javascript:window.open('./optMain.cgi?numWSD={{req.POST.numWSD}}','STEPL_DB_online','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=900');">
+    onclick="javascript:window.open('./optMain','STEPL_DB_online','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=900');">
 <hr>
 
   <div style="color:blue; font-style:italic">If you want to change DBs, click button. </div>
@@ -452,8 +469,7 @@
   <input type="hidden" name="IrrVal_{{i}}{{w|twonum}}" value="0">{%endfor%}
 {%endfor%}
 
-<!-- include static hidden data-->
-{% include "inputMain_staticData.html" %}
+<!-- include static hidden data, all static data are made in the admin site-->
 
 <!-- Gully & Streambank, 9 for each gully and 7 for each stream bank-->
 {% for k in ctx.rangeGLY %}
