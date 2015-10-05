@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login
 class InputMainView(View):
     
     def post(self, request, *args, **kwargs):
-        
+
         #login user for editing
         username = "guest"
         password = "guest"
@@ -37,11 +37,15 @@ class InputMainView(View):
 
         #prepare data    
         self.prepareOptMainView(request)
-            
+        self.prepareOthers(request)
+
         return render(request, 'inputMain.html', { 'ctx':context, 'req' : request })
 
     def get(self, request):
     	raise Http404("GET of this page does not exist, you need POST")
+    #gwInfRatio,WildLife,Reference,Septic,Feedlot,GullyDB,Gully&Steambank Erosion    
+    def prepareOthers(self,request):
+        pass
 
     def prepareOptMainView(self,request):
         context = request.session
@@ -135,6 +139,6 @@ class InputMainView(View):
                 for fd in IrrigationAbstract._meta.get_all_field_names():
                     setattr(inp,fd,getattr(ele,fd))
                 inp.save()
-        #end
+        #end for optMain
 
 

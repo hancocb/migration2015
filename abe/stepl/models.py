@@ -155,5 +155,191 @@ class IrrigationInput(IrrigationAbstract):
   class Meta:
     unique_together = ('session_id', 'watershd_id')
 
+#optMain ends...
 
+# Reference Soil Infiltration Fraction for Precipitation
+class SoilInfiltrationFractionAbstract(models.Model):
+  HSG = models.CharField(max_length=30,default='',db_index=True)
+  A = models.FloatField(default=0) 
+  B = models.FloatField(default=0) 
+  C = models.FloatField(default=0) 
+  D = models.FloatField(default=0) 
+  class Meta:
+    abstract = True
 
+class SoilInfiltrationFraction(SoilInfiltrationFractionAbstract):
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'HSG')
+
+class SoilInfiltrationFractionInput(SoilInfiltrationFractionAbstract):
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'HSG')
+
+#Wildlife density in cropland
+class WildlifeDensityAbstract(models.Model):
+  Wildlife = models.CharField(max_length=30,default='')
+  NumPerMileSquare = models.IntegerField(default=0)
+  class Meta:
+    abstract = True
+
+class WildlifeDensityInCropLand(WildlifeDensityAbstract):
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'Wildlife')
+
+class WildlifeDensityInCropLandInput(WildlifeDensityAbstract):
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'Wildlife')
+
+#Standard Animal Weight Table
+class AnimalWeightAstract(models.Model):
+  Animal = models.CharField(max_length=30,default='')
+  MassLb = models.FloatField(default=0) 
+  BOD_per_1000lb = models.FloatField(default=0) 
+  BOD_per_day = models.FloatField(default=0) 
+  BDO_per_year = models.FloatField(default=0) 
+  class Meta:
+    abstract = True
+
+class AnimalWeight(AnimalWeightAstract):
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'Animal')
+
+class AnimalWeightInput(AnimalWeightAstract):
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'Animal')
+
+#DB for Septic System  
+class SepticSystemAbstract(models.Model):
+  Title = models.CharField(max_length=30,default='')
+  ACR = models.FloatField(default=0)
+  Wastewater_per_capita = models.FloatField(default=0)
+  class Meta:
+    abstract = True
+
+class SepticSystem(SepticSystemAbstract):
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'Title')
+
+class SepticSystemInput(SepticSystemAbstract):
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'Title')
+
+# Freelot DB table: Ratio of nutrients produced by animals relative to 1000 lb of slaughter steer
+class FreelotAnimalAbstract(models.Model):
+  Animal = models.CharField(max_length=30,default='')
+  N = models.FloatField(default=0) 
+  P = models.FloatField(default=0) 
+  BOD = models.FloatField(default=0) 
+  COD = models.FloatField(default=0) 
+  class Meta:
+    abstract = True
+
+class FreelotAnimal(FreelotAnimalAbstract):
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'Animal')
+
+class FreelotAnimalInput(FreelotAnimalAbstract):
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'Animal')
+
+#GullyDB: Soil Textural DB
+class SoilTextureAbstract(models.Model):
+  Soil_Textural_Class_Choices = (
+    ('Clay','Clay'),
+    ('ClayLoam','ClayLoam'),
+    ('FineSandyLoam','FineSandyLoam'),
+    ('Loams,SandyClayLoams','Loams,SandyClayLoams'),
+    ('Organic','Organic'),
+    ('Sands,LoamySands','Sands,LoamySands'),
+    ('SandyClay','SandyClay'),
+    ('SandyLoam','SandyLoam'),
+    ('SiltLoam','SiltLoam'),
+    ('SiltyClayLoam,SiltyClay','SiltyClayLoam,SiltyClay'),
+          )
+  Soil_Textural_Class = models.CharField(max_length=30,default='Clay',choices=Soil_Textural_Class_Choices)
+  Dry_Density = models.FloatField(default=0) 
+  Correction_Factor = models.FloatField(default=0) 
+  class Meta:
+    abstract = True
+
+class SoilTexture(SoilTextureAbstract):
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'Soil_Textural_Class')
+
+class SoilTextureInput(SoilTextureAbstract):
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'Soil_Textural_Class')
+
+#GullyDB: Lateral Recession Rate (LRR) DB
+class LateralRecessionRateAbstract(models.Model):
+  Category = models.CharField(max_length=30,default='')
+  LRR = models.FloatField(default=0) 
+  Medium_Value = models.FloatField(default=0) 
+  class Meta:
+    abstract = True
+
+class LateralRecessionRate(LateralRecessionRateAbstract):
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'Category')
+
+class LateralRecessionRateInput(LateralRecessionRateAbstract):
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'Category')
+
+# Eroion: Gully 
+class GullyErosionAbstract(models.Model):
+  SoilTexture = models.CharField(max_length=30,default='')
+  BMP_Efficiency = models.FloatField(default=0) 
+  Years_to_Form = models.FloatField(default=0) 
+  Length = models.FloatField(default=0) 
+  Depth = models.FloatField(default=0) 
+  Bottom_Width = models.FloatField(default=0) 
+  Top_Width = models.FloatField(default=0) 
+  class Meta:
+    abstract = True
+
+class GullyErosion(GullyErosionAbstract):
+  Standard = models.CharField(max_length=30,unique=True)
+
+class GullyErosionInput(GullyErosionAbstract):
+  session_id = models.IntegerField() 
+  Gully_id = models.IntegerField() 
+  watershd_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'Gully_id')
+
+# Eroion: Streambank
+class StreambankErosionAbstract(models.Model):
+  SoilTexture = models.CharField(max_length=30,default='')
+  BMP_Efficiency = models.FloatField(default=0) 
+  Lateral_Recession = models.FloatField(default=0) 
+  Length = models.FloatField(default=0) 
+  Height = models.FloatField(default=0) 
+  class Meta:
+    abstract = True
+
+class StreambankErosion(StreambankErosionAbstract):
+  Standard = models.CharField(max_length=30,unique=True)
+
+class StreambankErosionInput(StreambankErosionAbstract):
+  session_id = models.IntegerField() 
+  Streambank_id = models.IntegerField() 
+  watershd_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'Streambank_id')
+
+#
