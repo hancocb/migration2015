@@ -1,14 +1,15 @@
+from stepl_setting import *
 from django.views.generic import View
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import Http404
-from models import IndexInput,SoilDataInput,SoilData,UrbanReferenceRunoff,UrbanReferenceRunoffInput
+from models import *
 from django.contrib.auth import authenticate, login
 
 class InputMainView(View):
     
     def post(self, request, *args, **kwargs):
-    	
+        
         #login user for editing
         username = "guest"
         password = "guest"
@@ -44,8 +45,8 @@ class InputMainView(View):
 
     def prepareOptMainView(self,request):
         context = request.session
-        #1. soil data
-        ele = SoilData.objects.get(SHG='A')
+        #5. soil data
+        ele = SoilData.objects.get(Standard = INPUT_STANDARD)
         for i in context['rangeWSD']:
             if not SoilDataInput.objects.filter(session_id=context['IndexInput']['id'],watershd_id = i).exists():
                 soilInput = SoilDataInput(
@@ -56,24 +57,27 @@ class InputMainView(View):
                         watershd_id = i
                     )
                 soilInput.save()
-        #Detailed urban reference runoff curve number
-        '''
-            "Industrial",
-            "Institutional",
-            "Transportation",
-            "Multi-Family",
-            "Single-Family",
-            "Urban-Cultivated",
-            "Vacant-Developed",
-            "Open Space",
-        '''
-        urban_types = [
-            "Commercial",
-            ]
-        for uburn in urban_types:
-            if not UrbanReferenceRunoffInput.objects.filter(session_id=context['IndexInput']['id'],Urban=uburn).exists():
-                ele = UrbanReferenceRunoff.objects.get(Urban=uburn)
-                soilInput = UrbanReferenceRunoffInput(
+
+        #6.Reference runoff curve number
+        all_eles = UrbanReferenceRunoff.objects.all()
+        for ele in all_eles:
+            if not UrbanReferenceRunoffInput.objects.filter(
+                session_id=context['IndexInput']['id'],Landuse=ele.Landuse).exists():
+                inp = UrbanReferenceRunoffInput(
+                        SHG_A = ele.SHG_A, 
+                        SHG_B = ele.SHG_B, 
+                        SHG_C = ele.SHG_C, 
+                        SHG_D = ele.SHG_D,
+                        Landuse = ele.Landuse,
+                        session_id = context['IndexInput']['id'] ,
+                    )
+                inp.save()
+        #6a. Detailed urban reference runoff curve number
+        all_eles = DetailedRunoff.objects.all()
+        for ele in all_eles:
+            if not DetailedRunoffInput.objects.filter(
+                session_id=context['IndexInput']['id'],Urban=ele.Urban).exists():
+                inp = DetailedRunoffInput(
                         SHG_A = ele.SHG_A, 
                         SHG_B = ele.SHG_B, 
                         SHG_C = ele.SHG_C, 
@@ -81,6 +85,56 @@ class InputMainView(View):
                         Urban = ele.Urban,
                         session_id = context['IndexInput']['id'] ,
                     )
-                soilInput.save()
+                inp.save()
+
+        #7.Nutrient concentration in runoff (mg/l)
+        all_eles = NutrientRunoff.objects.all()
+        for ele in all_eles:
+            if not NutrientRunoffInput.objects.filter(
+                session_id=context['IndexInput']['id'],Landuse=ele.Landuse).exists():
+                inp = NutrientRunoffInput(
+                        N = ele.N, 
+                        P = ele.P, 
+                        BOD = ele.BOD, 
+                        Landuse = ele.Landuse,
+                        session_id = context['IndexInput']['id'] ,
+                    )
+                inp.save()
+        #7a Nutrient concentration in shallow groundwater (mg/l)
+        all_eles = NutrientGroundwaterRunoff.objects.all()
+        for ele in all_eles:
+            if not NutrientGroundwaterRunoffInput.objects.filter(
+                session_id=context['IndexInput']['id'],Landuse=ele.Landuse).exists():
+                inp = NutrientGroundwaterRunoffInput(
+                        N = ele.N, 
+                        P = ele.P, 
+                        BOD = ele.BOD, 
+                        Landuse = ele.Landuse,
+                        session_id = context['IndexInput']['id'] ,
+                    )
+                inp.save()
+        #8. Input or modify urban land use distribution
+        ele = LanduseDistribution.objects.get(Standard = INPUT_STANDARD)
+        for i in context['rangeWSD']:
+            if not LanduseDistributionInput.objects.filter(session_id=context['IndexInput']['id'],watershd_id = i).exists():
+                inp = LanduseDistributionInput(
+                        session_id = context['IndexInput']['id'] ,
+                        watershd_id = i
+                    )
+                for fd in LanduseDistributionAbstract._meta.get_all_field_names():
+                    setattr(inp,fd,getattr(ele,fd))
+                inp.save()
+        #9. Input irrigation area (ac) and irrigation amount (in)
+        ele = Irrigation.objects.get(Standard = INPUT_STANDARD)
+        for i in context['rangeWSD']:
+            if not IrrigationInput.objects.filter(session_id=context['IndexInput']['id'],watershd_id = i).exists():
+                inp = IrrigationInput(
+                        session_id = context['IndexInput']['id'] ,
+                        watershd_id = i
+                    )
+                for fd in IrrigationAbstract._meta.get_all_field_names():
+                    setattr(inp,fd,getattr(ele,fd))
+                inp.save()
+        #end
 
 

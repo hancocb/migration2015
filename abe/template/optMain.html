@@ -17,20 +17,19 @@ function done(){
   <table style="border:1px solid black; margin: 0 auto;">
     <tr>
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Watershed</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">SHG</td>
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Soil N Conc. %</td>
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Soil P Conc. %</td>
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Soil BOD Conc. %</td>
     </tr>
-    {% for k in ctx.rangeWSD %}
+    {% for idx in ctx.SoilDataInput %}
   <tr>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">W {{k}} </td>
+    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">W {{ctx.SoilDataInput|get:idx|get:'watershd_id'}} </td>
 
       <td colspan="4" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
 
         <button onclick="javascript:window.open(
-        '/admin/stepl/soildatainput/{{ctx.soilInput|get:k}}/'
-        ,'STEPL_DB_online_{{k}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
+        '/admin/stepl/soildatainput/{{ctx.SoilDataInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
 
       </td>
  
@@ -47,55 +46,19 @@ function done(){
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">SHG C</td>
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">SHG D</td>
     </tr>
+    {% for idx in ctx.UrbanReferenceRunoffInput %}
     <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Urban</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_urban_A value=83></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_urban_B value=89></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_urban_C value=92></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_urban_D value=93></td>
+      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">{{ctx.UrbanReferenceRunoffInput|get:idx|get:'Landuse'}} </td>
+      <td colspan="4" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+
+        <button onclick="javascript:window.open(
+        '/admin/stepl/urbanreferencerunoffinput/{{ctx.UrbanReferenceRunoffInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
+
+      </td>
     </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Cropland</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_crop_A value=67></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_crop_B value=78></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_crop_C value=85></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_crop_D value=89></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Pastureland</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_past_A value=49></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_past_B value=69></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_past_C value=79></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_past_D value=84></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Forest</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_frst_A value=39></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_frst_B value=60></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_frst_C value=73></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_frst_D value=79></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">User Defined</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_user_A value=50></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_user_B value=70></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_user_C value=80></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_user_D value=85></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Water</td>
-      <td style = "text-align:right; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><span style="text-align:right;border-width:0px;font-size:9pt">0</span></td>
-      <td style = "text-align:right; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><span style="text-align:right;border-width:0px;font-size:9pt">0</span></td>
-      <td style = "text-align:right; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><span style="text-align:right;border-width:0px;font-size:9pt">0</span></td>
-      <td style = "text-align:right; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><span style="text-align:right;border-width:0px;font-size:9pt">0</span></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Wetlands</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_wetl_A value=77></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_wetl_B value=77></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_wetl_C value=84></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_wetl_D value=90></td>
-    </tr>
+    {% endfor %}
+    
   </table>
   <hr><div style = "color:blue; font-weight: bold;">Step 6a. Detailed urban reference runoff curve number</div>
   <table style="border:1px solid black; margin: 0 auto;">
@@ -106,69 +69,21 @@ function done(){
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">SHG C</td>
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">SHG D</td>
     </tr>
+    {% for idx in ctx.DetailedRunoffInput %}
     <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Commercial</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_comm_A value=89></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_comm_B value=92></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_comm_C value=94></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_comm_D value=95></td>
+      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+      {{ctx.DetailedRunoffInput|get:idx|get:'Urban'}}
+      </td>
+      <td colspan="4" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+        
+         <button onclick="javascript:window.open(
+        '/admin/stepl/detailedrunoffinput/{{ctx.DetailedRunoffInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
+
+      </td>
+      
     </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Industrial</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_indu_A value=81></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_indu_B value=88></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_indu_C value=91></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_indu_D value=93></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Institutional</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_inst_A value=81></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_inst_B value=88></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_inst_C value=91></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_inst_D value=93></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Transportation</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_tran_A value=81></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_tran_B value=88></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_tran_C value=91></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_tran_D value=93></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Multi-Family</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_mult_A value=81></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_mult_B value=88></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_mult_C value=91></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_mult_D value=93></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Single-Family</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_sing_A value=81></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_sing_B value=88></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_sing_C value=91></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_sing_D value=93></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Urban-Cultivated</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_urcu_A value=81></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_urcu_B value=88></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_urcu_C value=91></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_urcu_D value=93></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Vacant-Developed</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_vade_A value=81></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_vade_B value=88></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_vade_C value=91></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_vade_D value=93></td>
-    </tr>
-    <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Open Space</td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_open_A value=81></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_open_B value=88></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_open_C value=91></td>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CN_open_D value=93></td>
-    </tr>
+    {% endfor %}
   </table>
   <hr><div style = "color:blue; font-weight: bold;">7. Nutrient concentration in runoff (mg/l)</div>
   <table style="border:1px solid black; margin: 0 auto;">
@@ -178,66 +93,20 @@ function done(){
           <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">P</td>
           <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">BOD</td>
         </tr>
+        {% for idx in ctx.NutrientRunoffInput %}
         <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">L-Cropland</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntLcrop_1_N value=1.9></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntLcrop_1_P value=0.3></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntLcrop_1_B value=4.0></td>
+          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+            {{ctx.NutrientRunoffInput|get:idx|get:'Landuse'}}
+          </td>
+          <td colspan="3" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+            
+            <button onclick="javascript:window.open(
+        '/admin/stepl/nutrientrunoffinput/{{ctx.NutrientRunoffInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
+
+          </td>
         </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">L-Cropland w/ manure</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntLcrop_2_N value=8.1></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntLcrop_2_P value=2.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntLcrop_2_B value=12.3></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">M-Cropland</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntMcrop_1_N value=2.9></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntMcrop_1_P value=0.4></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntMcrop_1_B value=6.1></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">M-Cropland w/ manure</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntMcrop_2_N value=12.2></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntMcrop_2_P value=3.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntMcrop_2_B value=18.5></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">H-Cropland</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntHcrop_1_N value=4.4></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntHcrop_1_P value=0.5></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntHcrop_1_B value=9.2></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">H-Cropland w/ manure</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntHcrop_2_N value=18.3></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntHcrop_2_P value=4.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntHcrop_2_B value=24.6></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Pastureland</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntPast_N value=4.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntPast_P value=0.3></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntPast_B value=13.0></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Forest</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntFrst_N value=0.2></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntFrst_P value=0.1></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntFrst_B value=0.5></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Wetlands</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntWetl_N value=0.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntWetl_P value=0.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntWetl_B value=0.0></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">User Defined</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntUser_N value=0.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntUser_P value=0.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=ntUser_B value=0.0></td>
-        </tr>
+        {% endfor %}
   </table>
   <hr><div style = "color:blue; font-weight: bold;">7a. Nutrient concentration in shallow groundwater (mg/l)</div>
   <table style="border:1px solid black; margin: 0 auto;">
@@ -247,48 +116,20 @@ function done(){
           <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">P</td>
           <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">BOD</td>
         </tr>
+        {% for idx in ctx.NutrientGroundwaterRunoffInput %}
         <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Urban</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntUrbn_N value=1.5></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntUrbn_P value=0.063></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntUrbn_B value=0.0></td>
+          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+            {{ctx.NutrientGroundwaterRunoffInput|get:idx|get:'Landuse'}}
+          </td>
+          <td colspan="3" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+            
+            <button onclick="javascript:window.open(
+        '/admin/stepl/nutrientgroundwaterrunoffInput/{{ctx.NutrientGroundwaterRunoffInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
+
+          </td>
         </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Cropland</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntCrop_N value=1.44></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntCrop_P value=0.063></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntCrop_B value=0.0></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Pastureland</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntPast_N value=1.44></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntPast_P value=0.063></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntPast_B value=0.0></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Forest</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntFrst_N value=0.11></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntFrst_P value=0.009></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntFrst_B value=0.0></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Wetlands</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntWetl_N value=0.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntWetl_P value=0.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntWetl_B value=0.0></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Feedlot</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntFeed_N value=6.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntFeed_P value=0.007></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntFeed_B value=0.0></td>
-        </tr>
-        <tr>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">User-Defined</td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntUser_N value=0.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntUser_P value=0.0></td>
-          <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=GntUser_B value=0.0></td>
-        </tr>
+        {% endfor %}
   </table>
   <hr><div style = "color:blue; font-weight: bold;">8. Input or modify urban land use distribution</div>
   <table style="border:1px solid black; margin: 0 auto;">
@@ -306,52 +147,19 @@ function done(){
           <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Open Space %</td>
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Total % Area</td>
     </tr>
+    {% for idx in ctx.LanduseDistributionInput %}
   <tr>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">W 1 </td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=UrbanArea_01 readonly></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_101 onChange="javascript:UrbanTotal_01()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_201 onChange="javascript:UrbanTotal_01()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_301 onChange="javascript:UrbanTotal_01()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_401 onChange="javascript:UrbanTotal_01()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_501 onChange="javascript:UrbanTotal_01()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_601 onChange="javascript:UrbanTotal_01()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_701 onChange="javascript:UrbanTotal_01()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_801 onChange="javascript:UrbanTotal_01()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_901 onChange="javascript:UrbanTotal_01()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=TotalUrban_01 readonly></td>
+    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">W {{ctx.LanduseDistributionInput|get:idx|get:'watershd_id'}} </td>
+    <td colspan="11" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+      
+      <button onclick="javascript:window.open(
+        '/admin/stepl/landusedistributioninput/{{ctx.LanduseDistributionInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
+
+    </td>
+
   </tr>
-  <tr>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">W 2 </td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=UrbanArea_02 readonly></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_102 onChange="javascript:UrbanTotal_02()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_202 onChange="javascript:UrbanTotal_02()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_302 onChange="javascript:UrbanTotal_02()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_402 onChange="javascript:UrbanTotal_02()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_502 onChange="javascript:UrbanTotal_02()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_602 onChange="javascript:UrbanTotal_02()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_702 onChange="javascript:UrbanTotal_02()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_802 onChange="javascript:UrbanTotal_02()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
-    <input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=dist_902 onChange="javascript:UrbanTotal_02()" value=0.0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=TotalUrban_02 readonly></td>
-  </tr>
+  {% endfor %}
   </table>
   <hr><div style = "color:blue; font-weight: bold;">9. Input irrigation area (ac) and irrigation amount (in)</div>
   <table style="border:1px solid black; margin: 0 auto;">
@@ -363,22 +171,18 @@ function done(){
           <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Water Depth (in) per Irrigation - After BMP</td>
           <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">Irrigation Frequency (#/Year)</td>
         </tr>
+     {% for idx in ctx.IrrigationInput %}   
   <tr>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">W 1 </td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CropTotArea_01 readonly></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=IrrVal_101 value=0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=IrrVal_201 value=0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=IrrVal_301 value=0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=IrrVal_401 value=0></td>
+    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">W {{ctx.IrrigationInput|get:idx|get:'watershd_id'}} </td>
+    <td colspan="5" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+      
+      <button onclick="javascript:window.open(
+        '/admin/stepl/irrigationinput/{{ctx.IrrigationInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
+
+    </td>
   </tr>
-  <tr>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">W 2 </td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=CropTotArea_02 readonly></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=IrrVal_102 value=0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=IrrVal_202 value=0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=IrrVal_302 value=0></td>
-    <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;"><input type=text style="text-align:right;border-width:0px;font-size:9pt" size=6 name=IrrVal_402 value=0></td>
-  </tr>
+  {% endfor %}
   </table>
   <br><br>
   <div style="text-align:center;" ><input style="WIDTH:200px;height:30px;CURSOR:hand" type=button value="Done" onClick="javascript:done()"></div><br><br>

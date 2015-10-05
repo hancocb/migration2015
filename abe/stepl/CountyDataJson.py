@@ -9,6 +9,7 @@ class CountyDataJson(View):
 	def get(self, request):
 		ele = CountyData.objects.get(state_name=request.GET['State'],name=request.GET['County'])
 
+		#save to db
 		if not CountyDataInput.objects.filter(session_id=request.session['IndexInput']['id']).exists():
 			cntInput = CountyDataInput(
 				state_name = ele.state_name,
@@ -23,13 +24,16 @@ class CountyDataJson(View):
 			cntInput.save()
 		else:
 			cntInput = CountyDataInput.objects.get(session_id=request.session['IndexInput']['id'])
+			cntInput.state_name = ele.state_name
+			cntInput.name  = ele.name
+			cntInput.rmean = ele.rmean
+			cntInput.kmean = ele.kmean
+			cntInput.lsavg = ele.lsavg
+			cntInput.cavg = ele.cavg
+			cntInput.pavg = ele.pavg
+			cntInput.save()
 
-
-		#fields = CountyData._meta.get_all_field_names()
-		#for f in fields:
-		#	data[f] = getattr(ele,f)
-
-		#total = Rval[0] + Rval[1] + USLE[0] + USLE[1] + USLE[2] + USLE[3] + USLE[4]
+		#return for inputMain view
 		total = ele.rainfall_inches + ele.raindays + ele.rmean + ele.kmean + ele.lsavg +ele.cavg +ele.pavg
 		data = {}
 		data['total'] = total
