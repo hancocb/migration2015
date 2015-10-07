@@ -400,21 +400,21 @@
         <input type="button" 
         style="width:240px;height:30px;cursor:hand" 
         value="Soil Infiltration Fraction for Precipitation" 
-        onclick="javascript:window.open('./gwInfRatio.cgi',
-        'Groundwater_Infiltration_Rate','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=340,width=500');">
+        onclick="javascript:window.open('./otherTables?t=soilInfiltrationRatio',
+        'Groundwater_Infiltration_Rate','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
       </td>
       <td class="center">
         <input type="button" 
         style="width:240px;height:30px;cursor:hand" 
         value="Wildlife density in cropland" 
-        onclick="javascript:window.open('./WildLife.html',
-        'Wildlife_Density','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=300,width=500');">
+        onclick="javascript:window.open('./otherTables?t=wildlife',
+        'Wildlife_Density','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
       </td>
       <td class="center">
         <input type="button" 
         style="width:240px;height:30px;cursor:hand" 
         value="Standard Animal Weight Table" 
-        onclick="javascript:window.open('./Reference.html',
+        onclick="javascript:window.open('./otherTables?t=animalWeight',
         'Reference','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
       </td>
     </tr>
@@ -423,21 +423,21 @@
         <input type="button" 
         style="width:240px;height:30px;cursor:hand" 
         value="Septic DB Table" 
-        onclick="javascript:window.open('./Septic.html',
-        'Septic_Table','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=320,width=900');">
+        onclick="javascript:window.open('./otherTables?t=septic',
+        'Septic_Table','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
       </td>
       <td>
         <input type="button" 
         style="width:240px;height:30px;cursor:hand" 
         value="Feedlot DB Table" 
-        onclick="javascript:window.open('./Feedlot.html',
-        'Feedlot','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=470,width=700');">
+        onclick="javascript:window.open('./otherTables?t=freelot',
+        'Feedlot','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
       </td>
       <td>
         <input type="button" 
         style="width:240px;height:30px;cursor:hand" 
-        value="Gully&amp;Streambank DB Table" onclick="javascript:window.open('./GullyDB.html',
-        'Gully','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=640,width=710');">
+        value="Gully&amp;Streambank DB Table" onclick="javascript:window.open('./otherTables?t=gullyDB',
+        'Gully','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
       </td>
     </tr>
   </tbody></table>
@@ -447,7 +447,7 @@
   <hr>
   <span style="color:blue; font-style:italic">If you want to input Gully and Streambank Erosion, click the button.</span>
   <input type="button" style="width:240px;height:30px;cursor:hand" value="Gully &amp; Streambank Erosion" 
-    onclick="javascript:window.open('./GS1.cgi?numWSD={{req.POST.numWSD}}&amp;numSTR={{req.POST.numSTR}}&amp;numGLY={{req.POST.numGLY}}',
+    onclick="javascript:window.open('./otherTables?t=gullyNstreambankErosion',
     'Gully_Streambank','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=900');">
     <hr>
 

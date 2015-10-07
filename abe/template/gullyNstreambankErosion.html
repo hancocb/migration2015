@@ -1,0 +1,70 @@
+{% load simple_tags %}
+
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="UTF-8">
+<title>Gully & Streambank Erosion</title> 
+</head>
+<body > <br>
+<form name=GS>
+  <table border=1 style="margin:0 auto;">
+    <tr>
+      <td style="text-align:center; color:blue; font-weight:bold;" colspan=9>
+        Gully dimensions in the different watersheds
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Gully</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Watershed</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Top Width (ft)</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Bottom Width (ft)</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Depth (ft)</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Length (ft)</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Years to Form</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">BMP Efficiency (0-1)</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Soil Texture Class</td>
+    </tr>
+        {% for idx in ctx.GullyErosionInput %}
+    <tr>
+      <td align=center> 
+        {{ctx.GullyErosionInput|get:idx|get:'Gully_id'}}
+      </td>
+      <td colspan="8" align=center>
+        <input type="button" onclick="avascript:window.open(
+        '/admin/stepl/gullyerosioninput/{{ctx.GullyErosionInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');" value="update"/>  
+      </td>
+    </tr>
+      {% endfor %}
+  </table><br><hr><br>
+
+
+  <table border=1 style="margin:0 auto;">
+    <tr>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Stream Bank</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Watershed</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Length (ft)</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Height (ft) </td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Lateral Recession</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">BMP Efficiency (0-1)</td>
+      <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Soil Texture Class</td>
+    </tr>
+            {% for idx in ctx.StreambankErosionInput %}
+    <tr>
+      <td align=center> 
+      {{ctx.StreambankErosionInput|get:idx|get:'Streambank_id'}}
+      </td>
+      <td align=center colspan="6">
+        <input type="button" onclick="avascript:window.open(
+        '/admin/stepl/streambankerosioninput/{{ctx.StreambankErosionInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');" value="update"/>  
+      </td>
+    </tr>
+     {% endfor %}
+
+  </table><br>
+  
+</form>
+</body>
+</html>

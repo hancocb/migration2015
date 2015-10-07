@@ -32,6 +32,7 @@ class InputMainView(View):
         context['rangeWSD'] = range( 1 , int( request.POST['numWSD'] ) + 1 )
         context['rangeGLY'] = range( 1 , int( request.POST['numGLY'] ) + 1 )
         context['rangeSTR'] = range( 1 , int( request.POST['numSTR'] ) + 1 )
+
         for i in range(2,10):
         	context['range' + str(i)] = range( 1, i + 1 )
 
@@ -45,8 +46,69 @@ class InputMainView(View):
     	raise Http404("GET of this page does not exist, you need POST")
     #gwInfRatio,WildLife,Reference,Septic,Feedlot,GullyDB,Gully&Steambank Erosion    
     def prepareOthers(self,request):
-        pass
+        abstract_models = [
+            SoilInfiltrationFractionAbstract,
+            WildlifeDensityInCropLandAbstract,
+            AnimalWeightAbstract,
+            SepticSystemAbstract,
+            FreelotAnimalAbstract,
+            SoilTextureAbstract,
+            LateralRecessionRateAbstract,
+        ]
+        sample_models = [
+            SoilInfiltrationFraction,
+            WildlifeDensityInCropLand,
+            AnimalWeight,
+            SepticSystem,
+            FreelotAnimal,
+            SoilTexture,
+            LateralRecessionRate,
+        ]
+        input_models = [
+            SoilInfiltrationFractionInput,
+            WildlifeDensityInCropLandInput,
+            AnimalWeightInput,
+            SepticSystemInput,
+            FreelotAnimalInput,
+            SoilTextureInput,
+            LateralRecessionRateInput,
+        ]
 
+        context = request.session
+        for i in range(0,7):
+            all_eles = sample_models[i].objects.filter(Standard = INPUT_STANDARD)
+            for ele in all_eles:
+                inp = input_models[i](
+                            session_id = context['IndexInput']['id'] ,
+                        )
+                for fd in abstract_models[i]._meta.get_all_field_names():
+                    setattr(inp,fd,getattr(ele,fd))
+                inp.save()
+
+        ele = GullyErosion.objects.get(Standard = INPUT_STANDARD)
+        for i in context['rangeGLY']:
+            inp = GullyErosionInput(
+                    session_id = context['IndexInput']['id'] ,
+                    watershd_id = 0,
+                    Gully_id = i,
+                )
+            for fd in GullyErosionAbstract._meta.get_all_field_names():
+                setattr(inp,fd,getattr(ele,fd))
+            inp.save()
+
+        ele = StreambankErosion.objects.get(Standard = INPUT_STANDARD)
+        for i in context['rangeSTR']:
+            inp = StreambankErosionInput(
+                    session_id = context['IndexInput']['id'] ,
+                    watershd_id = 0,
+                    Streambank_id = i,
+                )
+            for fd in StreambankErosionAbstract._meta.get_all_field_names():
+                setattr(inp,fd,getattr(ele,fd))
+            inp.save()
+
+    #as a better way , can see prepareOthers() which use class array, 
+    #we can refactory it when we are going to extend the Standard for more options
     def prepareOptMainView(self,request):
         context = request.session
         #5. soil data

@@ -1,0 +1,45 @@
+{% load simple_tags %}
+
+<!DOCTYPE HTML SYSTEM>
+<html>
+<head>
+  <title>Feedlot DB Table</title>
+</head>
+<!--#### Programmed by Youn Shik Park -->
+
+<body >
+<form name=Feedlot action="./inputMain.cgi">
+<br><center>
+  <table border=1>
+    <tr>
+      <td align=center colspan=5><font color=blue><b>Ratio of nutrients produced by animals relative to 1000 lb of slaughter steer</b></font></td>
+    </tr>
+    <tr>
+      <td align=center bgcolor="#BDBDBD"><b>Animal</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>N</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>P</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>BOD</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>COD</b></td>
+    </tr>
+    {% for idx in ctx.FreelotAnimalInput %}
+    <tr>
+      <td align=center>
+        {{ctx.FreelotAnimalInput|get:idx|get:'Animal'}}
+      </td>
+      <td colspan="4" align=center>
+        <input type="button" onclick="avascript:window.open(
+        '/admin/stepl/freelotanimalinput/{{ctx.FreelotAnimalInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');" value="update"/>  
+      </td>
+    </tr>
+    {% endfor %}
+
+  </table>
+<br>
+
+</center>
+</form>
+
+</body>
+</html>
+

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import lazy
 
 #model for index input data
 class IndexInput(models.Model):
@@ -178,24 +179,24 @@ class SoilInfiltrationFractionInput(SoilInfiltrationFractionAbstract):
     unique_together = ('session_id', 'HSG')
 
 #Wildlife density in cropland
-class WildlifeDensityAbstract(models.Model):
+class WildlifeDensityInCropLandAbstract(models.Model):
   Wildlife = models.CharField(max_length=30,default='')
   NumPerMileSquare = models.IntegerField(default=0)
   class Meta:
     abstract = True
 
-class WildlifeDensityInCropLand(WildlifeDensityAbstract):
+class WildlifeDensityInCropLand(WildlifeDensityInCropLandAbstract):
   Standard = models.CharField(max_length=30)
   class Meta:
     unique_together = ('Standard', 'Wildlife')
 
-class WildlifeDensityInCropLandInput(WildlifeDensityAbstract):
+class WildlifeDensityInCropLandInput(WildlifeDensityInCropLandAbstract):
   session_id = models.IntegerField() 
   class Meta:
     unique_together = ('session_id', 'Wildlife')
 
 #Standard Animal Weight Table
-class AnimalWeightAstract(models.Model):
+class AnimalWeightAbstract(models.Model):
   Animal = models.CharField(max_length=30,default='')
   MassLb = models.FloatField(default=0) 
   BOD_per_1000lb = models.FloatField(default=0) 
@@ -204,12 +205,12 @@ class AnimalWeightAstract(models.Model):
   class Meta:
     abstract = True
 
-class AnimalWeight(AnimalWeightAstract):
+class AnimalWeight(AnimalWeightAbstract):
   Standard = models.CharField(max_length=30)
   class Meta:
     unique_together = ('Standard', 'Animal')
 
-class AnimalWeightInput(AnimalWeightAstract):
+class AnimalWeightInput(AnimalWeightAbstract):
   session_id = models.IntegerField() 
   class Meta:
     unique_together = ('session_id', 'Animal')
@@ -253,8 +254,7 @@ class FreelotAnimalInput(FreelotAnimalAbstract):
     unique_together = ('session_id', 'Animal')
 
 #GullyDB: Soil Textural DB
-class SoilTextureAbstract(models.Model):
-  Soil_Textural_Class_Choices = (
+Soil_Textural_Class_Choices = (
     ('Clay','Clay'),
     ('ClayLoam','ClayLoam'),
     ('FineSandyLoam','FineSandyLoam'),
@@ -265,7 +265,8 @@ class SoilTextureAbstract(models.Model):
     ('SandyLoam','SandyLoam'),
     ('SiltLoam','SiltLoam'),
     ('SiltyClayLoam,SiltyClay','SiltyClayLoam,SiltyClay'),
-          )
+  )
+class SoilTextureAbstract(models.Model):
   Soil_Textural_Class = models.CharField(max_length=30,default='Clay',choices=Soil_Textural_Class_Choices)
   Dry_Density = models.FloatField(default=0) 
   Correction_Factor = models.FloatField(default=0) 
@@ -302,7 +303,7 @@ class LateralRecessionRateInput(LateralRecessionRateAbstract):
 
 # Eroion: Gully 
 class GullyErosionAbstract(models.Model):
-  SoilTexture = models.CharField(max_length=30,default='')
+  SoilTexture = models.CharField(max_length=30,default='Clay',choices=Soil_Textural_Class_Choices)
   BMP_Efficiency = models.FloatField(default=0) 
   Years_to_Form = models.FloatField(default=0) 
   Length = models.FloatField(default=0) 
@@ -315,16 +316,24 @@ class GullyErosionAbstract(models.Model):
 class GullyErosion(GullyErosionAbstract):
   Standard = models.CharField(max_length=30,unique=True)
 
+#import pdb; pdb.set_trace()
+def get_models_watershd_choices():
+  return GullyErosionInput.models_choices_tuple
+ 
 class GullyErosionInput(GullyErosionAbstract):
+  models_choices_tuple = []
   session_id = models.IntegerField() 
   Gully_id = models.IntegerField() 
-  watershd_id = models.IntegerField() 
+  watershd_id = models.IntegerField( ) 
   class Meta:
     unique_together = ('session_id', 'Gully_id')
+  def __init__(self,  *args, **kwargs):
+      super(GullyErosionInput, self).__init__(*args, **kwargs)
+      self._meta.get_field_by_name('watershd_id')[0]._choices = get_models_watershd_choices()
 
 # Eroion: Streambank
 class StreambankErosionAbstract(models.Model):
-  SoilTexture = models.CharField(max_length=30,default='')
+  SoilTexture = models.CharField(max_length=30,default='Clay',choices=Soil_Textural_Class_Choices)
   BMP_Efficiency = models.FloatField(default=0) 
   Lateral_Recession = models.FloatField(default=0) 
   Length = models.FloatField(default=0) 

@@ -1,0 +1,115 @@
+{% load simple_tags %}
+
+<!DOCTYPE HTML SYSTEM>
+<html>
+<head>
+  <title>Septic DB Table</title>
+</head>
+<!--#### Programmed by Youn Shik Park-->
+
+<body>
+<form name=Septic action="./inputMain.cgi">
+<br><center>
+  <table border=1>
+    <tr>
+      <td align=center colspan=3><font color=blue><b>DB for Septic System</b></font></td>
+    </tr>
+    <tr>
+      <td> &nbsp </td>
+      <td style="background-color:#BDBDBD;font-weight:bold; text-align:center; " >ACR<sup>1</sup></td>
+      <td style="background-color:#BDBDBD;font-weight:bold; text-align:center; ">Wastewater per capita</td>
+    </tr>
+        {% for idx in ctx.SepticSystemInput %}
+
+    <tr>
+      <td align=center>
+                {{ctx.SepticSystemInput|get:idx|get:'Title'}}
+      </td>
+      <td colspan="2">
+    <input type="button" onclick="avascript:window.open(
+        '/admin/stepl/septicsysteminput/{{ctx.SepticSystemInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');" value="update"/>  
+    </td>
+      
+    </tr>
+          {% endfor %}
+
+  </table>
+
+<br/>
+    <table border=1>
+    <tr>
+      <td align=center colspan=3><font color=blue><b>Reference for Septic System</b></font></td>
+    </tr>
+    <tr>
+      <td> &nbsp </td>
+      <td style="background-color:#BDBDBD;font-weight:bold; text-align:center; " >ACR<sup>1</sup></td>
+      <td style="background-color:#BDBDBD;font-weight:bold; text-align:center; ">Wastewater per capita</td>
+    </tr>
+    <tr>
+      <td align=center>Total Nitrogen</td>
+      <td align=center>
+    <font size=2>mg/L (range of 20 to 100)</font>
+    </td>
+      <td align=center>
+    <font size=2>mg/L (range of 20 to 85)</font>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Total Phosphorus</td>
+      <td align=center>
+   <font size=2>mg/L (range of 18 to 29)</font>
+   </td>
+      
+      <td align=center>
+   <font size=2>mg/L (range of 4 to 15)</font>
+   </td>
+    </tr>
+    <tr>
+      <td align=center>Organics (BOD)</td>
+      <td align=center>
+   <font size=2>mg/L (range of 200 to 290)</font>
+   </td>
+      <td align=center>
+   <font size=2>mg/L (range of 110 to 400)</font>
+   </td>
+    </tr>
+    <tr>
+      <td align=center>TSO<sup>2</sup></td>
+      <td align=center>
+   <font size=2>gal/day/person (range of 45 to 100)</font>
+   </td>
+      <td align=center>
+   <font size=2>gal/day/person (range of 75 to 125)</font>
+   </td>
+    </tr>
+  </table>
+
+  <table border=0 width=800>
+    <tr>
+      <td width=220> </td>
+      <td align=right><font size=2>
+    ACR<sup>1</sup>:</font>
+      </td>
+      <td align=left><font size=2>
+    Assume the average concentrations reaching the stream (from septic overcharge)</font>
+   </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td align=center><font size=2>
+        TSO<sup>2</sup>:</font> 
+      </td>
+      <td align=left><font size=2>
+        Typical septic overcharge flow rate of</font>
+      </td>
+    </tr>
+  </table>
+<br>
+
+</center>
+</form>
+
+</body>
+</html>
+

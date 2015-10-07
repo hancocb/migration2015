@@ -1,0 +1,42 @@
+{% load simple_tags %}
+
+<!--w3c Validated-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Wildlige Density Table</title>
+</head>
+<!--#### Programmed by Youn Shik Park-->
+
+<body >
+<form name=WildLife style = "text-align:center;">
+<br>
+  <table border=1 style="margin: 0 auto; " >
+    <tr>
+      <td style = "text-align:center; background-color:#BDBDBD; font-weight:bold; color:blue;" colspan=2>
+    Wildlife density in cropland (Cropland, #/mi<sup>2</sup>)
+      </td>
+    </tr>
+     {% for idx in ctx.WildlifeDensityInCropLandInput %}
+    <tr>
+      <td style = "text-align:center">
+              {{ctx.WildlifeDensityInCropLandInput|get:idx|get:'Wildlife'}}
+      </td>
+      <td style = "text-align:center">
+      <input type="button" onclick="avascript:window.open(
+        '/admin/stepl/wildlifedensityincroplandinput/{{ctx.WildlifeDensityInCropLandInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');" value="update"/>    
+      </td>
+    </tr>
+  {% endfor %}
+
+  </table>
+<br>
+
+
+</form>
+</body>
+
+</html>
+

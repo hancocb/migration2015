@@ -1,0 +1,44 @@
+{% load simple_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <title>STEPL WEB</title>
+</head>
+<body>
+<form name=gwMain>
+  <br><div style = "text-align:center">
+  <table style="margin: 0 auto; width : 400px" border=1 >
+    <tr  style = "text-align:center">
+      <td  style = "text-align:center; color:blue; font-weight: bold;" colspan=5>
+       Reference Soil Infiltration Fraction for Precipitation
+      </td>
+    </tr>
+    <tr>
+      <td  style="text-align:center; background-color:#BDBDBD; width:100px">HSG</td>
+      <td  style="text-align:center; background-color:#BDBDBD; width:75px">A</td>
+      <td  style="text-align:center; background-color:#BDBDBD; width:75px">B</td>
+      <td  style="text-align:center; background-color:#BDBDBD; width:75px">C</td>
+      <td  style="text-align:center; background-color:#BDBDBD; width:75px">D</td>
+    </tr>
+ {% for idx in ctx.SoilInfiltrationFractionInput %}
+  <tr>
+    <td style = "text-align:left"> 
+      {{ctx.SoilInfiltrationFractionInput|get:idx|get:'HSG'}}
+    </td>
+    <td colspan="4">
+    <input type="button" onclick="avascript:window.open(
+        '/admin/stepl/soilinfiltrationfractioninput/{{ctx.SoilInfiltrationFractionInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');" value="update"/>    
+    </td>
+    
+</tr>
+  {% endfor %}
+
+</table><br>
+</div>
+
+</form>
+</body>
+</html>

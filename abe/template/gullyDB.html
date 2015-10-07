@@ -1,0 +1,121 @@
+{% load simple_tags %}
+
+<!DOCTYPE HTML SYSTEM>
+<html>
+<head>
+  <title>Gully & Streambank DB Table </title>
+</head>
+<!--#### Programmed by Youn Shik Park-->
+
+<body >
+<form name=GullyDB action="./inputMain.cgi">
+<br><center>
+  <table border=1 width=680>
+    <tr>
+      <td align=center colspan=3><font color=blue><b>Soil Textural DB</b></font></td>
+    </tr>
+    <tr>
+      <td align=center bgcolor="#BDBDBD"><b>Soil Textural Class</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>Dry Density (tons/ft<sup>3</sup>)</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>Correction Factor</b></td>
+    </tr>
+        {% for idx in ctx.SoilTextureInput %}
+    <tr>
+      <td align=center>
+                {{ctx.SoilTextureInput|get:idx|get:'Soil_Textural_Class'}}
+      </td>
+      <td align=center colspan="2">
+         <input type="button" onclick="avascript:window.open(
+        '/admin/stepl/soiltextureinput/{{ctx.SoilTextureInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');" value="update"/>  
+      </td>
+    </tr>
+        {% endfor %}
+  </table>
+
+<br>
+
+  <table border=1 width=680>
+    <tr>
+      <td align=center colspan=3><font color=blue><b>Lateral Recession Rate (LRR) DB</b></font></td>
+    </tr>
+    <tr>
+      <td align=center bgcolor="#BDBDBD"><b>Category<sup>*</sup></b></td>
+      <td align=center bgcolor="#BDBDBD"><b>LRR (ft/yr)</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>Medium Value</b></td>
+    </tr>
+        {% for idx in ctx.LateralRecessionRateInput %}
+    <tr>
+      <td align=center>
+                {{ctx.LateralRecessionRateInput|get:idx|get:'Category'}}
+      </td>
+      <td align=center colspan="2">
+         <input type="button" onclick="avascript:window.open(
+        '/admin/stepl/lateralrecessionrateinput/{{ctx.LateralRecessionRateInput|get:idx|get:'id'}}/'
+        ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');" value="update"/>  
+      </td>
+    </tr>
+          {% endfor %}
+  </table>
+<br>
+
+</center>
+</form>
+
+<hr>
+<table border=0 width=680>
+  <tr align=center>
+    <td align=left colspan=3>
+      <b><sup>*</sup>LRR Category Description</b> : <br>
+    </td>
+  </tr>
+  <tr>
+    <td width=10> </td>
+    <td align=right width=100>Slight :<br> &nbsp; </td>
+    <td align=left>
+      Some bare bank but active erosion not readily apparent.<br>
+      Some rills but no vegetative overhang.  No exposed tree roots.
+    </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td align=right>Moderate :</td>
+    <td align=left>
+      Bank is predominantly bare with some rills and vegetative overhang.
+    </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td align=right>Severe :<br> &nbsp; <br> &nbsp; <br> &nbsp; <br> &nbsp;  </td>
+    <td align=left>
+      Bank is bare with rills and severe vegetative overhang.<br>
+      Many exposed tree roots and some fallen trees and slumps or slips.<br> 
+      Some changes in cultural features such as <br>
+      fence corners missing and realignment of roads or trails.<br>
+      Channel cross-section becomes more U-shaped as opposed to V-shaped.
+    </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td align=right>Very Severe :<br> &nbsp; <br> &nbsp; <br> &nbsp; <br> &nbsp;<br> &nbsp;  </td>
+    <td align=left>
+      Bank is bare with gullies and severe vegetative overhang.<br>
+      Many fallen trees, drains and culverts eroding out and changes <br>
+      in cultural features as above.<br>
+      Massive slips or washouts common.<br>
+      Channel cross-section is U-shaped and streamcourse<br>
+      or gully may be meandering.
+    </td>
+  </tr>
+</table>
+
+
+
+</body>
+
+
+
+
+</html>
+
+
