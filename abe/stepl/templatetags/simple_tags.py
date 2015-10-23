@@ -6,6 +6,21 @@ register = template.Library()
 def twonum(value):
     return '%02i' % value;
 
+@register.filter(name='gr0')
+def gr0(value):
+    if float(value) > 0:
+        return True
+    else:
+        return False
+
+@register.filter(name='eq0')
+def eq0(value):
+    if float(value) == 0:
+        return True
+    else:
+        return False
+
+
 @register.filter(name='get')
 def get(o, index):
     try:

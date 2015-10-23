@@ -6,6 +6,56 @@ class IndexInput(models.Model):
     num_watershd = models.IntegerField()
     num_gully = models.IntegerField()
     num_steambank = models.IntegerField()
+    #Groundwater load calculation
+    gwOpt = models.BooleanField(default=True)
+    #Treat all the subwatersheds as parts of a single watershed
+    swsOpt = models.BooleanField(default=True)
+
+#map 1~6 (for form mapping and mapping to fortran model)
+WatershedLandUse_index_map = ['',  "Urban" ,  "Cropland" ,  "Pastureland" ,  'Forest' ,  'UserDefined' ,  'Feedlots' ]
+class WatershedLandUse(models.Model):
+  watershd_id = models.IntegerField()
+  #Soil Hydrologic Group(A,B,C,D)
+  HSG = models.IntegerField(default=1)
+  Urban = models.FloatField(default=0)
+  Cropland = models.FloatField(default=0)
+  Pastureland = models.FloatField(default=0)
+  Forest = models.FloatField(default=0)
+  UserDefined = models.FloatField(default=0)
+  Feedlots = models.FloatField(default=0)
+  FeedlotPercentPaved = models.IntegerField(default=20)
+  Total = models.FloatField(default=0)
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'watershd_id')
+
+#map 1~8 (for form mapping and mapping to fortran model)
+AgriAnimal_index_map = ['','Beef' ,  'Dairy',  'Swine',  'Sheep',  'Horse' ,  'Chicken',  'Turkey' ,  'Duck' ]
+class AgriAnimal(models.Model):
+  watershd_id = models.IntegerField()
+  Beef = models.IntegerField(default=0)
+  Dairy = models.IntegerField(default=0)
+  Swine = models.IntegerField(default=0)
+  Sheep = models.IntegerField(default=0)
+  Horse = models.IntegerField(default=0)
+  Chicken = models.IntegerField(default=0)
+  Turkey = models.IntegerField(default=0)
+  Duck = models.IntegerField(default=0)
+  numMonthsManureApplied = models.IntegerField(default=0)
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'watershd_id')
+
+class SepticNillegal(models.Model):
+  watershd_id = models.IntegerField()
+  numSepticSystems = models.IntegerField(default=0)
+  PopulationPerSeptic = models.IntegerField(default=0)
+  SepticFailureRate_Percent = models.IntegerField(default=0)
+  Wastewater_Direct_Discharge_numPeople = models.IntegerField(default=0)
+  Direct_Discharge_Reduction_Percent = models.IntegerField(default=0)
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'watershd_id')
 
 #model for county abstract data
 class CountyDataAbstract(models.Model):

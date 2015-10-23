@@ -2,7 +2,6 @@
 {% load simple_tags %}
 
 <!DOCTYPE html>
-<!-- saved from url=(0063)https://engineering.purdue.edu/mapserve/ldc/STEPL/inputMain.cgi -->
 <html>
   <head>
 
@@ -459,29 +458,12 @@
 </div><br><br>
 
 
-<!-- hidden form data -->
+<!-- hidden form data for js ajax-->
 <input type="hidden" name="State" value="None">
 <input type="hidden" name="CountyName" value="None">
 <input type="hidden" name="LocFileName" value="None">
 
-{% for w in ctx.rangeWSD %}
-{%for i in ctx.range4%}
-  <input type="hidden" name="IrrVal_{{i}}{{w|twonum}}" value="0">{%endfor%}
-{%endfor%}
-
-<!-- include static hidden data, all static data are made in the admin site-->
-
-<!-- Gully & Streambank, 9 for each gully and 7 for each stream bank-->
-{% for k in ctx.rangeGLY %}
-  {% for i in ctx.range9 %}
-    <input type="hidden" name="GS1_{{k|twonum}}{{i}}" value="0" size="2">{%endfor%}
-{%endfor%}
-
-
-{% for k in ctx.rangeSTR %}
-  {% for i in ctx.range7 %}
-    <input type="hidden" name="GS2_{{k|twonum}}{{i}}" value="0" size="2">{%endfor%}
-{%endfor%}
+<!-- not include static hidden data anymore, since all static data are made in the admin site-->
 
 </form>
 

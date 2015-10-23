@@ -5,3 +5,9 @@ def list2dict(mylist):
         ret[i] = ele
         i = i+1
     return ret
+
+def extract(instance):
+    ret = {}
+    for fd in instance._meta.get_all_field_names():
+        ret[fd] = getattr(instance,fd)
+    return ret
