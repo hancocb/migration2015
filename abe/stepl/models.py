@@ -350,5 +350,8 @@ class StreambankErosionInput(StreambankErosionAbstract):
   watershd_id = models.IntegerField() 
   class Meta:
     unique_together = ('session_id', 'Streambank_id')
+  def __init__(self,  *args, **kwargs):
+      super(StreambankErosionInput, self).__init__(*args, **kwargs)
+      self._meta.get_field_by_name('watershd_id')[0]._choices = get_models_watershd_choices()
 
 #

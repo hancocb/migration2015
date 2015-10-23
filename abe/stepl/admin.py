@@ -34,7 +34,11 @@ admin.site.register(IrrigationInput)
 #from below "If you want to change DBs, click button."
 admin.site.register(SoilInfiltrationFraction)
 admin.site.register(WildlifeDensityInCropLand)
-admin.site.register(AnimalWeight)
+
+class AnimalWeightAdmin(admin.ModelAdmin):
+    list_display = ("Standard","Animal")
+    search_fields = ['Animal']
+admin.site.register(AnimalWeight,AnimalWeightAdmin)
 admin.site.register(SepticSystem)
 admin.site.register(FreelotAnimal)
 admin.site.register(SoilTexture)
@@ -44,6 +48,10 @@ admin.site.register(StreambankErosion)
 
 admin.site.register(SoilInfiltrationFractionInput)
 admin.site.register(WildlifeDensityInCropLandInput)
+
+class AnimalWeightInputAdmin(admin.ModelAdmin):
+    list_display = ("Standard","Animal")
+    search_fields = ['Animal']
 admin.site.register(AnimalWeightInput)
 admin.site.register(SepticSystemInput)
 admin.site.register(FreelotAnimalInput)
