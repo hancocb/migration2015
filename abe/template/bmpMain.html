@@ -310,6 +310,7 @@
 <!-- BMP_k_0ij, i is watershd-->
 <!--j: 9 distributions:Commercial  Industrial  Institutional Transportation  Multi-Family  Single-Family Urban-Cultivated  Vacant (developed)  Open Space-->
 <!--# k: 5 chemicals: 1: area, 2: N, 3: P, 4: BOD, 5: TSS -> k ,-->
+<!--used in the urbanBmp (pop up window)-->
 {% for k in ctx.range5 %}
 {% for i in ctx.rangeWSD %}
 {% for j in ctx.range9 %}
@@ -336,255 +337,113 @@
 </div>
 
 <script language="JavaScript">
-function CropBMP_01() {
-  var myRatio = document.bmpMain.BMP_1_016.value * 0.01 ;
-  if ( document.bmpMain.BMP_1_015.selectedIndex == '0' ) {
-    document.bmpMain.BMP_1_011.value = 0.0 ;
-    document.bmpMain.BMP_1_012.value = 0.0 ;
-    document.bmpMain.BMP_1_013.value = 0.0 ;
-    document.bmpMain.BMP_1_014.value = 0.0 ;
-  } else if ( document.bmpMain.BMP_1_015.selectedIndex == '1' ) {
-    document.bmpMain.BMP_1_011.value = document.BMP_List.CROP_011.value * myRatio ;
-    document.bmpMain.BMP_1_012.value = document.BMP_List.CROP_012.value * myRatio ;
-    document.bmpMain.BMP_1_013.value = document.BMP_List.CROP_013.value * myRatio ;
-    document.bmpMain.BMP_1_014.value = document.BMP_List.CROP_014.value * myRatio ;
-  } else if ( document.bmpMain.BMP_1_015.selectedIndex == '2' ) {
-    document.bmpMain.BMP_1_011.value = document.BMP_List.CROP_021.value * myRatio ;
-    document.bmpMain.BMP_1_012.value = document.BMP_List.CROP_022.value * myRatio ;
-    document.bmpMain.BMP_1_013.value = document.BMP_List.CROP_023.value * myRatio ;
-    document.bmpMain.BMP_1_014.value = document.BMP_List.CROP_024.value * myRatio ;
-  } else if ( document.bmpMain.BMP_1_015.selectedIndex == '3' ) {
-    document.bmpMain.BMP_1_011.value = document.BMP_List.CROP_031.value * myRatio ;
-    document.bmpMain.BMP_1_012.value = document.BMP_List.CROP_032.value * myRatio ;
-    document.bmpMain.BMP_1_013.value = document.BMP_List.CROP_033.value * myRatio ;
-    document.bmpMain.BMP_1_014.value = document.BMP_List.CROP_034.value * myRatio ;
-  } else if ( document.bmpMain.BMP_1_015.selectedIndex == '4' ) {
-    document.bmpMain.BMP_1_011.value = document.BMP_List.CROP_041.value * myRatio ;
-    document.bmpMain.BMP_1_012.value = document.BMP_List.CROP_042.value * myRatio ;
-    document.bmpMain.BMP_1_013.value = document.BMP_List.CROP_043.value * myRatio ;
-    document.bmpMain.BMP_1_014.value = document.BMP_List.CROP_044.value * myRatio ;
-  } else if ( document.bmpMain.BMP_1_015.selectedIndex == '5' ) {
-    document.bmpMain.BMP_1_011.value = document.BMP_List.CROP_051.value * myRatio ;
-    document.bmpMain.BMP_1_012.value = document.BMP_List.CROP_052.value * myRatio ;
-    document.bmpMain.BMP_1_013.value = document.BMP_List.CROP_053.value * myRatio ;
-    document.bmpMain.BMP_1_014.value = document.BMP_List.CROP_054.value * myRatio ;
-  } else if ( document.bmpMain.BMP_1_015.selectedIndex == '6' ) {
-    document.bmpMain.BMP_1_011.value = document.BMP_List.CROP_061.value * myRatio ;
-    document.bmpMain.BMP_1_012.value = document.BMP_List.CROP_062.value * myRatio ;
-    document.bmpMain.BMP_1_013.value = document.BMP_List.CROP_063.value * myRatio ;
-    document.bmpMain.BMP_1_014.value = document.BMP_List.CROP_064.value * myRatio ;
-  } else if ( document.bmpMain.BMP_1_015.selectedIndex == '7' ) {
-    document.bmpMain.BMP_1_011.value = document.BMP_List.CROP_071.value * myRatio ;
-    document.bmpMain.BMP_1_012.value = document.BMP_List.CROP_072.value * myRatio ;
-    document.bmpMain.BMP_1_013.value = document.BMP_List.CROP_073.value * myRatio ;
-    document.bmpMain.BMP_1_014.value = document.BMP_List.CROP_074.value * myRatio ;
-  } else if ( document.bmpMain.BMP_1_015.selectedIndex == '8' ) {
-    document.bmpMain.BMP_1_011.value = document.BMP_List.CROP_081.value * myRatio ;
-    document.bmpMain.BMP_1_012.value = document.BMP_List.CROP_082.value * myRatio ;
-    document.bmpMain.BMP_1_013.value = document.BMP_List.CROP_083.value * myRatio ;
-    document.bmpMain.BMP_1_014.value = document.BMP_List.CROP_084.value * myRatio ;
-  }
+
+{% for wsd in ctx.rangeWSD %}
+function CropBMP_{{wsd|twonum}}() {
+  var myRatio = document.bmpMain.BMP_1_{{wsd|twonum}}6.value * 0.01 ;
+  var index = document.bmpMain.BMP_1_{{wsd|twonum}}5.selectedIndex.toString();
+  if (  index == '0' ) {
+    document.bmpMain.BMP_1_{{wsd|twonum}}1.value = 0.0 ;
+    document.bmpMain.BMP_1_{{wsd|twonum}}2.value = 0.0 ;
+    document.bmpMain.BMP_1_{{wsd|twonum}}3.value = 0.0 ;
+    document.bmpMain.BMP_1_{{wsd|twonum}}4.value = 0.0 ;
+  } else {
+    if(index.length==1){
+      index = '0'+index;
+    }
+    document.bmpMain.BMP_1_{{wsd|twonum}}1.value = document.BMP_List['CROP_'+index+'1'].value * myRatio ;
+    document.bmpMain.BMP_1_{{wsd|twonum}}2.value = document.BMP_List['CROP_'+index+'2'].value * myRatio ;
+    document.bmpMain.BMP_1_{{wsd|twonum}}3.value = document.BMP_List['CROP_'+index+'3'].value * myRatio ;
+    document.bmpMain.BMP_1_{{wsd|twonum}}4.value = document.BMP_List['CROP_'+index+'4'].value * myRatio ;
+  } 
 }
-function PastBMP_01() {
-  var myRatio = document.bmpMain.BMP_2_016.value * 0.01 ;
-  if ( document.bmpMain.BMP_2_015.selectedIndex == '0' ) {
-    document.bmpMain.BMP_2_011.value = 0.0 ;
-    document.bmpMain.BMP_2_012.value = 0.0 ;
-    document.bmpMain.BMP_2_013.value = 0.0 ;
-    document.bmpMain.BMP_2_014.value = 0.0 ;
-  } else if ( document.bmpMain.BMP_2_015.selectedIndex == '1' ) {
-    document.bmpMain.BMP_2_011.value = document.BMP_List.PAST_011.value * myRatio ;
-    document.bmpMain.BMP_2_012.value = document.BMP_List.PAST_012.value * myRatio ;
-    document.bmpMain.BMP_2_013.value = document.BMP_List.PAST_013.value * myRatio ;
-    document.bmpMain.BMP_2_014.value = document.BMP_List.PAST_014.value * myRatio ;
-  } else if ( document.bmpMain.BMP_2_015.selectedIndex == '2' ) {
-    document.bmpMain.BMP_2_011.value = document.BMP_List.PAST_021.value * myRatio ;
-    document.bmpMain.BMP_2_012.value = document.BMP_List.PAST_022.value * myRatio ;
-    document.bmpMain.BMP_2_013.value = document.BMP_List.PAST_023.value * myRatio ;
-    document.bmpMain.BMP_2_014.value = document.BMP_List.PAST_024.value * myRatio ;
-  } else if ( document.bmpMain.BMP_2_015.selectedIndex == '3' ) {
-    document.bmpMain.BMP_2_011.value = document.BMP_List.PAST_031.value * myRatio ;
-    document.bmpMain.BMP_2_012.value = document.BMP_List.PAST_032.value * myRatio ;
-    document.bmpMain.BMP_2_013.value = document.BMP_List.PAST_033.value * myRatio ;
-    document.bmpMain.BMP_2_014.value = document.BMP_List.PAST_034.value * myRatio ;
-  }
+{%endfor%}
+
+{% for wsd in ctx.rangeWSD %}
+function PastBMP_{{wsd|twonum}}() {
+  var myRatio = document.bmpMain.BMP_2_{{wsd|twonum}}6.value * 0.01 ;
+  var index = document.bmpMain.BMP_2_{{wsd|twonum}}5.selectedIndex.toString();
+  if (  index == '0' ) {
+    document.bmpMain.BMP_2_{{wsd|twonum}}1.value = 0.0 ;
+    document.bmpMain.BMP_2_{{wsd|twonum}}2.value = 0.0 ;
+    document.bmpMain.BMP_2_{{wsd|twonum}}3.value = 0.0 ;
+    document.bmpMain.BMP_2_{{wsd|twonum}}4.value = 0.0 ;
+  } else {
+    if(index.length==1){
+      index = '0'+index;
+    }
+    document.bmpMain.BMP_2_{{wsd|twonum}}1.value = document.BMP_List['PAST_'+index+'1'].value * myRatio ;
+    document.bmpMain.BMP_2_{{wsd|twonum}}2.value = document.BMP_List['PAST_'+index+'2'].value * myRatio ;
+    document.bmpMain.BMP_2_{{wsd|twonum}}3.value = document.BMP_List['PAST_'+index+'3'].value * myRatio ;
+    document.bmpMain.BMP_2_{{wsd|twonum}}4.value = document.BMP_List['PAST_'+index+'4'].value * myRatio ;
+  } 
 }
-function FrstBMP_01() {
-  var myRatio = document.bmpMain.BMP_3_016.value * 0.01 ;
-  if ( document.bmpMain.BMP_3_015.selectedIndex == '0' ) {
-    document.bmpMain.BMP_3_011.value = 0.0 ;
-    document.bmpMain.BMP_3_012.value = 0.0 ;
-    document.bmpMain.BMP_3_013.value = 0.0 ;
-    document.bmpMain.BMP_3_014.value = 0.0 ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '1' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_011.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_012.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_013.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_014.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '2' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_021.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_022.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_023.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_024.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '3' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_031.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_032.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_033.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_034.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '4' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_041.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_042.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_043.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_044.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '5' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_051.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_052.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_053.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_054.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '6' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_061.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_062.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_063.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_064.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '7' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_071.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_072.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_073.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_074.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '8' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_081.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_082.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_083.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_084.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '9' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_091.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_092.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_093.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_094.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '10' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_101.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_102.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_103.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_104.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '11' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_111.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_112.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_113.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_114.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '12' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_121.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_122.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_123.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_124.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '13' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_131.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_132.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_133.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_134.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '14' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_141.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_142.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_143.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_144.value * myRatio ;
-  } else if ( document.bmpMain.BMP_3_015.selectedIndex == '15' ) {
-    document.bmpMain.BMP_3_011.value = document.BMP_List.FRST_151.value * myRatio ;
-    document.bmpMain.BMP_3_012.value = document.BMP_List.FRST_152.value * myRatio ;
-    document.bmpMain.BMP_3_013.value = document.BMP_List.FRST_153.value * myRatio ;
-    document.bmpMain.BMP_3_014.value = document.BMP_List.FRST_154.value * myRatio ;
-  }
+{%endfor%}
+
+{% for wsd in ctx.rangeWSD %}
+function FrstBMP_{{wsd|twonum}}() {
+  var myRatio = document.bmpMain.BMP_3_{{wsd|twonum}}6.value * 0.01 ;
+  var index = document.bmpMain.BMP_3_{{wsd|twonum}}5.selectedIndex.toString();
+  if (  index == '0' ) {
+    document.bmpMain.BMP_3_{{wsd|twonum}}1.value = 0.0 ;
+    document.bmpMain.BMP_3_{{wsd|twonum}}2.value = 0.0 ;
+    document.bmpMain.BMP_3_{{wsd|twonum}}3.value = 0.0 ;
+    document.bmpMain.BMP_3_{{wsd|twonum}}4.value = 0.0 ;
+  } else {
+    if(index.length==1){
+      index = '0'+index;
+    }
+    document.bmpMain.BMP_3_{{wsd|twonum}}1.value = document.BMP_List['FRST_'+index+'1'].value * myRatio ;
+    document.bmpMain.BMP_3_{{wsd|twonum}}2.value = document.BMP_List['FRST_'+index+'2'].value * myRatio ;
+    document.bmpMain.BMP_3_{{wsd|twonum}}3.value = document.BMP_List['FRST_'+index+'3'].value * myRatio ;
+    document.bmpMain.BMP_3_{{wsd|twonum}}4.value = document.BMP_List['FRST_'+index+'4'].value * myRatio ;
+  } 
 }
-function UserBMP_01() {
-  var myRatio = document.bmpMain.BMP_4_016.value * 0.01 ;
-  if ( document.bmpMain.BMP_4_015.selectedIndex == '0' ) {
-    document.bmpMain.BMP_4_011.value = 0.0 ;
-    document.bmpMain.BMP_4_012.value = 0.0 ;
-    document.bmpMain.BMP_4_013.value = 0.0 ;
-    document.bmpMain.BMP_4_014.value = 0.0 ;
-  } else if ( document.bmpMain.BMP_4_015.selectedIndex == '1' ) {
-    document.bmpMain.BMP_4_011.value = document.BMP_List.USER_011.value * myRatio ;
-    document.bmpMain.BMP_4_012.value = document.BMP_List.USER_012.value * myRatio ;
-    document.bmpMain.BMP_4_013.value = document.BMP_List.USER_013.value * myRatio ;
-    document.bmpMain.BMP_4_014.value = document.BMP_List.USER_014.value * myRatio ;
-  } else if ( document.bmpMain.BMP_4_015.selectedIndex == '2' ) {
-    document.bmpMain.BMP_4_011.value = document.BMP_List.USER_021.value * myRatio ;
-    document.bmpMain.BMP_4_012.value = document.BMP_List.USER_022.value * myRatio ;
-    document.bmpMain.BMP_4_013.value = document.BMP_List.USER_023.value * myRatio ;
-    document.bmpMain.BMP_4_014.value = document.BMP_List.USER_024.value * myRatio ;
-  }
+{%endfor%}
+
+{% for wsd in ctx.rangeWSD %}
+function UserBMP_{{wsd|twonum}}() {
+  var myRatio = document.bmpMain.BMP_4_{{wsd|twonum}}6.value * 0.01 ;
+  var index = document.bmpMain.BMP_4_{{wsd|twonum}}5.selectedIndex.toString();
+  if (  index == '0' ) {
+    document.bmpMain.BMP_4_{{wsd|twonum}}1.value = 0.0 ;
+    document.bmpMain.BMP_4_{{wsd|twonum}}2.value = 0.0 ;
+    document.bmpMain.BMP_4_{{wsd|twonum}}3.value = 0.0 ;
+    document.bmpMain.BMP_4_{{wsd|twonum}}4.value = 0.0 ;
+  } else {
+    if(index.length==1){
+      index = '0'+index;
+    }
+    document.bmpMain.BMP_4_{{wsd|twonum}}1.value = document.BMP_List['USER_'+index+'1'].value * myRatio ;
+    document.bmpMain.BMP_4_{{wsd|twonum}}2.value = document.BMP_List['USER_'+index+'2'].value * myRatio ;
+    document.bmpMain.BMP_4_{{wsd|twonum}}3.value = document.BMP_List['USER_'+index+'3'].value * myRatio ;
+    document.bmpMain.BMP_4_{{wsd|twonum}}4.value = document.BMP_List['USER_'+index+'4'].value * myRatio ;
+  } 
 }
-function FeedBMP_01() {
-  var myRatio = document.bmpMain.BMP_5_016.value * 0.01 ;
-  if ( document.bmpMain.BMP_5_015.selectedIndex == '0' ) {
-    document.bmpMain.BMP_5_011.value = 0.0 ;
-    document.bmpMain.BMP_5_012.value = 0.0 ;
-    document.bmpMain.BMP_5_013.value = 0.0 ;
-    document.bmpMain.BMP_5_014.value = 0.0 ;
-  } else if ( document.bmpMain.BMP_5_015.selectedIndex == '1' ) {
-    document.bmpMain.BMP_5_011.value = document.BMP_List.FEED_011.value * myRatio ;
-    document.bmpMain.BMP_5_012.value = document.BMP_List.FEED_012.value * myRatio ;
-    document.bmpMain.BMP_5_013.value = document.BMP_List.FEED_013.value * myRatio ;
-    document.bmpMain.BMP_5_014.value = document.BMP_List.FEED_014.value * myRatio ;
-  } else if ( document.bmpMain.BMP_5_015.selectedIndex == '2' ) {
-    document.bmpMain.BMP_5_011.value = document.BMP_List.FEED_021.value * myRatio ;
-    document.bmpMain.BMP_5_012.value = document.BMP_List.FEED_022.value * myRatio ;
-    document.bmpMain.BMP_5_013.value = document.BMP_List.FEED_023.value * myRatio ;
-    document.bmpMain.BMP_5_014.value = document.BMP_List.FEED_024.value * myRatio ;
-  } else if ( document.bmpMain.BMP_5_015.selectedIndex == '3' ) {
-    document.bmpMain.BMP_5_011.value = document.BMP_List.FEED_031.value * myRatio ;
-    document.bmpMain.BMP_5_012.value = document.BMP_List.FEED_032.value * myRatio ;
-    document.bmpMain.BMP_5_013.value = document.BMP_List.FEED_033.value * myRatio ;
-    document.bmpMain.BMP_5_014.value = document.BMP_List.FEED_034.value * myRatio ;
-  } else if ( document.bmpMain.BMP_5_015.selectedIndex == '4' ) {
-    document.bmpMain.BMP_5_011.value = document.BMP_List.FEED_041.value * myRatio ;
-    document.bmpMain.BMP_5_012.value = document.BMP_List.FEED_042.value * myRatio ;
-    document.bmpMain.BMP_5_013.value = document.BMP_List.FEED_043.value * myRatio ;
-    document.bmpMain.BMP_5_014.value = document.BMP_List.FEED_044.value * myRatio ;
-  } else if ( document.bmpMain.BMP_5_015.selectedIndex == '5' ) {
-    document.bmpMain.BMP_5_011.value = document.BMP_List.FEED_051.value * myRatio ;
-    document.bmpMain.BMP_5_012.value = document.BMP_List.FEED_052.value * myRatio ;
-    document.bmpMain.BMP_5_013.value = document.BMP_List.FEED_053.value * myRatio ;
-    document.bmpMain.BMP_5_014.value = document.BMP_List.FEED_054.value * myRatio ;
-  } else if ( document.bmpMain.BMP_5_015.selectedIndex == '6' ) {
-    document.bmpMain.BMP_5_011.value = document.BMP_List.FEED_061.value * myRatio ;
-    document.bmpMain.BMP_5_012.value = document.BMP_List.FEED_062.value * myRatio ;
-    document.bmpMain.BMP_5_013.value = document.BMP_List.FEED_063.value * myRatio ;
-    document.bmpMain.BMP_5_014.value = document.BMP_List.FEED_064.value * myRatio ;
-  } else if ( document.bmpMain.BMP_5_015.selectedIndex == '7' ) {
-    document.bmpMain.BMP_5_011.value = document.BMP_List.FEED_071.value * myRatio ;
-    document.bmpMain.BMP_5_012.value = document.BMP_List.FEED_072.value * myRatio ;
-    document.bmpMain.BMP_5_013.value = document.BMP_List.FEED_073.value * myRatio ;
-    document.bmpMain.BMP_5_014.value = document.BMP_List.FEED_074.value * myRatio ;
-  } else if ( document.bmpMain.BMP_5_015.selectedIndex == '8' ) {
-    document.bmpMain.BMP_5_011.value = document.BMP_List.FEED_081.value * myRatio ;
-    document.bmpMain.BMP_5_012.value = document.BMP_List.FEED_082.value * myRatio ;
-    document.bmpMain.BMP_5_013.value = document.BMP_List.FEED_083.value * myRatio ;
-    document.bmpMain.BMP_5_014.value = document.BMP_List.FEED_084.value * myRatio ;
-  } else if ( document.bmpMain.BMP_5_015.selectedIndex == '9' ) {
-    document.bmpMain.BMP_5_011.value = document.BMP_List.FEED_091.value * myRatio ;
-    document.bmpMain.BMP_5_012.value = document.BMP_List.FEED_092.value * myRatio ;
-    document.bmpMain.BMP_5_013.value = document.BMP_List.FEED_093.value * myRatio ;
-    document.bmpMain.BMP_5_014.value = document.BMP_List.FEED_094.value * myRatio ;
-  }
+{%endfor%}
+
+{% for wsd in ctx.rangeWSD %}
+function FeedBMP_{{wsd|twonum}}() {
+  var myRatio = document.bmpMain.BMP_5_{{wsd|twonum}}6.value * 0.01 ;
+  var index = document.bmpMain.BMP_5_{{wsd|twonum}}5.selectedIndex.toString();
+  if (  index == '0' ) {
+    document.bmpMain.BMP_5_{{wsd|twonum}}1.value = 0.0 ;
+    document.bmpMain.BMP_5_{{wsd|twonum}}2.value = 0.0 ;
+    document.bmpMain.BMP_5_{{wsd|twonum}}3.value = 0.0 ;
+    document.bmpMain.BMP_5_{{wsd|twonum}}4.value = 0.0 ;
+  } else {
+    if(index.length==1){
+      index = '0'+index;
+    }
+    document.bmpMain.BMP_5_{{wsd|twonum}}1.value = document.BMP_List['FEED_'+index+'1'].value * myRatio ;
+    document.bmpMain.BMP_5_{{wsd|twonum}}2.value = document.BMP_List['FEED_'+index+'2'].value * myRatio ;
+    document.bmpMain.BMP_5_{{wsd|twonum}}3.value = document.BMP_List['FEED_'+index+'3'].value * myRatio ;
+    document.bmpMain.BMP_5_{{wsd|twonum}}4.value = document.BMP_List['FEED_'+index+'4'].value * myRatio ;
+  } 
 }
-function WetlBMP_01() {
-  var myRatio = document.bmpMain.BMP_6_016.value * 0.01 ;
-  if ( document.bmpMain.BMP_6_015.selectedIndex == '0' ) {
-    document.bmpMain.BMP_6_011.value = 0.0 ;
-    document.bmpMain.BMP_6_012.value = 0.0 ;
-    document.bmpMain.BMP_6_013.value = 0.0 ;
-    document.bmpMain.BMP_6_014.value = 0.0 ;
-  } else if ( document.bmpMain.BMP_6_015.selectedIndex == '1' ) {
-    document.bmpMain.BMP_6_011.value = document.BMP_List.WETL_011.value * myRatio ;
-    document.bmpMain.BMP_6_012.value = document.BMP_List.WETL_012.value * myRatio ;
-    document.bmpMain.BMP_6_013.value = document.BMP_List.WETL_013.value * myRatio ;
-    document.bmpMain.BMP_6_014.value = document.BMP_List.WETL_014.value * myRatio ;
-  } else if ( document.bmpMain.BMP_6_015.selectedIndex == '2' ) {
-    document.bmpMain.BMP_6_011.value = document.BMP_List.WETL_021.value * myRatio ;
-    document.bmpMain.BMP_6_012.value = document.BMP_List.WETL_022.value * myRatio ;
-    document.bmpMain.BMP_6_013.value = document.BMP_List.WETL_023.value * myRatio ;
-    document.bmpMain.BMP_6_014.value = document.BMP_List.WETL_024.value * myRatio ;
-  }
-}
+{%endfor%}
+
+
 function BMP_LDC() {
 }
 function complete() {   
@@ -598,6 +457,7 @@ function complete() {
  else 
     document.bmpMain.submit();
 }   
+
 </script>
 </body>
 </html>
