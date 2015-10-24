@@ -2,6 +2,7 @@ from django.views.generic import View
 from models import *
 from django.shortcuts import render
 from tools import list2dict
+from django.http import Http404
 
 class OtherTablesView(View):
     
@@ -26,7 +27,8 @@ class OtherTablesView(View):
             context['GullyErosionInput'] = list2dict(GullyErosionInput.objects.filter(session_id=session_id).values())
             context['StreambankErosionInput'] = list2dict(StreambankErosionInput.objects.filter(session_id=session_id).values())
             #change choices for model according to the watershd
-            
+        elif template == 'urbanBMP' or template == 'urbanBMPClick':
+            pass    
         else:
             raise Http404("no such template")
    

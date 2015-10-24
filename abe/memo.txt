@@ -1,6 +1,14 @@
+Oct 24:
+ BMP_LDC in bmpMain is missing
+Oct 24:
+a bug in the old stepl in urBMP.cgi:
+for i in range(1,numWSD):
+  print 'document.main.ubArea_' + str(i) + '.value = opener.document.ubForm.ubArea_0' + str(i) + '.value ;'
+
+
 
 Oct 23:
-some confusing data:
+some confusing data: ::::: they are used in the popup of popup in urbanBMPClick!!!!
 
 <input type=hidden name=ubDis_011 value="15.00" size=2>
 <input type=hidden name=ubDis_012 value="10.00" size=2>
@@ -11,6 +19,7 @@ some confusing data:
 <input type=hidden name=ubDis_017 value="5.00" size=2>
 <input type=hidden name=ubDis_018 value="5.00" size=2>
 <input type=hidden name=ubDis_019 value="5.00" size=2>
+
 <input type=hidden name=ubDis_021 value="15.00" size=2>
 <input type=hidden name=ubDis_022 value="10.00" size=2>
 <input type=hidden name=ubDis_023 value="10.00" size=2>

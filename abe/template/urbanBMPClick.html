@@ -1,0 +1,258 @@
+{% load staticfiles %}
+{% load simple_tags %}
+
+<html>
+<head> 
+<link rel="stylesheet" type="text/css" href="{% static "css/button2.css" %}">
+<title>BMP win.</title> 
+</head>
+<body onLoad="init();">
+<form name=main>
+<center>
+  <input type=hidden name=UrbanArea><input type=hidden name=Ratio><br>
+  <table border=1>
+    <tr>
+      <td align=right>Total Available Area (ac) : </td>
+      <td align=left>
+        <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=AvArea readonly>(ac)
+      </td>
+    </tr>
+    <tr>
+      <td align=right>Effective BMP application area (ac) : </td>
+      <td align=left>
+        <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=myArea value=0.0>(ac)
+      </td>
+    </tr>
+    <tr>
+      <td align=right>Select BMP :</td>
+      <td align=left>
+        <select name=selectedBMP>
+          <option value=0>No BMP
+          <option value=1>Alum Treatment
+          <option value=2>Bioretention facility
+          <option value=3>Combined BMPs-Calculated
+          <option value=4>Concrete Grid Pavement
+          <option value=5>Dry Detention
+          <option value=6>Extended Wet Detention
+          <option value=7>Filter Strip-Agricultural
+          <option value=8>Grass Swales
+          <option value=9>Infiltration Basin
+          <option value=10>Infiltration Devices
+          <option value=11>Infiltration Trench
+          <option value=12>LID*/Cistern
+          <option value=13>LID*/Cistern+Rain Barrel
+          <option value=14>LID*/Rain Barrel
+          <option value=15>LID/Bioretention
+          <option value=16>LID/Dry Well
+          <option value=17>LID/Filter/Buffer Strip
+          <option value=18>LID/Infiltration Swale
+          <option value=19>LID/Infiltration Trench
+          <option value=20>LID/Vegetated Swale
+          <option value=21>LID/Wet Swale
+          <option value=22>Oil/Grit Separator
+          <option value=23>Porous Pavement
+          <option value=24>Sand Filter/Infiltration Basin
+          <option value=25>Sand Filters
+          <option value=26>Settling Basin
+          <option value=27>Vegetated Filter Strips
+          <option value=28>Weekly Street Sweeping
+          <option value=29>Wet Pond
+          <option value=30>Wetland Detention
+          <option value=31>WQ Inlet w/Sand Filter
+          <option value=32>WQ Inlets
+        </select>
+      </td>
+    </tr>
+  </table>
+  <input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Apply LID/BMP" onClick="javascript:returnVal()">
+</form>
+</body>
+<script language="JavaScript">
+function returnVal() {
+  if ( document.main.myArea.value * 1 > document.main.AvArea.value * 1 ) { alert("Invalid input" ); return; } 
+  if ( document.main.selectedBMP.selectedIndex == 0 ) {
+    var eff_1 = 0.0 ;
+    var eff_2 = 0.0 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.0 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 1 ) {
+    var eff_1 = 0.6 ;
+    var eff_2 = 0.9 ;
+    var eff_3 = 0.6 ;
+    var eff_4 = 0.95 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 2 ) {
+    var eff_1 = 0.63 ;
+    var eff_2 = 0.8 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.0 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 3 ) {
+    var eff_1 = 0.0 ;
+    var eff_2 = 0.0 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.0 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 4 ) {
+    var eff_1 = 0.9 ;
+    var eff_2 = 0.9 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.9 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 5 ) {
+    var eff_1 = 0.3 ;
+    var eff_2 = 0.26 ;
+    var eff_3 = 0.27 ;
+    var eff_4 = 0.575 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 6 ) {
+    var eff_1 = 0.55 ;
+    var eff_2 = 0.685 ;
+    var eff_3 = 0.72 ;
+    var eff_4 = 0.86 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 7 ) {
+    var eff_1 = 0.5325 ;
+    var eff_2 = 0.6125 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.65 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 8 ) {
+    var eff_1 = 0.1 ;
+    var eff_2 = 0.25 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.65 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 9 ) {
+    var eff_1 = 0.6 ;
+    var eff_2 = 0.65 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.75 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 10 ) {
+    var eff_1 = 0.0 ;
+    var eff_2 = 0.83 ;
+    var eff_3 = 0.83 ;
+    var eff_4 = 0.94 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 11 ) {
+    var eff_1 = 0.55 ;
+    var eff_2 = 0.6 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.75 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 12 ) {
+    var eff_1 = 0.0 ;
+    var eff_2 = 0.0 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.0 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 13 ) {
+    var eff_1 = 0.0 ;
+    var eff_2 = 0.0 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.0 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 14 ) {
+    var eff_1 = 0.0 ;
+    var eff_2 = 0.0 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.0 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 15 ) {
+    var eff_1 = 0.43 ;
+    var eff_2 = 0.81 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.0 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 16 ) {
+    var eff_1 = 0.5 ;
+    var eff_2 = 0.5 ;
+    var eff_3 = 0.7 ;
+    var eff_4 = 0.9 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 17 ) {
+    var eff_1 = 0.3 ;
+    var eff_2 = 0.3 ;
+    var eff_3 = 0.4 ;
+    var eff_4 = 0.6 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 18 ) {
+    var eff_1 = 0.5 ;
+    var eff_2 = 0.65 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.9 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 19 ) {
+    var eff_1 = 0.5 ;
+    var eff_2 = 0.5 ;
+    var eff_3 = 0.7 ;
+    var eff_4 = 0.9 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 20 ) {
+    var eff_1 = 0.075 ;
+    var eff_2 = 0.175 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.475 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 21 ) {
+    var eff_1 = 0.4 ;
+    var eff_2 = 0.2 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.8 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 22 ) {
+    var eff_1 = 0.05 ;
+    var eff_2 = 0.05 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.15 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 23 ) {
+    var eff_1 = 0.85 ;
+    var eff_2 = 0.65 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.9 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 24 ) {
+    var eff_1 = 0.35 ;
+    var eff_2 = 0.5 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.8 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 25 ) {
+    var eff_1 = 0.0 ;
+    var eff_2 = 0.375 ;
+    var eff_3 = 0.4 ;
+    var eff_4 = 0.825 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 26 ) {
+    var eff_1 = 0.0 ;
+    var eff_2 = 0.515 ;
+    var eff_3 = 0.56 ;
+    var eff_4 = 0.815 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 27) {
+    var eff_1 = 0.4 ;
+    var eff_2 = 0.4525 ;
+    var eff_3 = 0.505 ;
+    var eff_4 = 0.73 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 28 ) {
+    var eff_1 = 0.0 ;
+    var eff_2 = 0.06 ;
+    var eff_3 = 0.06 ;
+    var eff_4 = 0.16 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 29 ) {
+    var eff_1 = 0.35 ;
+    var eff_2 = 0.45 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.6 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 30 ) {
+    var eff_1 = 0.2 ;
+    var eff_2 = 0.44 ;
+    var eff_3 = 0.63 ;
+    var eff_4 = 0.775 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 31 ) {
+    var eff_1 = 0.35 ;
+    var eff_2 = 0.0 ;
+    var eff_3 = 0.0 ;
+    var eff_4 = 0.8 ;
+  } else if ( document.main.selectedBMP.selectedIndex == 32 ) {
+    var eff_1 = 0.2 ;
+    var eff_2 = 0.09 ;
+    var eff_3 = 0.13 ;
+    var eff_4 = 0.37 ;
+  }
+opener.main.UrbanBMP_1_{{req.GET.i|twonum}}{{req.GET.j}}.value = document.main.myArea.value ;
+opener.main.UrbanBMP_2_{{req.GET.i|twonum}}{{req.GET.j}}.value = eff_1 ;
+opener.main.UrbanBMP_3_{{req.GET.i|twonum}}{{req.GET.j}}.value = eff_2 ;
+opener.main.UrbanBMP_4_{{req.GET.i|twonum}}{{req.GET.j}}.value = eff_3 ;
+opener.main.UrbanBMP_5_{{req.GET.i|twonum}}{{req.GET.j}}.value = eff_4 ;
+  opener.opener.document.bmpMain.UrbanBMPinfo_{{req.GET.i|twonum}}{{req.GET.j}}.value =  document.main.selectedBMP.value ;
+}
+function init() {
+  document.main.UrbanArea.value =  opener.opener.document.ubForm.ubArea_{{req.GET.i|twonum}}.value ;
+  document.main.Ratio.value =  opener.opener.document.ubForm.ubDis_{{req.GET.i|twonum}}{{req.GET.j}}.value ;
+  var tmpVal_1 = document.main.UrbanArea.value * 1.0 ;
+  var tmpVal_2 = document.main.Ratio.value * 0.01 ;
+  var AvArea = tmpVal_1 * tmpVal_2 ;
+  AvArea = Math.round(AvArea*100) / 100 ;
+  document.main.AvArea.value = AvArea ;
+  document.main.selectedBMP.value =  opener.opener.document.bmpMain.UrbanBMPinfo_{{req.GET.i|twonum}}{{req.GET.j}}.value ;
+  document.main.myArea.value = opener.main.UrbanBMP_1_{{req.GET.i|twonum}}{{req.GET.j}}.value ;
+}
+</script>
+</html>

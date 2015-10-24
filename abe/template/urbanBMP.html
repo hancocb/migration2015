@@ -1,0 +1,279 @@
+{% load staticfiles %}
+{% load simple_tags %}
+
+<html>
+<head> 
+  <link rel="stylesheet" type="text/css" href="{% static "css/button2.css" %}">
+  <title>Urban BMP</title> 
+</head>
+<body onLoad="init(); LoadBack();">
+<form name=main>
+<br><center>
+  <table border=1>
+    <tr>
+      <td align=center colspan=10><font color=blue>Urban pollutant <b>concentration</b> in runoff (mg/l)</td>
+    </tr>
+    <tr>
+      <td align=center bgcolor=#BDBDBD><b>Landuse</td>
+      <td align=center bgcolor=#BDBDBD><b>Commercial</td>
+      <td align=center bgcolor=#BDBDBD><b>Industrial</td>
+      <td align=center bgcolor=#BDBDBD><b>Institutional</td>
+      <td align=center bgcolor=#BDBDBD><b>Transportation</td>
+      <td align=center bgcolor=#BDBDBD><b>Multi-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Single-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Urban-Cultivated</td>
+      <td align=center bgcolor=#BDBDBD><b>Vacant (developed)</td>
+      <td align=center bgcolor=#BDBDBD><b>Open Space</td>
+    </tr>
+    <tr>
+      <td align=center>TN</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_11></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_12></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_13></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_14></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_15></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_16></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_17></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_18></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_19></td>
+    </tr>
+      <td align=center>TP</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_21></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_22></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_23></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_24></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_25></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_26></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_27></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_28></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_29></td>
+    </tr>
+      <td align=center>BOD</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_31></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_32></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_33></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_34></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_35></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_36></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_37></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_38></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_39></td>
+    </tr>
+      <td align=center>TSS</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_41></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_42></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_43></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_44></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_45></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_46></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_47></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_48></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=UrbnConc_49></td>
+    </tr>
+  </table>
+  <input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Update" onClick="javascript:returnConc()">
+  <hr><br>
+  <table border=1>
+    <tr>
+      <td align=center colspan=11><font color=blue>Effective BMP application <b>area</b> (ac)</td>
+    </tr>
+    <tr>
+      <td align=center bgcolor=#BDBDBD><b>Landuse</td>
+      <td align=center bgcolor=#BDBDBD><b>Urban</td>
+      <td align=center bgcolor=#BDBDBD><b>Commercial</td>
+      <td align=center bgcolor=#BDBDBD><b>Industrial</td>
+      <td align=center bgcolor=#BDBDBD><b>Institutional</td>
+      <td align=center bgcolor=#BDBDBD><b>Transportation</td>
+      <td align=center bgcolor=#BDBDBD><b>Multi-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Single-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Urban-Cultivated</td>
+      <td align=center bgcolor=#BDBDBD><b>Vacant (developed)</td>
+      <td align=center bgcolor=#BDBDBD><b>Open Space</td>
+    </tr>
+  {% for wsd in ctx.rangeWSD %}   
+  <tr>
+    <td align=center> W{{wsd}} </td>
+ <td><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name=ubArea_{{wsd}} value=0.0 readonly></td>
+    {% for j in ctx.range9 %}
+    <td align=center>
+      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_{{wsd|twonum}}{{j}}  value=0.0  onClick="javascript:window.open('./otherTables?t=urbanBMPClick&i={{wsd}}&j={{j}}','BMPwindos', 'status=0,toolbar=0,height=200,width=500');" >
+    </td>
+    {%endfor%}
+  </tr>
+  {%endfor%}
+
+  </table><br><br>
+  <hr><font color=tomato>
+  Following tables will be updated, depends on the '<b>Effective BMP application area (ac)</b>' table.
+  </font><hr><br>
+  <table border=1>
+    <tr>
+      <td align=center colspan=10><font color=blue>Selected urban <b>N</b> reduction efficiency</td>
+    </tr>
+    <tr>
+      <td align=center bgcolor=#BDBDBD><b>Landuse</td>
+      <td align=center bgcolor=#BDBDBD><b>Commercial</td>
+      <td align=center bgcolor=#BDBDBD><b>Industrial</td>
+      <td align=center bgcolor=#BDBDBD><b>Institutional</td>
+      <td align=center bgcolor=#BDBDBD><b>Transportation</td>
+      <td align=center bgcolor=#BDBDBD><b>Multi-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Single-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Urban-Cultivated</td>
+      <td align=center bgcolor=#BDBDBD><b>Vacant (developed)</td>
+      <td align=center bgcolor=#BDBDBD><b>Open Space</td>
+    </tr>
+
+  {% for wsd in ctx.rangeWSD %}      
+  <tr>
+    <td align=center> W{{wsd}} </td>
+     {% for j in ctx.range9 %}
+    <td align=center>
+      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_2_{{wsd|twonum}}{{j}}  value=0.0>
+    </td>
+    {%endfor%}
+  </tr>
+  {%endfor%}
+
+  </table><br><br>
+  <table border=1>
+    <tr>
+      <td align=center colspan=10><font color=blue>Selected urban <b>P</b> reduction efficiency</td>
+    </tr>
+    <tr>
+      <td align=center bgcolor=#BDBDBD><b>Landuse</td>
+      <td align=center bgcolor=#BDBDBD><b>Commercial</td>
+      <td align=center bgcolor=#BDBDBD><b>Industrial</td>
+      <td align=center bgcolor=#BDBDBD><b>Institutional</td>
+      <td align=center bgcolor=#BDBDBD><b>Transportation</td>
+      <td align=center bgcolor=#BDBDBD><b>Multi-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Single-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Urban-Cultivated</td>
+      <td align=center bgcolor=#BDBDBD><b>Vacant (developed)</td>
+      <td align=center bgcolor=#BDBDBD><b>Open Space</td>
+    </tr>
+
+    {% for wsd in ctx.rangeWSD %}      
+  <tr>
+    <td align=center> W{{wsd}} </td>
+     {% for j in ctx.range9 %}
+    <td align=center>
+      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_3_{{wsd|twonum}}{{j}}  value=0.0>
+    </td>
+    {%endfor%}
+  </tr>
+  {%endfor%}
+
+  </table><br><br>
+  <table border=1>
+    <tr>
+      <td align=center colspan=10><font color=blue>Selected urban <b>BOD</b> reduction efficiency</td>
+    </tr>
+    <tr>
+      <td align=center bgcolor=#BDBDBD><b>Landuse</td>
+      <td align=center bgcolor=#BDBDBD><b>Commercial</td>
+      <td align=center bgcolor=#BDBDBD><b>Industrial</td>
+      <td align=center bgcolor=#BDBDBD><b>Institutional</td>
+      <td align=center bgcolor=#BDBDBD><b>Transportation</td>
+      <td align=center bgcolor=#BDBDBD><b>Multi-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Single-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Urban-Cultivated</td>
+      <td align=center bgcolor=#BDBDBD><b>Vacant (developed)</td>
+      <td align=center bgcolor=#BDBDBD><b>Open Space</td>
+    </tr>
+
+  {% for wsd in ctx.rangeWSD %}      
+  <tr>
+    <td align=center> W{{wsd}} </td>
+     {% for j in ctx.range9 %}
+    <td align=center>
+      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_4_{{wsd|twonum}}{{j}}  value=0.0>
+    </td>
+    {%endfor%}
+  </tr>
+  {%endfor%}
+
+  </table><br><br>
+  <table border=1>
+    <tr>
+      <td align=center colspan=10><font color=blue>Selected urban <b>TSS</b> reduction efficiency</td>
+    </tr>
+    <tr>
+      <td align=center bgcolor=#BDBDBD><b>Landuse</td>
+      <td align=center bgcolor=#BDBDBD><b>Commercial</td>
+      <td align=center bgcolor=#BDBDBD><b>Industrial</td>
+      <td align=center bgcolor=#BDBDBD><b>Institutional</td>
+      <td align=center bgcolor=#BDBDBD><b>Transportation</td>
+      <td align=center bgcolor=#BDBDBD><b>Multi-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Single-Family</td>
+      <td align=center bgcolor=#BDBDBD><b>Urban-Cultivated</td>
+      <td align=center bgcolor=#BDBDBD><b>Vacant (developed)</td>
+      <td align=center bgcolor=#BDBDBD><b>Open Space</td>
+    </tr>
+
+  {% for wsd in ctx.rangeWSD %}      
+  <tr>
+    <td align=center> W{{wsd}} </td>
+     {% for j in ctx.range9 %}
+    <td align=center>
+      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_5_{{wsd|twonum}}{{j}}  value=0.0>
+    </td>
+    {%endfor%}
+  </tr>
+  {%endfor%}
+
+  </table><br><hr><br>
+  <input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Load Previous Set" onClick="javascript:LoadBack()">
+  <input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Set" onClick="javascript:returnVal()">
+</form>
+</body>
+<script language="JavaScript">
+function init() {
+  for(i=1;i<=4;i++){
+    for(j=1;j<=9;j++){
+      document.main['UrbnConc_'+i+j].value = opener.document.bmpMain["UrbnConc_"+i+j].value ;
+    }
+  }
+  
+  {% for wsd in ctx.rangeWSD %}  
+  document.main.ubArea_{{wsd}}.value = opener.document.ubForm.ubArea_{{wsd|twonum}}.value ;
+  {%endfor%}
+}
+
+
+function returnConc() {
+  for(i=1;i<=4;i++){
+    for(j=1;j<=9;j++){
+      opener.document.bmpMain["UrbnConc_"+i+j].value = document.main['UrbnConc_'+i+j].value  ;
+    }
+  }
+}
+
+function returnVal() {
+  {% for i in ctx.rangeWSD %} 
+  {% for j in ctx.range5 %} 
+  {% for k in ctx.range9 %} 
+  opener.document.bmpMain.UrbanBMP_{{j}}_{{i|twonum}}{{k}}.value =  document.main.UrbanBMP_{{j}}_{{i|twonum}}{{k}}.value ;
+  opener.document.bmpMain.UrbanBMP_1_0{{i|twonum}}{{k}}.value =  document.main.UrbanBMP_1_{{i|twonum}}{{k}}.value ;
+ if (document.main.UrbanBMP_1_{{i|twonum}}{{k}}.value != 0 ){
+   opener.document.bmpMain.urBMP_{{i}}.value = "Selected";
+   opener.document.bmpMain.urBMP_{{i}}.style = "text-align:right;border-width:0px;font-size:11pt;color:black;";
+ }
+  {%endfor%}
+  {%endfor%}
+  {%endfor%}
+
+ alert("Done"); 
+ window.close(); 
+}
+
+function LoadBack() {
+  {% for i in ctx.rangeWSD %} 
+  {% for j in ctx.range5 %} 
+  {% for k in ctx.range9 %} 
+  document.main.UrbanBMP_{{j}}_{{i|twonum}}{{k}}.value =  opener.document.bmpMain.UrbanBMP_{{j}}_{{i|twonum}}{{k}}.value ;
+  {%endfor%}
+  {%endfor%}
+  {%endfor%}
+}
+</script>
+</html>

@@ -1,0 +1,203 @@
+
+/* Created using Style Master from Western Civilisation CSS1 { 237 4 451 409 } */
+#body {font-family: Verdana, Helvetica, Arial, sans-serif;
+#background-color: #4a88be;
+#font-size: 1em;}
+
+body
+{
+font-family: verdana, arial, helvetica, sans-serif; font-size: 11px;
+background-color:#EEEEEE;
+scrollbar-base-color: #005B70;
+scrollbar-arrow-color: #F3960B;
+scrollbar-DarkShadow-Color: #000000;
+}
+
+table{
+
+font-family: verdana, arial, helvetica, sans-serif; font-size: 11px;
+}
+
+#navigator {background-color: #7ea8cf;
+border: 1px #666666 solid;
+margin-top: 100px;
+width: auto;
+margin-left: 37.5%;
+margin-right: 37.5%;
+text-align: center;
+padding: 8px;}
+
+.homebutton {
+font-family: Helvetica;
+#font-weight: bold;
+font-size: 13px;
+text-align: left;
+margin-left : 10px;
+margin-bottom: 2px;
+width:180px;
+height:50px;
+margin-top: 3px;}
+
+.homebutton a {padding: 4px;
+text-decoration: none;
+width: 98%;
+display: block;
+color: #ggaaff;
+background-color: #b5c9e2;
+border-top: 2px #cce3ff solid;
+border-left: 2px #cce3ff solid;
+border-bottom: 2px #31557f solid;
+border-right: 2px #31557f solid;}
+
+.homebutton a:hover {background-color: #99aabf;
+border-top: 2px #31557f solid;
+border-left: 2px #31557f solid;
+border-bottom: 2px #cce3ff solid;
+border-right: 2px #cce3ff solid;}
+
+
+.housebutton {
+font-family: Helvetica;
+font-weight: bold;
+font-size: 18px;
+text-align: left;
+margin-left : 10px;
+margin-bottom: 2px;
+width:400px;
+height:50px;
+margin-top: 3px;}
+
+.housebutton a {padding: 4px;
+text-decoration: none;
+width: 98%;
+display: block;
+color: #224059;
+background-color: #b5c9e2;
+border-top: 2px #cce3ff solid;
+border-left: 2px #cce3ff solid;
+border-bottom: 2px #31557f solid;
+border-right: 2px #31557f solid;}
+
+.housebutton a:hover {background-color: #99aabf;
+border-top: 2px #31557f solid;
+border-left: 2px #31557f solid;
+border-bottom: 2px #cce3ff solid;
+border-right: 2px #cce3ff solid;}
+
+
+.outputbutton {
+font-family: Helvetica;
+font-weight: bold;
+text-align: left;
+font-size: 11px;
+margin-left : 10px;
+margin-bottom: 3px;
+width:350px;
+height:50px;
+margin-top: 3px;}
+
+.outputbutton a {padding: 4px;
+background-color: #FFF2F8 ;
+font-weight: bold;
+text-decoration: none;
+width: 98%;
+color: black;
+border-top: 2px #ffe5c3 solid;
+border-left: 2px #ffe5c3 solid;
+border-bottom: 2px #7f6645 solid;
+border-right: 2px #7f6645 solid;
+display: block;}
+
+.outputbutton a:hover {border-top: 2px #7f6645 solid;
+border-left: 2px #7f6645 solid;
+border-bottom: 2px #ffe5c3 solid;
+border-right: 2px #ffe5c3 solid;
+background-color: #FFCCF2 ;}
+
+
+
+.stylebutton {
+font-family: Helvetica;
+font-weight: bold;
+text-align: left;
+font-size: 13px;
+margin-left : 10px;
+margin-bottom: 3px;
+width:450px;
+height:50px;
+margin-top: 3px;}
+
+.stylebutton a {padding: 4px;
+background-color: #fdcb89;
+font-weight: bold;
+text-decoration: none;
+width: 98%;
+color: black;
+border-top: 2px #ffe5c3 solid;
+border-left: 2px #ffe5c3 solid;
+border-bottom: 2px #7f6645 solid;
+border-right: 2px #7f6645 solid;
+display: block;}
+
+.stylebutton a:hover {border-top: 2px #7f6645 solid;
+border-left: 2px #7f6645 solid;
+border-bottom: 2px #ffe5c3 solid;
+border-right: 2px #ffe5c3 solid;
+background-color: #bf9967;}
+
+.layoutbutton {font-weight: bold;
+text-align: center;
+margin-bottom: 3px;
+margin-top: 3px;}
+
+.layoutbutton a {padding: 4px;
+background-color: #d4eeaf;
+font-weight: bold;
+text-decoration: none;
+width: 98%;
+color: #4f5942;
+border-top: 2px #edf8de solid;
+border-left: 2px #edf8de solid;
+border-bottom: 2px #727f5e solid;
+border-right: 2px #727f5e solid;
+display: block;}
+
+.layoutbutton a:hover {border-top: 2px #727f5e solid;
+border-left: 2px #727f5e solid;
+border-bottom: 2px #edf8de solid;
+border-right: 2px #edf8de solid;
+background-color: #abbf8e;}
+
+.coursebutton {font-weight: bold;
+text-align: center;
+margin-bottom: 3px;
+margin-top: 3px;}
+
+.coursebutton a {padding: 4px;
+background-color: #fee8af;
+font-weight: bold;
+text-decoration: none;
+width: 98%;
+color: #59513d;
+border-top: 2px #fff8e6 solid;
+border-left: 2px #fff8e6 solid;
+border-bottom: 2px #7f7458 solid;
+border-right: 2px #7f7458 solid;
+display: block;}
+
+.coursebutton a:hover {border-top: 2px #7f7458 solid;
+border-left: 2px #7f7458 solid;
+border-bottom: 2px #fff8e6 solid;
+border-right: 2px #fff8e6 solid;
+background-color: #bfaf84;}
+
+font.header{font-family:helvetica, sans-serif; font-size:12px; font-weight: bold; color: gray}
+
+font.small{font-family:arial; font-size:9px}
+
+
+select { color:#000000; font-weight: none; text-decoration: none; background: #FFFFFF; border: 1px solid #999999;; font-style:normal; font-variant:normal; font-size:11px; font-family:Verdana, Arial, Helvetica, sans-serif }
+
+input { color:#000000; font-weight: none; text-decoration: none; background: #FFFFFF; border: 1px solid #999999;; font-style:normal; font-variant:normal; font-size:11px; font-family:Verdana, Arial, Helvetica, sans-serif }
+
+

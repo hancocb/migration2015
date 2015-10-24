@@ -4,6 +4,7 @@ register = template.Library()
 
 @register.filter(name='twonum')
 def twonum(value):
+    value = int(value)
     return '%02i' % value;
 
 @register.filter(name='gr0')
