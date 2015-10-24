@@ -1,0 +1,51 @@
+
+Oct 23:
+some confusing data:
+
+<input type=hidden name=ubDis_011 value="15.00" size=2>
+<input type=hidden name=ubDis_012 value="10.00" size=2>
+<input type=hidden name=ubDis_013 value="10.00" size=2>
+<input type=hidden name=ubDis_014 value="10.00" size=2>
+<input type=hidden name=ubDis_015 value="10.00" size=2>
+<input type=hidden name=ubDis_016 value="30.00" size=2>
+<input type=hidden name=ubDis_017 value="5.00" size=2>
+<input type=hidden name=ubDis_018 value="5.00" size=2>
+<input type=hidden name=ubDis_019 value="5.00" size=2>
+<input type=hidden name=ubDis_021 value="15.00" size=2>
+<input type=hidden name=ubDis_022 value="10.00" size=2>
+<input type=hidden name=ubDis_023 value="10.00" size=2>
+<input type=hidden name=ubDis_024 value="10.00" size=2>
+<input type=hidden name=ubDis_025 value="10.00" size=2>
+<input type=hidden name=ubDis_026 value="30.00" size=2>
+<input type=hidden name=ubDis_027 value="5.00" size=2>
+<input type=hidden name=ubDis_028 value="5.00" size=2>
+<input type=hidden name=ubDis_029 value="5.00" size=2>
+
+and 
+
+dist_101:15
+dist_201:10
+dist_301:10
+dist_401:10
+dist_501:10
+dist_601:30
+dist_701:5
+dist_801:5
+dist_901:5
+dist_102:15
+dist_202:10
+dist_302:10
+dist_402:10
+dist_502:10
+dist_602:30
+dist_702:5
+dist_802:5
+dist_902:5
+IrrVal_101:0
+IrrVal_201:0
+IrrVal_301:0
+IrrVal_401:0
+IrrVal_102:0
+IrrVal_202:0
+IrrVal_302:0
+IrrVal_402:0

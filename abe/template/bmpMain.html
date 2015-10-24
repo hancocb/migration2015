@@ -50,6 +50,8 @@
   </tr>
 </table>
 
+
+<!--Cropland -->
   <table border=1 style="width:870px; margin:0 auto">
     <tr>
       <td style="text-align:center" colspan=8><div style="color:blue;">BMPs and efficiencies for different pollutants on <span style="font-weight:bold">CROPLAND</span></div></td>
@@ -90,8 +92,9 @@
   <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_1_{{wsd|twonum}}4  value=0.0></td>
     </tr>
   {% endfor %}  
+</table><br>
 
-  </table><br>
+<!--Pastureland -->
   <table border=1 style="width:870px; margin: 0 auto">
     <tr>
       <td style="text-align:center;" colspan=8><div style="color:blue;">BMPs and efficiencies for different pollutants on <span style="font-weight:bold">PASTLAND</span></div></td>
@@ -106,24 +109,29 @@
       <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">BOD</td>
       <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Sediment</td>
     </tr>
+
+ {% for wsd in ctx.rangeWSD %}   
 <tr>
-  <td style="text-align:center;"> W1 </td>
-      <td style="text-align:center;"> 0.00 </td>
-  <td style="text-align:center;"><select name= BMP_2_015  onChange=" PastBMP_01(); ">
+  <td style="text-align:center;"> W{{wsd}} </td>
+      <td style="text-align:center;"> {{ctx.WatershedLandUse|get:wsd|get:'Pastureland'}} </td>
+  <td style="text-align:center;"><select name= BMP_2_{{wsd|twonum}}5  onChange=" PastBMP_{{wsd|twonum}}(); ">
                      <option value=0>Select
-                     <option value=1 selected="selected">No BMP
+                     <option value=1 {% if ctx.WatershedLandUse|get:wsd|get:'Pastureland'|eq0 %} selected="selected"{% endif %} >No BMP
                      <option value=2>Combined BMPs-Calculated
                      <option value=3>User
                    </select>
   </td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name= BMP_2_016  value=100.0  onChange=" PastBMP_01(); "></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name= BMP_2_{{wsd|twonum}}6  value=100.0  onChange=" PastBMP_{{wsd|twonum}}(); "></td>
   </td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_2_011  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_2_012  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_2_013  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_2_014  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_2_{{wsd|twonum}}1  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_2_{{wsd|twonum}}2  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_2_{{wsd|twonum}}3  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_2_{{wsd|twonum}}4  value=0.0></td>
 </tr>
-  </table><br>
+{% endfor %}  
+ </table><br>
+
+<!--Forest -->
   <table border=1 style="width:870px; margin:0 auto">
     <tr>
       <td style="text-align:center;" colspan=8><div style="color:blue;">BMPs and efficiencies for different pollutants on <span style="font-weight:bold">FOREST</span></div></td>
@@ -138,12 +146,13 @@
       <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">BOD</td>
       <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Sediment</td>
     </tr>
+  {% for wsd in ctx.rangeWSD %} 
 <tr>
-  <td style="text-align:center;"> W1 </td>
-      <td style="text-align:center;"> 0.00 </td>
-  <td style="text-align:center;"><select name= BMP_3_015  onChange=" FrstBMP_01(); ">
+  <td style="text-align:center;"> W{{wsd}} </td>
+      <td style="text-align:center;"> {{ctx.WatershedLandUse|get:wsd|get:'Forest'}} </td>
+  <td style="text-align:center;"><select name= BMP_3_{{wsd|twonum}}5  onChange=" FrstBMP_{{wsd|twonum}}(); ">
                      <option value=0>Select
-                     <option value=1 selected="selected">No BMP
+                     <option value=1 {% if ctx.WatershedLandUse|get:wsd|get:'Forest'|eq0 %} selected="selected"{% endif %}>No BMP
                      <option value=2>Combined BMPs-Calculated
                      <option value=3>Road dry seeding
                      <option value=4>Road grass and legume seeding
@@ -160,14 +169,17 @@
                      <option value=15>Site preparation/straw/polymer/seed/fertilizer/transplant
                    </select>
   </td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name= BMP_3_016  value=100.0  onChange=" FrstBMP_01(); "></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name= BMP_3_{{wsd|twonum}}6  value=100.0  onChange=" FrstBMP_{{wsd|twonum}}(); "></td>
   </td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_3_011  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_3_012  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_3_013  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_3_014  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_3_{{wsd|twonum}}1  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_3_{{wsd|twonum}}2  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_3_{{wsd|twonum}}3  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_3_{{wsd|twonum}}4  value=0.0></td>
 </tr>
-  </table><br>
+{% endfor %}  
+</table><br>
+
+<!--User defined -->
   <table border=1 style="width:870px; margin: 0 auto">
     <tr>
       <td style="text-align:center;" colspan=8><div style="color:blue;">BMPs and efficiencies for different pollutants on <span style="font-weight:bold">USER DEFINED</span></div></td>
@@ -182,23 +194,27 @@
       <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">BOD</td>
       <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Sediment</td>
     </tr>
+{% for wsd in ctx.rangeWSD %}     
 <tr>
-  <td style="text-align:center;"> W1 </td>
-      <td style="text-align:center;"> 0.00 </td>
-  <td style="text-align:center;"><select name= BMP_4_015  onChange=" UserBMP_01(); ">
+  <td style="text-align:center;"> W{{wsd}} </td>
+      <td style="text-align:center;"> {{ctx.WatershedLandUse|get:wsd|get:'UserDefined'}} </td>
+  <td style="text-align:center;"><select name= BMP_4_{{wsd|twonum}}5  onChange=" UserBMP_{{wsd|twonum}}(); ">
                      <option value=0>Select
-                     <option value=1 selected="selected">No BMP
+                     <option value=1 {% if ctx.WatershedLandUse|get:wsd|get:'UserDefined'|eq0 %} selected="selected"{% endif %}>No BMP
                      <option value=2>Combined BMPs-Calculated
                    </select>
   </td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name= BMP_4_016  value=100.0  onChange=" UserBMP_01(); "></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name= BMP_4_{{wsd|twonum}}6  value=100.0  onChange=" UserBMP_{{wsd|twonum}}(); "></td>
   </td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_4_011  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_4_012  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_4_013  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_4_014  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_4_{{wsd|twonum}}1  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_4_{{wsd|twonum}}2  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_4_{{wsd|twonum}}3  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_4_{{wsd|twonum}}4  value=0.0></td>
 </tr>
-  </table><br>
+{% endfor %}  
+</table><br>
+
+<!--Feedlot -->  
   <table border=1 style="width:870px; margin:0 auto">
     <tr>
       <td style="text-align:center;" colspan=8><div style="color:blue;">BMPs and efficiencies for different pollutants on <span style="font-weight:bold">FEEDLOT</span></div></td>
@@ -213,12 +229,13 @@
       <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">BOD</td>
       <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Sediment</td>
     </tr>
+{% for wsd in ctx.rangeWSD %}     
 <tr>
-  <td style="text-align:center;"> W1 </td>
-      <td style="text-align:center;"> 0.00 </td>
-  <td style="text-align:center"><select name= BMP_5_015  onChange=" FeedBMP_01(); ">
+  <td style="text-align:center;"> W{{wsd}} </td>
+      <td style="text-align:center;"> {{ctx.WatershedLandUse|get:wsd|get:'Feedlots'}} </td>
+  <td style="text-align:center"><select name= BMP_5_{{wsd|twonum}}5  onChange=" FeedBMP_{{wsd|twonum}}(); ">
                      <option value=0>Select
-                     <option value=1 selected="selected">No BMP
+                     <option value=1 {% if ctx.WatershedLandUse|get:wsd|get:'Feedlots'|eq0 %} selected="selected"{% endif %}>No BMP
                      <option value=2>Diversion
                      <option value=3>Filter strip
                      <option value=4>Runoff Mgmt System
@@ -229,14 +246,17 @@
                      <option value=9>Waste Storage Facility
                    </select>
   </td>
-  <td style="text-align:center"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name= BMP_5_016  value=100.0  onChange=" FeedBMP_01(); "></td>
+  <td style="text-align:center"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name= BMP_5_{{wsd|twonum}}6  value=100.0  onChange=" FeedBMP_{{wsd|twonum}}(); "></td>
   </td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_5_011  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_5_012  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_5_013  value=0.0></td>
-  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_5_014  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_5_{{wsd|twonum}}1  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_5_{{wsd|twonum}}2  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_5_{{wsd|twonum}}3  value=0.0></td>
+  <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name= BMP_5_{{wsd|twonum}}4  value=0.0></td>
 </tr>
-  </table><br>
+{% endfor %} 
+</table><br>
+
+<!--Urban -->
 <table style="width:870px; margin:0 auto" border=1>
   <tr>
     <td style="text-align:center;" colspan=12><div style="color:blue;">BMPs and efficiencies for different pollutants on <span style="font-weight:bold">Urban</span></div></td>
@@ -254,43 +274,26 @@
       <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Vacant (developed)</td>
       <td style="text-align:center; background-color:#BDBDBD; font-weight:bold">Open Space</td>
     </tr>
-<tr>
-  <td style="text-align:center;"> W1 </td>
-                     <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=urBMP_1 value="No BMP" readonly></td>
+{% for wsd in ctx.rangeWSD %}     
+  <tr>
+    <td style="text-align:center;"> W{{wsd}} </td>
+    <td style="text-align:center;"><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=urBMP_{{wsd}} value="{% if ctx.WatershedLandUse|get:wsd|get:'Urban'|eq0 %} No BMP {%else%}Select BMP{% endif %}" readonly></td>
+    {% for j in ctx.range9 %}
     <td align=center>
-      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_0011  value=0.0  onClick="javascript:window.open('./urBMP.cgi?numWSD=2','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');"  >
+      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_0{{wsd|twonum}}{{j}}  value=0.0  onClick="javascript:window.open('./urbanBMP','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');"  >
     </td>
-    <td align=center>
-      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_0012  value=0.0  onClick="javascript:window.open('./urBMP.cgi?numWSD=2','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');"  >
-    </td>
-    <td align=center>
-      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_0013  value=0.0  onClick="javascript:window.open('./urBMP.cgi?numWSD=2','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');"  >
-    </td>
-    <td align=center>
-      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_0014  value=0.0  onClick="javascript:window.open('./urBMP.cgi?numWSD=2','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');"  >
-    </td>
-    <td align=center>
-      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_0015  value=0.0  onClick="javascript:window.open('./urBMP.cgi?numWSD=2','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');"  >
-    </td>
-    <td align=center>
-      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_0016  value=0.0  onClick="javascript:window.open('./urBMP.cgi?numWSD=2','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');"  >
-    </td>
-    <td align=center>
-      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_0017  value=0.0  onClick="javascript:window.open('./urBMP.cgi?numWSD=2','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');"  >
-    </td>
-    <td align=center>
-      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_0018  value=0.0  onClick="javascript:window.open('./urBMP.cgi?numWSD=2','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');"  >
-    </td>
-    <td align=center>
-      <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=5 name= UrbanBMP_1_0019  value=0.0  onClick="javascript:window.open('./urBMP.cgi?numWSD=2','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');"  >
-    </td>
+    {%endfor%}
   </tr>
+  {% endfor %} 
   <tr>
     <td style="text-align:center" colspan=12>
-    <input type=button style='width:200;height:30;cursor:hand' value='Set Urban BMPs' onClick="javascript:window.open('./urBMP.cgi?numWSD=2','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');">
+    <input type=button style='width:200;height:30;cursor:hand' value='Set Urban BMPs' onClick="javascript:window.open('./urbanBMP','UrbanBMP','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=980');">
     </td>
   </tr>
 </table><br><hr>
+
+<!-- hidden data-->
+<!--UrbnConc-->
 <input type=hidden name=UrbnConc_11 value=2.0><input type=hidden name=UrbnConc_12 value=2.5><input type=hidden name=UrbnConc_13 value=1.8>
 <input type=hidden name=UrbnConc_14 value=3.0><input type=hidden name=UrbnConc_15 value=2.2><input type=hidden name=UrbnConc_16 value=2.2>
 <input type=hidden name=UrbnConc_17 value=1.9><input type=hidden name=UrbnConc_18 value=1.5><input type=hidden name=UrbnConc_19 value=1.5>
@@ -303,241 +306,35 @@
 <input type=hidden name=UrbnConc_41 value=75.0><input type=hidden name=UrbnConc_42 value=120.0><input type=hidden name=UrbnConc_43 value=67.0>
 <input type=hidden name=UrbnConc_44 value=150.0><input type=hidden name=UrbnConc_45 value=100.0><input type=hidden name=UrbnConc_46 value=100.0>
 <input type=hidden name=UrbnConc_47 value=150.0><input type=hidden name=UrbnConc_48 value=70.0><input type=hidden name=UrbnConc_49 value=70.0>
-<input type=hidden size=4 name=UrbanBMP_1_011 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_1_012 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_1_013 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_1_014 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_1_015 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_1_016 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_1_017 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_1_018 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_1_019 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_2_011 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_2_012 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_2_013 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_2_014 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_2_015 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_2_016 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_2_017 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_2_018 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_2_019 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_3_011 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_3_012 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_3_013 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_3_014 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_3_015 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_3_016 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_3_017 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_3_018 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_3_019 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_4_011 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_4_012 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_4_013 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_4_014 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_4_015 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_4_016 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_4_017 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_4_018 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_4_019 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_5_011 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_5_012 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_5_013 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_5_014 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_5_015 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_5_016 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_5_017 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_5_018 value=0.0>
-<input type=hidden size=4 name=UrbanBMP_5_019 value=0.0>
-<input type=hidden size=4 name=UrbanBMPinfo_011 value=0>
-<input type=hidden size=4 name=UrbanBMPinfo_012 value=0>
-<input type=hidden size=4 name=UrbanBMPinfo_013 value=0>
-<input type=hidden size=4 name=UrbanBMPinfo_014 value=0>
-<input type=hidden size=4 name=UrbanBMPinfo_015 value=0>
-<input type=hidden size=4 name=UrbanBMPinfo_016 value=0>
-<input type=hidden size=4 name=UrbanBMPinfo_017 value=0>
-<input type=hidden size=4 name=UrbanBMPinfo_018 value=0>
-<input type=hidden size=4 name=UrbanBMPinfo_019 value=0>
+
+<!-- BMP_k_0ij, i is watershd-->
+<!--j: 9 distributions:Commercial  Industrial  Institutional Transportation  Multi-Family  Single-Family Urban-Cultivated  Vacant (developed)  Open Space-->
+<!--# k: 5 chemicals: 1: area, 2: N, 3: P, 4: BOD, 5: TSS -> k ,-->
+{% for k in ctx.range5 %}
+{% for i in ctx.rangeWSD %}
+{% for j in ctx.range9 %}
+<input type=hidden size=4 name=UrbanBMP_{{k}}_{{i|twonum}}{{j}} value=0.0>
+{%endfor%}
+{%endfor%}
+{%endfor%}
+
 <div style="text-align:center"><br><input style="WIDTH:200;height:30;CURSOR:hand" type=button onClick="complete()" value="Next"><br><br></div>
 </form>
-<form name=BMP_List>
 
-<!-- cropland -->
-<input type=hidden name=CROP_011 value=0.0><input type=hidden name=CROP_012 value=0.0>
-<input type=hidden name=CROP_013 value=0.0><input type=hidden name=CROP_014 value=0.0>
-<input type=hidden name=CROP_021 value=0.0><input type=hidden name=CROP_022 value=0.0>
-<input type=hidden name=CROP_023 value=0.0><input type=hidden name=CROP_024 value=0.0>
-<input type=hidden name=CROP_031 value=0.485><input type=hidden name=CROP_032 value=0.55>
-<input type=hidden name=CROP_033 value=0.0><input type=hidden name=CROP_034 value=0.405>
-<input type=hidden name=CROP_041 value=0.1><input type=hidden name=CROP_042 value=0.3>
-<input type=hidden name=CROP_043 value=0.0><input type=hidden name=CROP_044 value=0.35>
-<input type=hidden name=CROP_051 value=0.7><input type=hidden name=CROP_052 value=0.75>
-<input type=hidden name=CROP_053 value=0.0><input type=hidden name=CROP_054 value=0.65>
-<input type=hidden name=CROP_061 value=0.55><input type=hidden name=CROP_062 value=0.45>
-<input type=hidden name=CROP_063 value=0.0><input type=hidden name=CROP_064 value=0.75>
-<input type=hidden name=CROP_071 value=0.75><input type=hidden name=CROP_072 value=0.75>
-<input type=hidden name=CROP_073 value=0.0><input type=hidden name=CROP_074 value=0.75>
-<input type=hidden name=CROP_081 value=0.2><input type=hidden name=CROP_082 value=0.7>
-<input type=hidden name=CROP_083 value=0.0><input type=hidden name=CROP_084 value=0.85>
+<!-- the constant data that used to calculate BMP...TODO:It's better to saved and get from database-->
+{% include "bmpList.html" %}
 
-<!-- pastureland -->
-<input type=hidden name=PAST_011 value=0.0><input type=hidden name=PAST_012 value=0.0>
-<input type=hidden name=PAST_013 value=0.0><input type=hidden name=PAST_014 value=0.0>
-<input type=hidden name=PAST_021 value=0.0><input type=hidden name=PAST_022 value=0.0>
-<input type=hidden name=PAST_023 value=0.0><input type=hidden name=PAST_024 value=0.0>
-<input type=hidden name=PAST_031 value=0.7><input type=hidden name=PAST_032 value=0.75>
-<input type=hidden name=PAST_033 value=0.0><input type=hidden name=PAST_034 value=0.65>
-
-<!-- forest -->
-<input type=hidden name=FRST_011 value=0.0><input type=hidden name=FRST_012 value=0.0>
-<input type=hidden name=FRST_013 value=0.0><input type=hidden name=FRST_014 value=0.0>
-<input type=hidden name=FRST_021 value=0.0><input type=hidden name=FRST_022 value=0.0>
-<input type=hidden name=FRST_023 value=0.0><input type=hidden name=FRST_024 value=0.0>
-<input type=hidden name=FRST_031 value=0.0><input type=hidden name=FRST_032 value=0.0>
-<input type=hidden name=FRST_033 value=0.0><input type=hidden name=FRST_034 value=0.41>
-<input type=hidden name=FRST_041 value=0.0><input type=hidden name=FRST_042 value=0.0>
-<input type=hidden name=FRST_043 value=0.0><input type=hidden name=FRST_044 value=0.71>
-<input type=hidden name=FRST_051 value=1.0><input type=hidden name=FRST_052 value=1.0>
-<input type=hidden name=FRST_053 value=1.0><input type=hidden name=FRST_054 value=0.71>
-<input type=hidden name=FRST_061 value=0.0><input type=hidden name=FRST_062 value=0.0>
-<input type=hidden name=FRST_063 value=0.0><input type=hidden name=FRST_064 value=0.41>
-<input type=hidden name=FRST_071 value=0.0><input type=hidden name=FRST_072 value=0.0>
-<input type=hidden name=FRST_073 value=0.0><input type=hidden name=FRST_074 value=0.41>
-<input type=hidden name=FRST_081 value=0.0><input type=hidden name=FRST_082 value=0.0>
-<input type=hidden name=FRST_083 value=0.0><input type=hidden name=FRST_084 value=0.5>
-<input type=hidden name=FRST_091 value=0.0><input type=hidden name=FRST_092 value=0.0>
-<input type=hidden name=FRST_093 value=0.0><input type=hidden name=FRST_094 value=0.71>
-<input type=hidden name=FRST_101 value=0.0><input type=hidden name=FRST_102 value=0.0>
-<input type=hidden name=FRST_103 value=0.0><input type=hidden name=FRST_104 value=0.69>
-<input type=hidden name=FRST_111 value=0.0><input type=hidden name=FRST_112 value=0.0>
-<input type=hidden name=FRST_113 value=0.0><input type=hidden name=FRST_114 value=0.81>
-<input type=hidden name=FRST_121 value=0.0><input type=hidden name=FRST_122 value=0.0>
-<input type=hidden name=FRST_123 value=0.0><input type=hidden name=FRST_124 value=0.95>
-<input type=hidden name=FRST_131 value=0.0><input type=hidden name=FRST_132 value=0.0>
-<input type=hidden name=FRST_133 value=0.0><input type=hidden name=FRST_134 value=0.93>
-<input type=hidden name=FRST_141 value=0.0><input type=hidden name=FRST_142 value=0.0>
-<input type=hidden name=FRST_143 value=0.0><input type=hidden name=FRST_144 value=0.83>
-<input type=hidden name=FRST_151 value=0.0><input type=hidden name=FRST_152 value=0.0>
-<input type=hidden name=FRST_153 value=0.0><input type=hidden name=FRST_154 value=0.86>
-
-<!-- User_Defined -->
-<input type=hidden name=USER_011 value=0.0><input type=hidden name=USER_012 value=0.0>
-<input type=hidden name=USER_013 value=0.0><input type=hidden name=USER_014 value=0.0>
-<input type=hidden name=USER_021 value=0.0><input type=hidden name=USER_022 value=0.0>
-<input type=hidden name=USER_023 value=0.0><input type=hidden name=USER_024 value=0.0>
-
-<!-- Feedlot -->
-<input type=hidden name=FEED_011 value=0.0><input type=hidden name=FEED_012 value=0.0>
-<input type=hidden name=FEED_013 value=0.0><input type=hidden name=FEED_014 value=0.0>
-<input type=hidden name=FEED_021 value=0.45><input type=hidden name=FEED_022 value=0.7>
-<input type=hidden name=FEED_023 value=0.0><input type=hidden name=FEED_024 value=0.0>
-<input type=hidden name=FEED_031 value=0.0><input type=hidden name=FEED_032 value=0.85>
-<input type=hidden name=FEED_033 value=0.0><input type=hidden name=FEED_034 value=0.0>
-<input type=hidden name=FEED_041 value=0.0><input type=hidden name=FEED_042 value=0.825>
-<input type=hidden name=FEED_043 value=0.0><input type=hidden name=FEED_044 value=0.0>
-<input type=hidden name=FEED_051 value=0.35><input type=hidden name=FEED_052 value=0.31>
-<input type=hidden name=FEED_053 value=0.0><input type=hidden name=FEED_054 value=0.0>
-<input type=hidden name=FEED_061 value=0.0><input type=hidden name=FEED_062 value=0.8>
-<input type=hidden name=FEED_063 value=0.85><input type=hidden name=FEED_064 value=0.0>
-<input type=hidden name=FEED_071 value=0.55><input type=hidden name=FEED_072 value=0.85>
-<input type=hidden name=FEED_073 value=0.0><input type=hidden name=FEED_074 value=0.0>
-<input type=hidden name=FEED_081 value=0.8><input type=hidden name=FEED_082 value=0.9>
-<input type=hidden name=FEED_083 value=0.0><input type=hidden name=FEED_084 value=0.0>
-<input type=hidden name=FEED_091 value=0.65><input type=hidden name=FEED_092 value=0.6>
-<input type=hidden name=FEED_093 value=0.0><input type=hidden name=FEED_094 value=0.0>
-
-<!-- Urban -->
-<input type=hidden name=URBN_011 value=0.0><input type=hidden name=URBN_012 value=0.0>
-<input type=hidden name=URBN_013 value=0.0><input type=hidden name=URBN_014 value=0.0>
-<input type=hidden name=URBN_021 value=0.6><input type=hidden name=URBN_022 value=0.9>
-<input type=hidden name=URBN_023 value=0.6><input type=hidden name=URBN_024 value=0.95>
-<input type=hidden name=URBN_031 value=0.63><input type=hidden name=URBN_032 value=0.8>
-<input type=hidden name=URBN_033 value=0.0><input type=hidden name=URBN_034 value=0.0>
-<input type=hidden name=URBN_041 value=0.0><input type=hidden name=URBN_042 value=0.0>
-<input type=hidden name=URBN_043 value=0.0><input type=hidden name=URBN_044 value=0.0>
-<input type=hidden name=URBN_051 value=0.9><input type=hidden name=URBN_052 value=0.9>
-<input type=hidden name=URBN_053 value=0.0><input type=hidden name=URBN_054 value=0.9>
-<input type=hidden name=URBN_061 value=0.3><input type=hidden name=URBN_062 value=0.26>
-<input type=hidden name=URBN_063 value=0.27><input type=hidden name=URBN_064 value=0.575>
-<input type=hidden name=URBN_071 value=0.55><input type=hidden name=URBN_072 value=0.685>
-<input type=hidden name=URBN_073 value=0.72><input type=hidden name=URBN_074 value=0.86>
-<input type=hidden name=URBN_081 value=0.5325><input type=hidden name=URBN_082 value=0.6125>
-<input type=hidden name=URBN_083 value=0.0><input type=hidden name=URBN_084 value=0.65>
-<input type=hidden name=URBN_091 value=0.1><input type=hidden name=URBN_092 value=0.25>
-<input type=hidden name=URBN_093 value=0.3><input type=hidden name=URBN_094 value=0.65>
-<input type=hidden name=URBN_101 value=0.6><input type=hidden name=URBN_102 value=0.65>
-<input type=hidden name=URBN_103 value=0.0><input type=hidden name=URBN_104 value=0.75>
-<input type=hidden name=URBN_111 value=0.0><input type=hidden name=URBN_112 value=0.83>
-<input type=hidden name=URBN_113 value=0.83><input type=hidden name=URBN_114 value=0.94>
-<input type=hidden name=URBN_121 value=0.55><input type=hidden name=URBN_122 value=0.6>
-<input type=hidden name=URBN_123 value=0.0><input type=hidden name=URBN_124 value=0.75>
-<input type=hidden name=URBN_131 value=0.0><input type=hidden name=URBN_132 value=0.0>
-<input type=hidden name=URBN_133 value=0.0><input type=hidden name=URBN_134 value=0.0>
-<input type=hidden name=URBN_141 value=0.0><input type=hidden name=URBN_142 value=0.0>
-<input type=hidden name=URBN_143 value=0.0><input type=hidden name=URBN_144 value=0.0>
-<input type=hidden name=URBN_151 value=0.0><input type=hidden name=URBN_152 value=0.0>
-<input type=hidden name=URBN_153 value=0.0><input type=hidden name=URBN_154 value=0.0>
-<input type=hidden name=URBN_161 value=0.43><input type=hidden name=URBN_162 value=0.81>
-<input type=hidden name=URBN_163 value=0.0><input type=hidden name=URBN_164 value=0.0>
-<input type=hidden name=URBN_171 value=0.5><input type=hidden name=URBN_172 value=0.5>
-<input type=hidden name=URBN_173 value=0.7><input type=hidden name=URBN_174 value=0.9>
-<input type=hidden name=URBN_181 value=0.3><input type=hidden name=URBN_182 value=0.3>
-<input type=hidden name=URBN_183 value=0.4><input type=hidden name=URBN_184 value=0.6>
-<input type=hidden name=URBN_191 value=0.5><input type=hidden name=URBN_192 value=0.65>
-<input type=hidden name=URBN_193 value=0.0><input type=hidden name=URBN_194 value=0.9>
-<input type=hidden name=URBN_201 value=0.5><input type=hidden name=URBN_202 value=0.5>
-<input type=hidden name=URBN_203 value=0.7><input type=hidden name=URBN_204 value=0.9>
-<input type=hidden name=URBN_211 value=0.075><input type=hidden name=URBN_212 value=0.175>
-<input type=hidden name=URBN_213 value=0.0><input type=hidden name=URBN_214 value=0.475>
-<input type=hidden name=URBN_221 value=0.4><input type=hidden name=URBN_222 value=0.2>
-<input type=hidden name=URBN_223 value=0.0><input type=hidden name=URBN_224 value=0.8>
-<input type=hidden name=URBN_231 value=0.05><input type=hidden name=URBN_232 value=0.05>
-<input type=hidden name=URBN_233 value=0.0><input type=hidden name=URBN_234 value=0.15>
-<input type=hidden name=URBN_241 value=0.85><input type=hidden name=URBN_242 value=0.65>
-<input type=hidden name=URBN_243 value=0.0><input type=hidden name=URBN_244 value=0.9>
-<input type=hidden name=URBN_251 value=0.35><input type=hidden name=URBN_252 value=0.5>
-<input type=hidden name=URBN_253 value=0.0><input type=hidden name=URBN_254 value=0.8>
-<input type=hidden name=URBN_261 value=0.0><input type=hidden name=URBN_262 value=0.375>
-<input type=hidden name=URBN_263 value=0.4><input type=hidden name=URBN_264 value=0.825>
-<input type=hidden name=URBN_271 value=0.0><input type=hidden name=URBN_272 value=0.515>
-<input type=hidden name=URBN_273 value=0.56><input type=hidden name=URBN_274 value=0.815>
-<input type=hidden name=URBN_281 value=0.4><input type=hidden name=URBN_282 value=0.4525>
-<input type=hidden name=URBN_283 value=0.505><input type=hidden name=URBN_284 value=0.73>
-<input type=hidden name=URBN_291 value=0.0><input type=hidden name=URBN_292 value=0.06>
-<input type=hidden name=URBN_293 value=0.06><input type=hidden name=URBN_294 value=0.16>
-<input type=hidden name=URBN_301 value=0.35><input type=hidden name=URBN_302 value=0.45>
-<input type=hidden name=URBN_303 value=0.0><input type=hidden name=URBN_304 value=0.6>
-<input type=hidden name=URBN_311 value=0.2><input type=hidden name=URBN_312 value=0.44>
-<input type=hidden name=URBN_313 value=0.0><input type=hidden name=URBN_314 value=0.6>
-<input type=hidden name=URBN_321 value=0.35><input type=hidden name=URBN_322 value=0.0>
-<input type=hidden name=URBN_323 value=0.0><input type=hidden name=URBN_324 value=0.8>
-<input type=hidden name=URBN_331 value=0.2><input type=hidden name=URBN_332 value=0.09>
-<input type=hidden name=URBN_333 value=0.13><input type=hidden name=URBN_334 value=0.37>
-
-</form>
 <form name=ubForm>
-<input type=hidden name=ubDis_011 value="15.00" size=2>
-<input type=hidden name=ubDis_012 value="10.00" size=2>
-<input type=hidden name=ubDis_013 value="10.00" size=2>
-<input type=hidden name=ubDis_014 value="10.00" size=2>
-<input type=hidden name=ubDis_015 value="10.00" size=2>
-<input type=hidden name=ubDis_016 value="30.00" size=2>
-<input type=hidden name=ubDis_017 value="5.00" size=2>
-<input type=hidden name=ubDis_018 value="5.00" size=2>
-<input type=hidden name=ubDis_019 value="5.00" size=2>
-<input type=hidden name=ubArea_01 value="0.00" size=2>
+{% for wsd in ctx.rangeWSD %}
+<input type=hidden name=ubArea_{{wsd|twonum}} value="{{ctx.WatershedLandUse|get:wsd|get:'Urban'}}" size=2>
+{%endfor%}
 </form>
-<div style="text-align:center"><hr>
-<div style="font-size:0.82em">
-  <div style="color:gray">
-    Copyright &copy; 2015, Purdue University and Kangwon National University, all rights reserved. <br>
-    Purdue University is an equal access/equal opportunity university.<br>
-  </div>
-  Contact <a href=mailto:engelb@purdue.edu>Dr. Bernie Engel</a>
-  or <a href=mailto:theller@purdue.edu>Larry Theller</a> for more details if you need any help with STEPL WEB.
-  <br>
-  This implementation of the classic EPA model was designed by Dr. <a href=mailto:ysparkwithyou@gmail.com>Youn Shik Park</a>, Assistant Professor, Kongju National University, South-Korea.
-  <br>Programmatic support from US EPA, Illinois-Indiana Sea Grant,  and US Army Corp of Engineers.
-</div></div><br>
+
+<div style="text-align:center">
+{% include "footer.html" %}
+
+</div>
+
 <script language="JavaScript">
 function CropBMP_01() {
   var myRatio = document.bmpMain.BMP_1_016.value * 0.01 ;
@@ -793,10 +590,10 @@ function BMP_LDC() {
 function complete() {   
  var flag = 0;
  if ( document.bmpMain.urBMP_1.value == "Select BMP" )
-   flag = 1; 
- if( ( document.bmpMain.BMP_1_015.value * 1 == 0 ) || ( document.bmpMain.BMP_2_015.value * 1 == 0 ) 
+   alert( "Please select BMPs for Urban" ); 
+ else if( ( document.bmpMain.BMP_1_015.value * 1 == 0 ) || ( document.bmpMain.BMP_2_015.value * 1 == 0 ) 
    || ( document.bmpMain.BMP_3_015.value * 1 == 0 ) || ( document.bmpMain.BMP_4_015.value * 1 == 0 ) 
-   || ( document.bmpMain.BMP_5_015.value * 1  == 0 )  || ( flag == 1 ) ) 
+   || ( document.bmpMain.BMP_5_015.value * 1  == 0 )  ) 
    alert( "Please select a BMP" ); 
  else 
     document.bmpMain.submit();
