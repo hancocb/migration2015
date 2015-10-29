@@ -1,3 +1,11 @@
+OCT 24:
+in inputMain.cgi
+OptPar = open(path + 'myOptPar.pys','w')
+  for i in range(6) :
+    OptPar.write('1.00\n')
+  OptPar.close()
+
+  
 Oct 24:
  BMP_LDC in bmpMain is missing
 Oct 24:

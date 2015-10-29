@@ -404,4 +404,34 @@ class StreambankErosionInput(StreambankErosionAbstract):
       super(StreambankErosionInput, self).__init__(*args, **kwargs)
       self._meta.get_field_by_name('watershd_id')[0]._choices = get_models_watershd_choices()
 
+#bmp input
+class  BMPInput(models.Model):
+  session_id = models.IntegerField() 
+  #!!!landtype_id: 1~5 : Cropland, pastland, forest,user defined, feedlot
+  landtype_id = models.IntegerField() 
+  watershd_id = models.IntegerField() 
+  BMP = models.IntegerField(default=0)
+  PercentApplied = models.FloatField(default=100)
+  N = models.FloatField(default=0)
+  P = models.FloatField(default=0)
+  BOD = models.FloatField(default=0)
+  Sediment = models.FloatField(default=0)
+  class Meta:
+    unique_together = ('session_id', 'landtype_id','watershd_id')
+
+#UrbanBmpInput
+class UrbanBmpInput(models.Model):
+    session_id = models.IntegerField() 
+    # 1)for(i=1~4)
+    #    for(j=1~9) 
+    #       UrbnConc_ij
+    # 2) {% for k in ctx.range5 %}
+    #     {% for i in ctx.rangeWSD %}
+    #       {% for j in ctx.range9 %}
+    #         UrbanBMP_{{k}}_{{i|twonum}}{{j}} 
+    key = models.CharField(max_length=30)
+    value = models.FloatField(default=0)
+    class Meta:
+      unique_together = ('session_id', 'key')
+#
 #

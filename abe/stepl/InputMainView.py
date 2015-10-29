@@ -21,7 +21,7 @@ class InputMainView(View):
         #all saved to session
         context = request.session
 
-    	#save the last step of data
+    	#save the last step of data,create new session
         i = IndexInput(num_watershd=request.POST['numWSD'],
                         num_gully=request.POST['numGLY'],
                         num_steambank=request.POST['numSTR'])
