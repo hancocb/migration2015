@@ -16,17 +16,17 @@ class RunStep1View(View):
         session_id=context['IndexInput']['id']
         #process inputs from bmpMain
 
-        #process landtype_id: 1~5 : Cropland, pastland, forest,user defined， feedlot
+        #process landtype_id: 1~5 : Cropland, pastland, forest,user defined,feedlot
         for landtype_id in range(1,6):
             for watershd_id in context['rangeWSD']:
-                if not BMPInput.objects.filter(session_id=indexInput.id, landtype_id=landtype ,watershd_id=watershd_id).exists():
+                if not BMPInput.objects.filter(session_id=session_id, landtype_id=landtype_id ,watershd_id=watershd_id).exists():
                     bmpInput = BMPInput(
-                        session_id=indexInput.id, 
+                        session_id=session_id, 
                         landtype_id=landtype_id,
                         watershd_id=watershd_id
                         )
                 else:
-                    bmpInput = BMPInput.objects.get(session_id=indexInput.id, landtype_id=landtype_id, watershd_id=watershd_id)
+                    bmpInput = BMPInput.objects.get(session_id=session_id, landtype_id=landtype_id, watershd_id=watershd_id)
                 bmpInput.BMP = request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"5"]
                 bmpInput.PercentApplied=request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"6"]
                 bmpInput.N   = request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"1"]
@@ -39,38 +39,40 @@ class RunStep1View(View):
         for i in range(1,5):
             for j in range(1,10):
                 key = "UrbnConc_"+str(i)+str(j)
-                if not UrbanBmpInput.objects.filter(session_id=indexInput.id, key=key).exists():
+                if not UrbanBmpInput.objects.filter(session_id=session_id, key=key).exists():
                     urbanBmpInput = UrbanBmpInput(
-                        session_id=indexInput.id, 
+                        session_id=session_id, 
                         key=key
                         )
                 else:
-                    urbanBmpInput = UrbanBmpInput.objects.get(session_id=indexInput.id, key=key)
+                    urbanBmpInput = UrbanBmpInput.objects.get(session_id=session_id, key=key)
                 urbanBmpInput.value = request.POST[key]
                 urbanBmpInput.save()
 
         #UrbanBMP_
         for k in context['range5']:
-            for i in context['rangeWSD']
+            for i in context['rangeWSD']:
                 for j in context['range9']: 
                     key = 'UrbanBMP_'+str(k)+'_'+twonum(i)+str(j) 
-                if not UrbanBmpInput.objects.filter(session_id=indexInput.id, key=key).exists():
+                if not UrbanBmpInput.objects.filter(session_id=session_id, key=key).exists():
                     urbanBmpInput = UrbanBmpInput(
-                        session_id=indexInput.id, 
+                        session_id=session_id, 
                         key=key
                         )
                 else:
-                    urbanBmpInput = UrbanBmpInput.objects.get(session_id=indexInput.id, key=key)
+                    urbanBmpInput = UrbanBmpInput.objects.get(session_id=session_id, key=key)
                 urbanBmpInput.value = request.POST[key]
                 urbanBmpInput.save()
 
         #process through STPEL api to run fortran
         self.runStep1(context)
-        
+
         return render(request, 'runStep1.html', { 'ctx':context, 'req' : request })
 
     def get(self, request):
         raise Http404("GET of this page does not exist, you need POST")
+    def runStep1(self, context):
+        pass
 
 
 
