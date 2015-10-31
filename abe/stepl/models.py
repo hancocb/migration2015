@@ -368,7 +368,7 @@ class SoilTextureInput(SoilTextureAbstract):
 #GullyDB: Lateral Recession Rate (LRR) DB
 class LateralRecessionRateAbstract(models.Model):
   Category = models.CharField(max_length=30,default='')
-  LRR = models.FloatField(default=0) 
+  LRR = models.CharField(max_length=30,default="") 
   Medium_Value = models.FloatField(default=0) 
   class Meta:
     abstract = True
