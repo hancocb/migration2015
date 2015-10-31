@@ -51,7 +51,7 @@ class InputMainView(View):
             WildlifeDensityInCropLandAbstract,
             AnimalWeightAbstract,
             SepticSystemAbstract,
-            FreelotAnimalAbstract,
+            FeedlotAnimalAbstract,
             SoilTextureAbstract,
             LateralRecessionRateAbstract,
         ]
@@ -60,7 +60,7 @@ class InputMainView(View):
             WildlifeDensityInCropLand,
             AnimalWeight,
             SepticSystem,
-            FreelotAnimal,
+            FeedlotAnimal,
             SoilTexture,
             LateralRecessionRate,
         ]
@@ -69,7 +69,7 @@ class InputMainView(View):
             WildlifeDensityInCropLandInput,
             AnimalWeightInput,
             SepticSystemInput,
-            FreelotAnimalInput,
+            FeedlotAnimalInput,
             SoilTextureInput,
             LateralRecessionRateInput,
         ]
@@ -125,11 +125,11 @@ class InputMainView(View):
                 soilInput.save()
 
         #6.Reference runoff curve number
-        all_eles = UrbanReferenceRunoff.objects.all()
+        all_eles = ReferenceRunoff.objects.filter(Standard = INPUT_STANDARD)
         for ele in all_eles:
-            if not UrbanReferenceRunoffInput.objects.filter(
+            if not ReferenceRunoffInput.objects.filter(
                 session_id=context['IndexInput']['id'],Landuse=ele.Landuse).exists():
-                inp = UrbanReferenceRunoffInput(
+                inp = ReferenceRunoffInput(
                         SHG_A = ele.SHG_A, 
                         SHG_B = ele.SHG_B, 
                         SHG_C = ele.SHG_C, 
@@ -139,7 +139,7 @@ class InputMainView(View):
                     )
                 inp.save()
         #6a. Detailed urban reference runoff curve number
-        all_eles = DetailedRunoff.objects.all()
+        all_eles = DetailedRunoff.objects.filter(Standard = INPUT_STANDARD)
         for ele in all_eles:
             if not DetailedRunoffInput.objects.filter(
                 session_id=context['IndexInput']['id'],Urban=ele.Urban).exists():
@@ -154,7 +154,7 @@ class InputMainView(View):
                 inp.save()
 
         #7.Nutrient concentration in runoff (mg/l)
-        all_eles = NutrientRunoff.objects.all()
+        all_eles = NutrientRunoff.objects.filter(Standard = INPUT_STANDARD)
         for ele in all_eles:
             if not NutrientRunoffInput.objects.filter(
                 session_id=context['IndexInput']['id'],Landuse=ele.Landuse).exists():
@@ -167,7 +167,7 @@ class InputMainView(View):
                     )
                 inp.save()
         #7a Nutrient concentration in shallow groundwater (mg/l)
-        all_eles = NutrientGroundwaterRunoff.objects.all()
+        all_eles = NutrientGroundwaterRunoff.objects.filter(Standard = INPUT_STANDARD)
         for ele in all_eles:
             if not NutrientGroundwaterRunoffInput.objects.filter(
                 session_id=context['IndexInput']['id'],Landuse=ele.Landuse).exists():

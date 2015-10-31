@@ -1,3 +1,8 @@
+OCT 28:
+where is the GullyDB_xxx??????
+Did i miss them????
+---no....I just forget what i did.....wasting time here..................
+
 OCT 24:
 in inputMain.cgi
 OptPar = open(path + 'myOptPar.pys','w')

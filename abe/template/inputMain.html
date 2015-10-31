@@ -57,7 +57,7 @@
   var CountyDataInput_id = 0;
   function openCountyLink(){
      if(CountyDataInput_id > 0){
-        window.open("/admin/stepl/countydatainput/"+CountyDataInput_id,'CountyDataInput', 'status=0,toolbar=1,location=0,menubar=0,scrollbars=1crolling=1,height=600,width=780');
+        window.open("/admin/stepl/countydatainput/"+CountyDataInput_id+"?h=session_id,state_name,name&s=1",'CountyDataInput', 'status=0,toolbar=1,location=0,menubar=0,scrollbars=1crolling=1,height=600,width=780');
      }  else{
         alert("Please choose county first!");
         openCligenMap();
@@ -429,7 +429,7 @@
         <input type="button" 
         style="width:240px;height:30px;cursor:hand" 
         value="Feedlot DB Table" 
-        onclick="javascript:window.open('./otherTables?t=freelot',
+        onclick="javascript:window.open('./otherTables?t=feedlot',
         'Feedlot','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
       </td>
       <td>
@@ -463,7 +463,7 @@
 <input type="hidden" name="CountyName" value="None">
 <input type="hidden" name="LocFileName" value="None">
 
-<!-- not include static hidden data anymore, since all static data are made in the admin site-->
+<!-- to make life easier, the static hidden data is stored and loaded from DB!-->
 
 </form>
 

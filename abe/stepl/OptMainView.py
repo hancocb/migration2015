@@ -11,7 +11,7 @@ class OptMainView(View):
         #5
         context['SoilDataInput'] = list2dict(SoilDataInput.objects.filter(session_id=session_id).values())
         #6
-        context['UrbanReferenceRunoffInput'] = list2dict(UrbanReferenceRunoffInput.objects.filter(session_id=session_id).values())
+        context['ReferenceRunoffInput'] = list2dict(ReferenceRunoffInput.objects.filter(session_id=session_id).values())
         #6.a
         context['DetailedRunoffInput'] = list2dict(DetailedRunoffInput.objects.filter(session_id=session_id).values())
         #7

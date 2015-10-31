@@ -57,6 +57,24 @@ class SepticNillegal(models.Model):
   class Meta:
     unique_together = ('session_id', 'watershd_id')
 
+'''
+#for hidden static data KV...just found that I have already implemented it in other way...
+shit....wasted 2 hours here!!!!!
+class StaticInputMainData(models.Model):
+    Standard = models.CharField(max_length=30)
+    key = models.CharField(max_length=30)
+    value = models.FloatField(default=0)
+    class Meta:
+      unique_together = ('Standard', 'key')
+
+class StaticInputMainInput(models.Model):
+    session_id = models.IntegerField() 
+    key = models.CharField(max_length=30)
+    value = models.FloatField(default=0)
+    class Meta:
+      unique_together = ('session_id', 'key')
+'''
+
 #model for county abstract data
 class CountyDataAbstract(models.Model):
    state_name = models.CharField(max_length=30)  
@@ -73,7 +91,9 @@ class CountyDataAbstract(models.Model):
 
 #model for county static data
 class CountyData(CountyDataAbstract):
+    #combination of state_name and name (county name)
    state_name_name = models.CharField(max_length=30) 
+
    rainfall_inches = models.FloatField()
    raindays = models.FloatField()
    runoff = models.FloatField()
@@ -115,10 +135,13 @@ class RunoffAbastract(models.Model):
     abstract = True
 
 #Step 6. Reference runoff curve number
-class UrbanReferenceRunoff(RunoffAbastract):
-  Landuse = models.CharField(max_length=30,unique=True)
+class ReferenceRunoff(RunoffAbastract):
+  Landuse = models.CharField(max_length=30)
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'Landuse')
 
-class UrbanReferenceRunoffInput(RunoffAbastract):
+class ReferenceRunoffInput(RunoffAbastract):
   Landuse = models.CharField(max_length=30,db_index=True)  
   session_id = models.IntegerField() 
   class Meta:
@@ -127,7 +150,10 @@ class UrbanReferenceRunoffInput(RunoffAbastract):
 
 #Step 6a. Detailed urban reference runoff curve number
 class DetailedRunoff(RunoffAbastract):
-  Urban = models.CharField(max_length=30,unique=True)
+  Urban = models.CharField(max_length=30)
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'Urban')
 
 class DetailedRunoffInput(RunoffAbastract):
   Urban = models.CharField(max_length=30,db_index=True)  
@@ -145,7 +171,10 @@ class NutrientAbstract(models.Model):
 
 #7.Nutrient concentration in runoff
 class NutrientRunoff(NutrientAbstract):
-  Landuse = models.CharField(max_length=30,unique=True)
+  Landuse = models.CharField(max_length=30)
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'Landuse')
 
 class NutrientRunoffInput(NutrientAbstract):
   Landuse = models.CharField(max_length=30,db_index=True)  
@@ -155,7 +184,10 @@ class NutrientRunoffInput(NutrientAbstract):
 
 #7a. Nutrient concentration in shallow groundwater (mg/l)
 class NutrientGroundwaterRunoff(NutrientAbstract):
-  Landuse = models.CharField(max_length=30,unique=True)
+  Landuse = models.CharField(max_length=30)
+  Standard = models.CharField(max_length=30)
+  class Meta:
+    unique_together = ('Standard', 'Landuse')
 
 class NutrientGroundwaterRunoffInput(NutrientAbstract):
   Landuse = models.CharField(max_length=30,db_index=True)  
@@ -283,8 +315,8 @@ class SepticSystemInput(SepticSystemAbstract):
   class Meta:
     unique_together = ('session_id', 'Title')
 
-# Freelot DB table: Ratio of nutrients produced by animals relative to 1000 lb of slaughter steer
-class FreelotAnimalAbstract(models.Model):
+# Feedlot DB table: Ratio of nutrients produced by animals relative to 1000 lb of slaughter steer
+class FeedlotAnimalAbstract(models.Model):
   Animal = models.CharField(max_length=30,default='')
   N = models.FloatField(default=0) 
   P = models.FloatField(default=0) 
@@ -293,12 +325,12 @@ class FreelotAnimalAbstract(models.Model):
   class Meta:
     abstract = True
 
-class FreelotAnimal(FreelotAnimalAbstract):
+class FeedlotAnimal(FeedlotAnimalAbstract):
   Standard = models.CharField(max_length=30)
   class Meta:
     unique_together = ('Standard', 'Animal')
 
-class FreelotAnimalInput(FreelotAnimalAbstract):
+class FeedlotAnimalInput(FeedlotAnimalAbstract):
   session_id = models.IntegerField() 
   class Meta:
     unique_together = ('session_id', 'Animal')

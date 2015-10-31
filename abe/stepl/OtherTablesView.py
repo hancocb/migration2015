@@ -18,8 +18,8 @@ class OtherTablesView(View):
             context['AnimalWeightInput'] = list2dict(AnimalWeightInput.objects.filter(session_id=session_id).values())
         elif template == 'septic':
             context['SepticSystemInput'] = list2dict(SepticSystemInput.objects.filter(session_id=session_id).values())
-        elif template == 'freelot':
-            context['FreelotAnimalInput'] = list2dict(FreelotAnimalInput.objects.filter(session_id=session_id).values())
+        elif template == 'feedlot':
+            context['FeedlotAnimalInput'] = list2dict(FeedlotAnimalInput.objects.filter(session_id=session_id).values())
         elif template == 'gullyDB':
             context['SoilTextureInput'] = list2dict(SoilTextureInput.objects.filter(session_id=session_id).values())
             context['LateralRecessionRateInput'] = list2dict(LateralRecessionRateInput.objects.filter(session_id=session_id).values())

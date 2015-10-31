@@ -71,7 +71,27 @@ class RunStep1View(View):
 
     def get(self, request):
         raise Http404("GET of this page does not exist, you need POST")
+        
+    def getStaticInputMainDataKV(key):
+        staticData = StaticInputMainData.objects.get(Standard=INPUT_STANDARD,key=key)
+        return '%.4f' %float(staticData.value)
+
     def runStep1(self, context):
+        #GuyllyDB.txt
+        GullyDB = [0.0] * 13
+        for i in range(1,11) :
+          GullyDB[i] = [0.0] * 3
+          for j in range(1,3) :
+            key = 'GullyDB_' +  '%02i' % i + str(j) 
+            GullyDB[i][j] = self.getStaticInputMainDataKV(key)
+        GullyDB[11] = [0.0] * 2
+        GullyDB[12] = [0.0] * 2
+        GullyDB[11][0] = self.getStaticInputMainDataKV("GullyDB_111") 
+        GullyDB[11][1] = self.getStaticInputMainDataKV("GullyDB_121") 
+        GullyDB[12][0] = self.getStaticInputMainDataKV("GullyDB_131") 
+        GullyDB[12][1] = self.getStaticInputMainDataKV("GullyDB_141") 
+
+        #URL_RUN_STEP_1 is from stepl_setting
         pass
 
 

@@ -17,8 +17,8 @@ admin.site.register(IndexInput, IndexInputAdmin)
 admin.site.register(SoilData)
 admin.site.register(SoilDataInput)
 
-admin.site.register(UrbanReferenceRunoff)
-admin.site.register(UrbanReferenceRunoffInput)
+admin.site.register(ReferenceRunoff)
+admin.site.register(ReferenceRunoffInput)
 
 admin.site.register(DetailedRunoff)
 admin.site.register(DetailedRunoffInput)
@@ -40,7 +40,7 @@ class AnimalWeightAdmin(admin.ModelAdmin):
     search_fields = ['Animal']
 admin.site.register(AnimalWeight,AnimalWeightAdmin)
 admin.site.register(SepticSystem)
-admin.site.register(FreelotAnimal)
+admin.site.register(FeedlotAnimal)
 admin.site.register(SoilTexture)
 admin.site.register(LateralRecessionRate)
 admin.site.register(GullyErosion)
@@ -54,7 +54,7 @@ class AnimalWeightInputAdmin(admin.ModelAdmin):
     search_fields = ['Animal']
 admin.site.register(AnimalWeightInput)
 admin.site.register(SepticSystemInput)
-admin.site.register(FreelotAnimalInput)
+admin.site.register(FeedlotAnimalInput)
 admin.site.register(SoilTextureInput)
 admin.site.register(LateralRecessionRateInput)
 admin.site.register(GullyErosionInput)

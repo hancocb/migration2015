@@ -28,7 +28,7 @@ function done(){
       <td colspan="4" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
 
         <button onclick="javascript:window.open(
-        '/admin/stepl/soildatainput/{{ctx.SoilDataInput|get:idx|get:'id'}}/'
+        '/admin/stepl/soildatainput/{{ctx.SoilDataInput|get:idx|get:'id'}}/?h=session_id,watershd_id&s=1'
         ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
 
       </td>
@@ -46,13 +46,13 @@ function done(){
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">SHG C</td>
       <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">SHG D</td>
     </tr>
-    {% for idx in ctx.UrbanReferenceRunoffInput %}
+    {% for idx in ctx.ReferenceRunoffInput %}
     <tr>
-      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">{{ctx.UrbanReferenceRunoffInput|get:idx|get:'Landuse'}} </td>
+      <td style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">{{ctx.ReferenceRunoffInput|get:idx|get:'Landuse'}} </td>
       <td colspan="4" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
 
         <button onclick="javascript:window.open(
-        '/admin/stepl/urbanreferencerunoffinput/{{ctx.UrbanReferenceRunoffInput|get:idx|get:'id'}}/'
+        '/admin/stepl/referencerunoffinput/{{ctx.ReferenceRunoffInput|get:idx|get:'id'}}/?h=session_id,Landuse&s=1'
         ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
 
       </td>
@@ -77,7 +77,7 @@ function done(){
       <td colspan="4" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
         
          <button onclick="javascript:window.open(
-        '/admin/stepl/detailedrunoffinput/{{ctx.DetailedRunoffInput|get:idx|get:'id'}}/'
+        '/admin/stepl/detailedrunoffinput/{{ctx.DetailedRunoffInput|get:idx|get:'id'}}/?h=session_id,Urban&s=1'
         ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
 
       </td>
@@ -101,7 +101,7 @@ function done(){
           <td colspan="3" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
             
             <button onclick="javascript:window.open(
-        '/admin/stepl/nutrientrunoffinput/{{ctx.NutrientRunoffInput|get:idx|get:'id'}}/'
+        '/admin/stepl/nutrientrunoffinput/{{ctx.NutrientRunoffInput|get:idx|get:'id'}}/?h=session_id,Landuse&s=1'
         ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
 
           </td>
@@ -124,7 +124,7 @@ function done(){
           <td colspan="3" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
             
             <button onclick="javascript:window.open(
-        '/admin/stepl/nutrientgroundwaterrunoffInput/{{ctx.NutrientGroundwaterRunoffInput|get:idx|get:'id'}}/'
+        '/admin/stepl/nutrientgroundwaterrunoffinput/{{ctx.NutrientGroundwaterRunoffInput|get:idx|get:'id'}}/?h=session_id,Landuse&s=1'
         ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
 
           </td>
@@ -153,7 +153,7 @@ function done(){
     <td colspan="11" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
       
       <button onclick="javascript:window.open(
-        '/admin/stepl/landusedistributioninput/{{ctx.LanduseDistributionInput|get:idx|get:'id'}}/'
+        '/admin/stepl/landusedistributioninput/{{ctx.LanduseDistributionInput|get:idx|get:'id'}}/?h=session_id,watershd_id&s=1'
         ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
 
     </td>
@@ -177,7 +177,7 @@ function done(){
     <td colspan="5" style = "text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
       
       <button onclick="javascript:window.open(
-        '/admin/stepl/irrigationinput/{{ctx.IrrigationInput|get:idx|get:'id'}}/'
+        '/admin/stepl/irrigationinput/{{ctx.IrrigationInput|get:idx|get:'id'}}/?h=session_id,watershd_id&s=1'
         ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');"> update </button>
 
     </td>

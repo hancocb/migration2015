@@ -21,14 +21,14 @@
       <td align=center bgcolor="#BDBDBD"><b>BOD</b></td>
       <td align=center bgcolor="#BDBDBD"><b>COD</b></td>
     </tr>
-    {% for idx in ctx.FreelotAnimalInput %}
+    {% for idx in ctx.FeedlotAnimalInput %}
     <tr>
       <td align=center>
-        {{ctx.FreelotAnimalInput|get:idx|get:'Animal'}}
+        {{ctx.FeedlotAnimalInput|get:idx|get:'Animal'}}
       </td>
       <td colspan="4" align=center>
         <input type="button" onclick="avascript:window.open(
-        '/admin/stepl/freelotanimalinput/{{ctx.FreelotAnimalInput|get:idx|get:'id'}}/'
+        '/admin/stepl/feedlotanimalinput/{{ctx.FeedlotAnimalInput|get:idx|get:'id'}}/?h=session_id,Animal&s=1'
         ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=800');" value="update"/>  
       </td>
     </tr>
