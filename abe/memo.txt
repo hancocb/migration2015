@@ -1,3 +1,6 @@
+OCT 31:
+    TODO: disallow guest to visit any other admin pages
+
 OCT 28:
 where is the GullyDB_xxx??????
 Did i miss them????
