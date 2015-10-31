@@ -47,6 +47,40 @@ def importDetailedReferenceRunoff(data):
         r.SHG_C = data["CN_"+t[1]+"_C"]
         r.SHG_D = data["CN_"+t[1]+"_D"]
         r.save() 
+def importNutrientRunoff(data):
+    keyMap = (
+            ('L-Cropland','ntLcrop_1'),
+            ('L-Cropland-w/-manure','ntLcrop_2'),
+            ('M-Cropland','ntMcrop_1'),
+            ('M-Cropland-w/-manure','ntMcrop_2'),
+            ('H-Cropland','ntHcrop_1'),
+            ('H-Cropland-w/-manure','ntHcrop_2'),
+            ('Pastureland','ntPast'),
+            ('Forest','ntFrst'),
+            ('User-Defined','ntUser')
+        )
+    for t in keyMap:
+        r = NutrientRunoff(Standard=INPUT_STANDARD,Landuse=t[0])
+        r.N = data[t[1]+"_N"]
+        r.P = data[t[1]+"_P"]
+        r.BOD = data[t[1]+"_B"]
+        r.save() 
+
+def importNutrientGroundwaterRunoff(data):
+    keyMap = (
+            ('Urban','GntUrbn'),
+            ('Cropland','GntCrop'),
+            ('Pastureland','GntPast'),
+            ('Forest','GntFrst'),
+            ('Feedlot','GntFeed'),
+            ('User-Defined','GntUser'),
+        )
+    for t in keyMap:
+        r = NutrientGroundwaterRunoff(Standard=INPUT_STANDARD,Landuse=t[0])
+        r.N = data[t[1]+"_N"]
+        r.P = data[t[1]+"_P"]
+        r.BOD = data[t[1]+"_B"]
+        r.save() 
 
 data = {}
 f = open("import/inputMainStaticData.txt","r")
@@ -64,5 +98,6 @@ for line in lines:
 
 #importSoilTexture(data)
 #importReferenceRunoff(data)
-importDetailedReferenceRunoff(data)
-
+#importDetailedReferenceRunoff(data)
+#importNutrientRunoff(data)
+#importNutrientGroundwaterRunoff(data)

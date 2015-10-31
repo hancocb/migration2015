@@ -1,4 +1,8 @@
 OCT 31:
+    I eventually know how dist_ work...........
+    The way that I use in bmpMain.html is wrong!!!! the dist should be get from DB!!
+    
+OCT 31:
     TODO: disallow guest to visit any other admin pages
 
 OCT 28:
