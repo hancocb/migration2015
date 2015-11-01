@@ -49,7 +49,11 @@
       <td align=center>
                 {{ctx.LateralRecessionRateInput|get:idx|get:'Category'}}
       </td>
-      <td align=center colspan="2">
+      <td>
+        {{ctx.LateralRecessionRateInput|get:idx|get:'LRR'}}
+
+      </td>
+      <td align=center >
          <input type="button" onclick="avascript:window.open(
         '/stepl/item/LateralRecessionRateInput/{{ctx.LateralRecessionRateInput|get:idx|get:'id'}}/?s=1'
         ,'STEPL_DB_online_{{ele}}','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=400,width=300');" value="update"/>  

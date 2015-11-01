@@ -8,13 +8,6 @@ from stepl.templatetags.simple_tags import twonum
 from stepl.tools import extract
       
     
-def iSoilTexture(data):
-    for i in range(1,11):
-        textureClass = Soil_Textural_Class_Choices[i-1][0]
-        dryDencity = data['GullyDB_'+twonum(i)+"1"]
-        correctFactor = data['GullyDB_'+twonum(i)+"2"]
-        s = SoilTexture(Standard=INPUT_STANDARD,Soil_Textural_Class=textureClass,Dry_Density=dryDencity,Correction_Factor=correctFactor)
-        s.save()
 def iReferenceRunoff(data):
     keyMap = (  ('Urban',   'urban'),
                 ('Cropland',    'crop'),
@@ -150,6 +143,14 @@ def iFeedlotAnimal(data):
         r.BOD = data['Feedlot_'+twonum(i)+"3"]
         r.COD = data['Feedlot_'+twonum(i)+"4"]
         r.save() 
+#gullyDB  is from SoilTexture and LateralRecessionRate
+def iSoilTexture(data):
+    for i in range(1,11):
+        textureClass = Soil_Textural_Class_Choices[i-1][1]
+        dryDencity = data['GullyDB_'+twonum(i)+"1"]
+        correctFactor = data['GullyDB_'+twonum(i)+"2"]
+        s = SoilTexture(Standard=INPUT_STANDARD,Soil_Textural_Class=textureClass,Dry_Density=dryDencity,Correction_Factor=correctFactor)
+        s.save()
 def iLateralRecessionRate():
     l = LateralRecessionRate(Standard=INPUT_STANDARD,Category='Slight')
     l.LRR = '0.01 - 0.05' 
@@ -167,10 +168,13 @@ def iLateralRecessionRate():
     l.LRR = '0.50 +'
     l.Medium_Value = 0.50
     l.save()
+
+#GS1    
 def iGullyErosion():
     #all to zero
     g = GullyErosion(Standard=INPUT_STANDARD)
     g.save()
+#GS2    
 def iStreambankErosion():
     #all to zero
     s = StreambankErosion(Standard=INPUT_STANDARD)
@@ -190,6 +194,9 @@ for line in lines:
         print "error in data:"+str(lineNum)+":"+str(line)
         exit()
 
+iGullyErosion()
+iStreambankErosion()
+'''
 iSoilTexture(data)
 iReferenceRunoff(data)
 iDetailedReferenceRunoff(data)
@@ -203,3 +210,4 @@ iFeedlotAnimal(data)
 iLateralRecessionRate()
 iGullyErosion()
 iStreambankErosion()
+'''

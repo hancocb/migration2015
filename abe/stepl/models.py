@@ -337,19 +337,19 @@ class FeedlotAnimalInput(FeedlotAnimalAbstract):
 
 #GullyDB: Soil Textural DB
 Soil_Textural_Class_Choices = (
-    ('Clay','Clay'),
-    ('ClayLoam','ClayLoam'),
-    ('FineSandyLoam','FineSandyLoam'),
-    ('Loams,SandyClayLoams','Loams,SandyClayLoams'),
-    ('Organic','Organic'),
-    ('Sands,LoamySands','Sands,LoamySands'),
-    ('SandyClay','SandyClay'),
-    ('SandyLoam','SandyLoam'),
-    ('SiltLoam','SiltLoam'),
-    ('SiltyClayLoam,SiltyClay','SiltyClayLoam,SiltyClay'),
+    ('1','Clay'),
+    ('2','ClayLoam'),
+    ('3','FineSandyLoam'),
+    ('4','Loams,SandyClayLoams'),
+    ('5','Organic'),
+    ('6','Sands,LoamySands'),
+    ('7','SandyClay'),
+    ('8','SandyLoam'),
+    ('9','SiltLoam'),
+    ('10','SiltyClayLoam,SiltyClay'),
   )
 class SoilTextureAbstract(models.Model):
-  Soil_Textural_Class = models.CharField(max_length=30,default='Clay',choices=Soil_Textural_Class_Choices)
+  Soil_Textural_Class = models.CharField(max_length=30,default='1',choices=Soil_Textural_Class_Choices)
   Dry_Density = models.FloatField(default=0) 
   Correction_Factor = models.FloatField(default=0) 
   class Meta:
@@ -383,10 +383,14 @@ class LateralRecessionRateInput(LateralRecessionRateAbstract):
   class Meta:
     unique_together = ('session_id', 'Category')
 
+BMP_Efficiency_Choices = [
+  (0,'0 efficency'),
+  (1,'1 efficency')
+]
 # Eroion: Gully 
 class GullyErosionAbstract(models.Model):
-  SoilTexture = models.CharField(max_length=30,default='Clay',choices=Soil_Textural_Class_Choices)
-  BMP_Efficiency = models.FloatField(default=0) 
+  SoilTexture = models.CharField(max_length=30,default='0',choices=Soil_Textural_Class_Choices)
+  BMP_Efficiency = models.FloatField(default=0,choices=BMP_Efficiency_Choices) 
   Years_to_Form = models.FloatField(default=0) 
   Length = models.FloatField(default=0) 
   Depth = models.FloatField(default=0) 
@@ -413,13 +417,19 @@ class GullyErosionInput(GullyErosionAbstract):
       super(GullyErosionInput, self).__init__(*args, **kwargs)
       self._meta.get_field_by_name('watershd_id')[0]._choices = get_models_watershd_choices()
 
+Lateral_Recession_Choices = [
+  (1,'Slight'),
+  (2,'Moderate'),
+  (3,'Severe'),
+  (4,'Very Severe'),
+]
 # Eroion: Streambank
 class StreambankErosionAbstract(models.Model):
-  SoilTexture = models.CharField(max_length=30,default='Clay',choices=Soil_Textural_Class_Choices)
-  BMP_Efficiency = models.FloatField(default=0) 
-  Lateral_Recession = models.FloatField(default=0) 
-  Length = models.FloatField(default=0) 
+  SoilTexture = models.CharField(max_length=30,default='0',choices=Soil_Textural_Class_Choices)
+  BMP_Efficiency = models.FloatField(default=0,choices=BMP_Efficiency_Choices) 
+  Lateral_Recession = models.FloatField(default=0,choices=Lateral_Recession_Choices) 
   Height = models.FloatField(default=0) 
+  Length = models.FloatField(default=0) 
   class Meta:
     abstract = True
 

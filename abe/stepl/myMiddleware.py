@@ -4,6 +4,8 @@ class LocaleMiddleware(object):
 
     def process_request(self, request):
         context = request.session
+
+        #making choices for watershed dynamically
         try:
             GullyErosionInput.models_choices_tuple = []
             for i in context['rangeWSD']:

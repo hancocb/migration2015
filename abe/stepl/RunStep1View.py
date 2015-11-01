@@ -6,6 +6,7 @@ from django.http import Http404
 from models import *
 from templatetags.simple_tags import twonum
 from tools import extract
+from utils import requests
 
 class RunStep1View(View):
     
@@ -19,14 +20,16 @@ class RunStep1View(View):
         #process landtype_id: 1~5 : Cropland, pastland, forest,user defined,feedlot
         for landtype_id in range(1,6):
             for watershd_id in context['rangeWSD']:
-                if not BMPInput.objects.filter(session_id=session_id, landtype_id=landtype_id ,watershd_id=watershd_id).exists():
+                if not BMPInput.objects.filter(session_id=session_id, landtype_id=landtype_id ,
+                    watershd_id=watershd_id).exists():
                     bmpInput = BMPInput(
                         session_id=session_id, 
                         landtype_id=landtype_id,
                         watershd_id=watershd_id
                         )
                 else:
-                    bmpInput = BMPInput.objects.get(session_id=session_id, landtype_id=landtype_id, watershd_id=watershd_id)
+                    bmpInput = BMPInput.objects.get(session_id=session_id, landtype_id=landtype_id, 
+                        watershd_id=watershd_id)
                 bmpInput.BMP = request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"5"]
                 bmpInput.PercentApplied=request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"6"]
                 bmpInput.N   = request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"1"]
@@ -65,30 +68,76 @@ class RunStep1View(View):
                 urbanBmpInput.save()
 
         #process through STPEL api to run fortran
-        self.runStep1(context)
+        ret = self.runStep1(context)
 
-        return render(request, 'runStep1.html', { 'ctx':context, 'req' : request })
+        return render(request, 'runStep1.html', { 'ctx':context, 'req' : request, 'ret':ret })
 
     def get(self, request):
         raise Http404("GET of this page does not exist, you need POST")
 
     def runStep1(self, context):
-        #GuyllyDB.txt
-        GullyDB = [0.0] * 13
-        for i in range(1,11) :
-          GullyDB[i] = [0.0] * 3
-          for j in range(1,3) :
-            key = 'GullyDB_' +  '%02i' % i + str(j) 
-            GullyDB[i][j] = self.getStaticInputMainDataKV(key)
-        GullyDB[11] = [0.0] * 2
-        GullyDB[12] = [0.0] * 2
-        GullyDB[11][0] = self.getStaticInputMainDataKV("GullyDB_111") 
-        GullyDB[11][1] = self.getStaticInputMainDataKV("GullyDB_121") 
-        GullyDB[12][0] = self.getStaticInputMainDataKV("GullyDB_131") 
-        GullyDB[12][1] = self.getStaticInputMainDataKV("GullyDB_141") 
+        session_id=context['IndexInput']['id']
 
+        #do the inverse things as in importData.py
+        #GuyllyDB.txt
+        guyllyDB = "";
+        for i in range(1,11):
+            textureClass = Soil_Textural_Class_Choices[i-1][1]
+            s = SoilTextureInput.objects.get(session_id=session_id,Soil_Textural_Class=textureClass)
+            gullyDB_1 = '%.4f' % s.Dry_Density 
+            gullyDB_2 = '%.4f' % s.Correction_Factor 
+            guyllyDB = guyllyDB + gullyDB_1 + '\t' + gullyDB_2 + '\t\n'
+        guyllyDB = guyllyDB + '-----------------------\n'
+
+        g1 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Slight')
+        g2 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Moderate')
+        g3 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Severe')
+        g4 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Very Severe')
+        guyllyDB = guyllyDB + '%.4f' % g1.Medium_Value + "\n" + '%.4f' % g2.Medium_Value + "\n"
+        guyllyDB = guyllyDB + '%.4f' % g3.Medium_Value + "\n" + '%.4f' % g4.Medium_Value + "\n"
+        guyllyDB = guyllyDB + '-----------------------\n'
+
+        indexInput = IndexInput.objects.get(id=session_id)
+        guyllyDB = guyllyDB + str(indexInput.num_gully) + "\n"
+        GullyErosionInput_map = [
+              '',
+              'watershd_id', 
+              'Gully_id', 
+              'Top_Width', 
+              'Bottom_Width', 
+              'Depth', 
+              'Length', 
+              'Years_to_Form', 
+              'BMP_Efficiency', 
+              'SoilTexture', 
+        ]
+        for i in context['rangeGLY']:
+            g = GullyErosionInput.objects.get(session_id=session_id,Gully_id=i)
+            for j in range(1,10):
+                guyllyDB = guyllyDB + str(getattr(g,GullyErosionInput_map[j])) + "\t"
+            guyllyDB = guyllyDB + "\n"    
+        guyllyDB = guyllyDB + '-----------------------\n'
+
+        guyllyDB = guyllyDB + str(indexInput.num_steambank) + "\n"
+        StreambankErosionInput_map = [
+              '',
+              'watershd_id', 
+              'Streambank_id', 
+              'Length', 
+              'Height', 
+              'Lateral_Recession', 
+              'BMP_Efficiency', 
+              'SoilTexture', 
+        ]
+        for i in context['rangeSTR']:
+            g = StreambankErosionInput.objects.get(session_id=session_id,Streambank_id=i)
+            for j in range(1,8):
+                guyllyDB = guyllyDB + str(getattr(g,StreambankErosionInput_map[j])) + "\t"
+            guyllyDB = guyllyDB + "\n"    
+        
         #URL_RUN_STEP_1 is from stepl_setting
-        pass
+        ret = requests.post(URL_RUN_STEP_1,data={"GullyDB.txt":guyllyDB,'test':'abc'})
+        return ret.text
 
 
 
