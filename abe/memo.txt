@@ -3,7 +3,7 @@ OCT 31:
     The way that I use in bmpMain.html is wrong!!!! the dist should be get from DB!!
     
 OCT 31:
-    TODO: disallow guest to visit any other admin pages
+    TODO: disallow guest to visit any other admin pages---no need to do that anymore
 
 OCT 28:
 where is the GullyDB_xxx??????
