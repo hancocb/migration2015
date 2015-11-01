@@ -20,7 +20,22 @@ if(window.opener === null){
 <!--
 {% if show_save_and_continue %}<input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" />{% endif %}
 -->
-{% if show_save_and_continue %}<input type="submit" class="default" value="Save" name="_continue" />{% endif %}
+{% if show_save_and_continue %}
+<input type="submit" class="default" value="Save" name="_continue2" id="id_continue" />
+<script type="text/javascript">
+  if(window.opener !== null){
+    document.getElementById("id_continue").type = "button";
+    document.getElementById("id_continue").onclick = function(){
+      document.forms[0].submit();
+      alert("done!");
+      window.close();
+    }
+     
+  }
+
+
+</script>
+{% endif %}
 
 </div>
 <script type="text/javascript">
@@ -29,7 +44,7 @@ if(hstr!==null){
   var harr = hstr.split(",");
   for(var i=0; i<harr.length;i++){
       id = "id_"+harr[i];
-      document.getElementById(id).disabled = true;
+      document.getElementById(id).readOnly = true;
   }  
 }
 

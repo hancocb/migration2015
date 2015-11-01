@@ -6,6 +6,7 @@ from stepl.CLIGENMapView import CLIGENMapView
 from stepl.CountyDataJson import CountyDataJson
 from stepl.OptMainView import OptMainView
 from stepl.OtherTablesView import OtherTablesView
+from stepl.ItemView import ItemView
 from django.conf.urls import url
 
 urlpatterns = [ 
@@ -17,4 +18,5 @@ urlpatterns = [
     url(r'^CountyDataJson$', CountyDataJson.as_view()), 
     url(r'^optMain$', OptMainView.as_view()), 
     url(r'^otherTables$', OtherTablesView.as_view()), 
+    url(r'^item/(\w+)/(\d+)/$', ItemView.as_view()), 
 ]

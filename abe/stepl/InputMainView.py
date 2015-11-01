@@ -10,14 +10,6 @@ class InputMainView(View):
     
     def post(self, request, *args, **kwargs):
 
-        #login user for editing
-        username = "guest"
-        password = "guest"
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-
         #all saved to session
         context = request.session
 

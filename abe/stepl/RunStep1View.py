@@ -71,10 +71,6 @@ class RunStep1View(View):
 
     def get(self, request):
         raise Http404("GET of this page does not exist, you need POST")
-        
-    def getStaticInputMainDataKV(key):
-        staticData = StaticInputMainData.objects.get(Standard=INPUT_STANDARD,key=key)
-        return '%.4f' %float(staticData.value)
 
     def runStep1(self, context):
         #GuyllyDB.txt

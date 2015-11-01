@@ -1,0 +1,4 @@
+TODO.txt
+Oct 31:
+1. in bmpMain.html, UrbnConc, they should loaded from a refrence db like in InputMain
+2. in bmpMain.html, include bmpList.html, TODO:It's better to saved and get from database,making a explanation field-

@@ -6,6 +6,12 @@ def list2dict(mylist):
         i = i+1
     return ret
 
+def list2dictWthKey(key,mylist):
+    ret = {}
+    for ele in mylist:
+        ret[ele[key]] = ele
+    return ret
+
 def extract(instance):
     ret = {}
     for fd in instance._meta.get_all_field_names():

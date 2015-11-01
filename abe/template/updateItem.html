@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+
+<html lang="en-us" >
+<head>
+<title>Change soil data input | Django site admin</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/static/admin/css/ie.css" /><![endif]-->
+</head>
+
+
+<body class=" app-stepl change-form">
+
+<!-- Container -->
+<div id="container">
+
+<div class="breadcrumbs">
+&rsaquo; {{modelName}} object 
+</div>
+
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>Change {{modelName}} Item {% if status != 0 %} <br/>Update Successfully!{% endif %} </h1>
+        <div id="content-main">
+
+        <form action="" method="post" >
+          {% csrf_token %}
+          {{form.as_p}}
+          <input type="submit" /> 
+        </form>
+        </div>
+
+        
+        <br class="clear" />
+
+<!-- END Container -->
+
+</body>
+</html>

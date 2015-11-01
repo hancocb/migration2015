@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.http import Http404
 from models import *
 from templatetags.simple_tags import twonum
-from tools import extract
+from tools import extract,list2dictWthKey
 
 class BmpMainView(View):
     
@@ -73,6 +73,9 @@ class BmpMainView(View):
             septicNillegal.Wastewater_Direct_Discharge_numPeople = request.POST['NumPpDrtDc_' + twonum(watershd_id)]
             septicNillegal.Direct_Discharge_Reduction_Percent = request.POST['RdcDrtDc_' + twonum(watershd_id)]
             septicNillegal.save()
+
+        #load LanduseDistribution    
+        context['LanduseDistributionInput'] = list2dictWthKey('watershd_id',LanduseDistributionInput.objects.filter(session_id=indexInput.id).values())    
 
         return render(request, 'bmpMain.html', { 'ctx':context, 'req' : request })
 

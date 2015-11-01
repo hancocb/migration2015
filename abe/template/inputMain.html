@@ -57,7 +57,7 @@
   var CountyDataInput_id = 0;
   function openCountyLink(){
      if(CountyDataInput_id > 0){
-        window.open("/admin/stepl/countydatainput/"+CountyDataInput_id+"?h=session_id,state_name,name&s=1",'CountyDataInput', 'status=0,toolbar=1,location=0,menubar=0,scrollbars=1crolling=1,height=600,width=780');
+        window.open("/stepl/item/CountyDataInput/"+CountyDataInput_id+"?s=1",'CountyDataInput', 'status=0,toolbar=1,location=0,menubar=0,scrollbars=1crolling=1,height=600,width=250');
      }  else{
         alert("Please choose county first!");
         openCligenMap();

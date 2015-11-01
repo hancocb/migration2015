@@ -293,7 +293,8 @@
 </table><br><hr>
 
 <!-- hidden data-->
-<!--UrbnConc-->
+<!--UrbnConc: used in th popup set urbanBMP (the first table), 
+TODO: they should loaded from a refrence db like in InputMain-->
 <input type=hidden name=UrbnConc_11 value=2.0><input type=hidden name=UrbnConc_12 value=2.5><input type=hidden name=UrbnConc_13 value=1.8>
 <input type=hidden name=UrbnConc_14 value=3.0><input type=hidden name=UrbnConc_15 value=2.2><input type=hidden name=UrbnConc_16 value=2.2>
 <input type=hidden name=UrbnConc_17 value=1.9><input type=hidden name=UrbnConc_18 value=1.5><input type=hidden name=UrbnConc_19 value=1.5>
@@ -329,20 +330,20 @@
 <div style="text-align:center"><br><input style="WIDTH:200;height:30;CURSOR:hand" type=button onClick="complete()" value="Next"><br><br></div>
 </form>
 
-<!-- the constant data that used to calculate BMP...TODO:It's better to saved and get from database-->
+<!-- the constant data that used to calculate BMP(not input data for fortran)...TODO:It's better to saved and get from database,making a explanation field-->
 {% include "bmpList.html" %}
 
 <form name=ubForm>
 {% for wsd in ctx.rangeWSD %}
-<input type=hidden name=ubDis_{{wsd|twonum}}1 value="15.00" size=2>
-<input type=hidden name=ubDis_{{wsd|twonum}}2 value="10.00" size=2>
-<input type=hidden name=ubDis_{{wsd|twonum}}3 value="10.00" size=2>
-<input type=hidden name=ubDis_{{wsd|twonum}}4 value="10.00" size=2>
-<input type=hidden name=ubDis_{{wsd|twonum}}5 value="10.00" size=2>
-<input type=hidden name=ubDis_{{wsd|twonum}}6 value="30.00" size=2>
-<input type=hidden name=ubDis_{{wsd|twonum}}7 value="5.00" size=2>
-<input type=hidden name=ubDis_{{wsd|twonum}}8 value="5.00" size=2>
-<input type=hidden name=ubDis_{{wsd|twonum}}9 value="5.00" size=2>
+<input type=hidden name=ubDis_{{wsd|twonum}}1 value="{{ctx.LanduseDistributionInput|get:wsd|get:'Commercial'}}" size=2>
+<input type=hidden name=ubDis_{{wsd|twonum}}2 value="{{ctx.LanduseDistributionInput|get:wsd|get:'Industrial'}}" size=2>
+<input type=hidden name=ubDis_{{wsd|twonum}}3 value="{{ctx.LanduseDistributionInput|get:wsd|get:'Institutional'}}" size=2>
+<input type=hidden name=ubDis_{{wsd|twonum}}4 value="{{ctx.LanduseDistributionInput|get:wsd|get:'Transportation'}}" size=2>
+<input type=hidden name=ubDis_{{wsd|twonum}}5 value="{{ctx.LanduseDistributionInput|get:wsd|get:'Multi_Family'}}" size=2>
+<input type=hidden name=ubDis_{{wsd|twonum}}6 value="{{ctx.LanduseDistributionInput|get:wsd|get:'Single_Family'}}" size=2>
+<input type=hidden name=ubDis_{{wsd|twonum}}7 value="{{ctx.LanduseDistributionInput|get:wsd|get:'Urban_Cultivated'}}" size=2>
+<input type=hidden name=ubDis_{{wsd|twonum}}8 value="{{ctx.LanduseDistributionInput|get:wsd|get:'Vacant_developed'}}" size=2>
+<input type=hidden name=ubDis_{{wsd|twonum}}9 value="{{ctx.LanduseDistributionInput|get:wsd|get:'Open_Space'}}" size=2>
 {%endfor%}
 {% for wsd in ctx.rangeWSD %}
 <input type=hidden name=ubArea_{{wsd|twonum}} value="{{ctx.WatershedLandUse|get:wsd|get:'Urban'}}" size=2>
