@@ -135,8 +135,17 @@ class RunStep1View(View):
                 guyllyDB = guyllyDB + str(getattr(g,StreambankErosionInput_map[j])) + "\t"
             guyllyDB = guyllyDB + "\n"    
         
+        #WildLife.txt
+        WildLife = ""
+        keyMap = ['Goose','Deer','Beaver','Raccoons','Other']
+        for key in keyMap:
+            w = WildlifeDensityInCropLandInput.objects.get(session_id=session_id,Wildlife=key)
+            WildLife = WildLife + str('%.2f' % w.NumPerMileSquare) + "\n"
+
         #URL_RUN_STEP_1 is from stepl_setting
-        ret = requests.post(URL_RUN_STEP_1,data={"GullyDB.txt":guyllyDB,'test':'abc'})
+        ret = requests.post(URL_RUN_STEP_1,data={
+            "GullyDB.txt":guyllyDB,'WildLife.txt':WildLife
+            })
         return ret.text
 
 

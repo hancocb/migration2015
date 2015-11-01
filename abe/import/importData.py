@@ -180,6 +180,12 @@ def iStreambankErosion():
     s = StreambankErosion(Standard=INPUT_STANDARD)
     s.save()
 
+def iWildlifeDensityInCropLand():
+    #all set to zero
+    keyMap = ['Goose','Deer','Beaver','Raccoons','Other']
+    for key in keyMap:
+        w = WildlifeDensityInCropLand(Standard=INPUT_STANDARD,Wildlife=key)
+        w.save()
 data = {}
 f = open("import/inputMainStaticData.txt","r")
 res = f.read()
@@ -194,8 +200,7 @@ for line in lines:
         print "error in data:"+str(lineNum)+":"+str(line)
         exit()
 
-iGullyErosion()
-iStreambankErosion()
+iWildlifeDensityInCropLand()
 '''
 iSoilTexture(data)
 iReferenceRunoff(data)
@@ -210,4 +215,5 @@ iFeedlotAnimal(data)
 iLateralRecessionRate()
 iGullyErosion()
 iStreambankErosion()
+iWildlifeDensityInCropLand()
 '''
