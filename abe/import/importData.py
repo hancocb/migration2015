@@ -106,6 +106,8 @@ def iIrrigation():
     i.Water_Depth_in_per_Irrigation_After_BMP = 0
     i.Irrigation_Frequency_perYear = 0
     i.save()
+    
+#Reference_xxx
 def iAnimalWeight(data):
     Animals = ['','Beef cattle','Dairy cow','Hog','Sheep','Horse','Chicken (Layer)','Turkey','Duck','Goose','Deer','Beaver','Raccoon','Other',]
     for i in range(1,14):

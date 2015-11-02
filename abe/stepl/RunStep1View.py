@@ -86,19 +86,19 @@ class RunStep1View(View):
             s = SoilTextureInput.objects.get(session_id=session_id,Soil_Textural_Class=textureClass)
             gullyDB_1 = '%.4f' % s.Dry_Density 
             gullyDB_2 = '%.4f' % s.Correction_Factor 
-            guyllyDB = guyllyDB + gullyDB_1 + '\t' + gullyDB_2 + '\t\n'
-        guyllyDB = guyllyDB + '-----------------------\n'
+            guyllyDB += gullyDB_1 + '\t' + gullyDB_2 + '\t\n'
+        guyllyDB += '-----------------------\n'
 
         g1 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Slight')
         g2 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Moderate')
         g3 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Severe')
         g4 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Very Severe')
-        guyllyDB = guyllyDB + '%.4f' % g1.Medium_Value + "\n" + '%.4f' % g2.Medium_Value + "\n"
-        guyllyDB = guyllyDB + '%.4f' % g3.Medium_Value + "\n" + '%.4f' % g4.Medium_Value + "\n"
-        guyllyDB = guyllyDB + '-----------------------\n'
+        guyllyDB += '%.4f' % g1.Medium_Value + "\n" + '%.4f' % g2.Medium_Value + "\n"
+        guyllyDB += '%.4f' % g3.Medium_Value + "\n" + '%.4f' % g4.Medium_Value + "\n"
+        guyllyDB += '-----------------------\n'
 
         indexInput = IndexInput.objects.get(id=session_id)
-        guyllyDB = guyllyDB + str(indexInput.num_gully) + "\n"
+        guyllyDB += str(indexInput.num_gully) + "\n"
         GullyErosionInput_map = [
               '',
               'watershd_id', 
@@ -114,11 +114,11 @@ class RunStep1View(View):
         for i in context['rangeGLY']:
             g = GullyErosionInput.objects.get(session_id=session_id,Gully_id=i)
             for j in range(1,10):
-                guyllyDB = guyllyDB + str(getattr(g,GullyErosionInput_map[j])) + "\t"
-            guyllyDB = guyllyDB + "\n"    
-        guyllyDB = guyllyDB + '-----------------------\n'
+                guyllyDB += str(getattr(g,GullyErosionInput_map[j])) + "\t"
+            guyllyDB += "\n"    
+        guyllyDB += '-----------------------\n'
 
-        guyllyDB = guyllyDB + str(indexInput.num_steambank) + "\n"
+        guyllyDB += str(indexInput.num_steambank) + "\n"
         StreambankErosionInput_map = [
               '',
               'watershd_id', 
@@ -132,19 +132,49 @@ class RunStep1View(View):
         for i in context['rangeSTR']:
             g = StreambankErosionInput.objects.get(session_id=session_id,Streambank_id=i)
             for j in range(1,8):
-                guyllyDB = guyllyDB + str(getattr(g,StreambankErosionInput_map[j])) + "\t"
-            guyllyDB = guyllyDB + "\n"    
+                guyllyDB += str(getattr(g,StreambankErosionInput_map[j])) + "\t"
+            guyllyDB += "\n"    
         
         #WildLife.txt
         WildLife = ""
         keyMap = ['Goose','Deer','Beaver','Raccoons','Other']
         for key in keyMap:
             w = WildlifeDensityInCropLandInput.objects.get(session_id=session_id,Wildlife=key)
-            WildLife = WildLife + str('%.2f' % w.NumPerMileSquare) + "\n"
+            WildLife += str('%.2f' % w.NumPerMileSquare) + "\n"
+
+        #Reference.txt
+        Reference = 'Typical Animal Mass,lb  BOD,lb/day/1000lb animal        BOD per Animal,lb/day   BOD per Animal,lb/yr \n'
+        Animals = ['','Beef cattle','Dairy cow','Hog','Sheep','Horse','Chicken (Layer)','Turkey','Duck','Goose','Deer','Beaver','Raccoon','Other',]
+        for i in range(1,14):
+            Animal = Animals[i]
+            r = AnimalWeightInput.objects.get(session_id=session_id,Animal=Animal)
+            Reference += '%.2f' % r.MassLb + "\t"
+            Reference += '%.2f' % r.BOD_per_1000lb + "\t"
+            Reference += '%.2f' % r.BOD_per_day + "\t"
+            Reference += '%.2f' % r.BDO_per_year + "\t"
+            Reference += "\n"
+
+        #Feedlot.txt
+        Feedlot = ""
+        Animals = ['','Slaughter Steer','Young Beef','Dairy Cow','Young Dairy Stock','Swine','Feeder Pig','Sheep','Horse','Chicken','Turkey','Duck']
+        for i in range(1,12):
+            Animal = Animals[i]
+            r = FeedlotAnimalInput.objects.get(session_id=session_id,Animal=Animal)
+            Feedlot += '%.3f' % r.N + "\t"
+            Feedlot += '%.3f' % r.P + "\t"
+            Feedlot += '%.3f' % r.BOD + "\t"
+            Feedlot += '%.3f' % r.COD + "\t"
+            Feedlot += "\n"
+
+        #pcp.txt
+        #mainINP.txt
+        #Septic.txt
+        #LandRain_GW1.txt
+        #BMPs.txt
 
         #URL_RUN_STEP_1 is from stepl_setting
         ret = requests.post(URL_RUN_STEP_1,data={
-            "GullyDB.txt":guyllyDB,'WildLife.txt':WildLife
+            "GullyDB.txt":guyllyDB,'WildLife.txt':WildLife，"Reference.txt" : Reference,
             })
         return ret.text
 
