@@ -1,0 +1,127 @@
+<!--w3c Validated-->
+<html>
+<head>
+  <title>Soil Infiltration Fraction for Precipitation Table</title>
+</head>
+<!--#### Programmed by Youn Shik Park-->
+
+<body onLoad="init();">
+<form name=gwInftMain>
+<br><center>
+<table border=1>
+  <tr>
+    <td align=center colspan=5><b><font color=blue>Reference soil infiltration fraction for precipitation</font></b></td>
+  </tr>
+  <tr>
+    <td align=center bgcolor=#BDBDBD><b>HSG</td>
+    <td align=center bgcolor=#BDBDBD><b>A</td>
+    <td align=center bgcolor=#BDBDBD><b>B</td>
+    <td align=center bgcolor=#BDBDBD><b>C</td>
+    <td align=center bgcolor=#BDBDBD><b>D</td>
+  </tr>
+  <tr>
+    <td align=center>Urban</td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_11></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_12></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_13></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_14></td>
+  </tr>
+    <td align=center>Cropland</td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_21></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_22></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_23></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_24></td>
+  </tr>
+    <td align=center>Pastureland</td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_31></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_32></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_33></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_34></td>
+  </tr>
+    <td align=center>Forest</td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_41></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_42></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_43></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_44></td>
+  </tr>
+    <td align=center>User Defined</td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_51></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_52></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_53></td>
+    <td align=right><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=gwInft_54></td>
+  </tr>
+</table>
+<br>
+
+<input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Update" onClick="javascript:returnVal()">
+
+</form>
+</body>
+
+<script language="JavaScript">
+function init() {
+  document.gwInftMain.gwInft_11.value = opener.document.inputMain.gwInft_11.value ;  
+  document.gwInftMain.gwInft_12.value = opener.document.inputMain.gwInft_12.value ;
+  document.gwInftMain.gwInft_13.value = opener.document.inputMain.gwInft_13.value ;
+  document.gwInftMain.gwInft_14.value = opener.document.inputMain.gwInft_14.value ;
+  document.gwInftMain.gwInft_21.value = opener.document.inputMain.gwInft_21.value ; 
+  document.gwInftMain.gwInft_22.value = opener.document.inputMain.gwInft_22.value ;
+  document.gwInftMain.gwInft_23.value = opener.document.inputMain.gwInft_23.value ;
+  document.gwInftMain.gwInft_24.value = opener.document.inputMain.gwInft_24.value ;
+  document.gwInftMain.gwInft_31.value = opener.document.inputMain.gwInft_31.value ; 
+  document.gwInftMain.gwInft_32.value = opener.document.inputMain.gwInft_32.value ;
+  document.gwInftMain.gwInft_33.value = opener.document.inputMain.gwInft_33.value ;
+  document.gwInftMain.gwInft_34.value = opener.document.inputMain.gwInft_34.value ;
+  document.gwInftMain.gwInft_41.value = opener.document.inputMain.gwInft_41.value ; 
+  document.gwInftMain.gwInft_42.value = opener.document.inputMain.gwInft_42.value ;
+  document.gwInftMain.gwInft_43.value = opener.document.inputMain.gwInft_43.value ;
+  document.gwInftMain.gwInft_44.value = opener.document.inputMain.gwInft_44.value ;
+  document.gwInftMain.gwInft_51.value = opener.document.inputMain.gwInft_51.value ; 
+  document.gwInftMain.gwInft_52.value = opener.document.inputMain.gwInft_52.value ;
+  document.gwInftMain.gwInft_53.value = opener.document.inputMain.gwInft_53.value ;
+  document.gwInftMain.gwInft_54.value = opener.document.inputMain.gwInft_54.value ;
+}
+function returnVal() {
+  opener.document.inputMain.gwInft_11.value = document.gwInftMain.gwInft_11.value ;
+  opener.document.inputMain.gwInft_12.value = document.gwInftMain.gwInft_12.value ;
+  opener.document.inputMain.gwInft_13.value = document.gwInftMain.gwInft_13.value ;
+  opener.document.inputMain.gwInft_14.value = document.gwInftMain.gwInft_14.value ;
+  opener.document.inputMain.gwInft_21.value = document.gwInftMain.gwInft_21.value ;
+  opener.document.inputMain.gwInft_22.value = document.gwInftMain.gwInft_22.value ;
+  opener.document.inputMain.gwInft_23.value = document.gwInftMain.gwInft_23.value ;
+  opener.document.inputMain.gwInft_24.value = document.gwInftMain.gwInft_24.value ;
+  opener.document.inputMain.gwInft_31.value = document.gwInftMain.gwInft_31.value ;
+  opener.document.inputMain.gwInft_32.value = document.gwInftMain.gwInft_32.value ;
+  opener.document.inputMain.gwInft_33.value = document.gwInftMain.gwInft_33.value ;
+  opener.document.inputMain.gwInft_34.value = document.gwInftMain.gwInft_34.value ;
+  opener.document.inputMain.gwInft_41.value = document.gwInftMain.gwInft_41.value ;
+  opener.document.inputMain.gwInft_42.value = document.gwInftMain.gwInft_42.value ;
+  opener.document.inputMain.gwInft_43.value = document.gwInftMain.gwInft_43.value ;
+  opener.document.inputMain.gwInft_44.value = document.gwInftMain.gwInft_44.value ;
+  opener.document.inputMain.gwInft_51.value = document.gwInftMain.gwInft_51.value ;
+  opener.document.inputMain.gwInft_52.value = document.gwInftMain.gwInft_52.value ;
+  opener.document.inputMain.gwInft_53.value = document.gwInftMain.gwInft_53.value ;
+  opener.document.inputMain.gwInft_54.value = document.gwInftMain.gwInft_54.value ;
+  alert("Updated") ;
+  self.close() ;
+}
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

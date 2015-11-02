@@ -1,0 +1,155 @@
+<form name=BMP_List>
+
+<!-- cropland -->
+<input type=hidden name=CROP_011 value=0.0><input type=hidden name=CROP_012 value=0.0>
+<input type=hidden name=CROP_013 value=0.0><input type=hidden name=CROP_014 value=0.0>
+<input type=hidden name=CROP_021 value=0.0><input type=hidden name=CROP_022 value=0.0>
+<input type=hidden name=CROP_023 value=0.0><input type=hidden name=CROP_024 value=0.0>
+<input type=hidden name=CROP_031 value=0.485><input type=hidden name=CROP_032 value=0.55>
+<input type=hidden name=CROP_033 value=0.0><input type=hidden name=CROP_034 value=0.405>
+<input type=hidden name=CROP_041 value=0.1><input type=hidden name=CROP_042 value=0.3>
+<input type=hidden name=CROP_043 value=0.0><input type=hidden name=CROP_044 value=0.35>
+<input type=hidden name=CROP_051 value=0.7><input type=hidden name=CROP_052 value=0.75>
+<input type=hidden name=CROP_053 value=0.0><input type=hidden name=CROP_054 value=0.65>
+<input type=hidden name=CROP_061 value=0.55><input type=hidden name=CROP_062 value=0.45>
+<input type=hidden name=CROP_063 value=0.0><input type=hidden name=CROP_064 value=0.75>
+<input type=hidden name=CROP_071 value=0.75><input type=hidden name=CROP_072 value=0.75>
+<input type=hidden name=CROP_073 value=0.0><input type=hidden name=CROP_074 value=0.75>
+<input type=hidden name=CROP_081 value=0.2><input type=hidden name=CROP_082 value=0.7>
+<input type=hidden name=CROP_083 value=0.0><input type=hidden name=CROP_084 value=0.85>
+
+<!-- pastureland -->
+<input type=hidden name=PAST_011 value=0.0><input type=hidden name=PAST_012 value=0.0>
+<input type=hidden name=PAST_013 value=0.0><input type=hidden name=PAST_014 value=0.0>
+<input type=hidden name=PAST_021 value=0.0><input type=hidden name=PAST_022 value=0.0>
+<input type=hidden name=PAST_023 value=0.0><input type=hidden name=PAST_024 value=0.0>
+<input type=hidden name=PAST_031 value=0.7><input type=hidden name=PAST_032 value=0.75>
+<input type=hidden name=PAST_033 value=0.0><input type=hidden name=PAST_034 value=0.65>
+
+<!-- forest -->
+<input type=hidden name=FRST_011 value=0.0><input type=hidden name=FRST_012 value=0.0>
+<input type=hidden name=FRST_013 value=0.0><input type=hidden name=FRST_014 value=0.0>
+<input type=hidden name=FRST_021 value=0.0><input type=hidden name=FRST_022 value=0.0>
+<input type=hidden name=FRST_023 value=0.0><input type=hidden name=FRST_024 value=0.0>
+<input type=hidden name=FRST_031 value=0.0><input type=hidden name=FRST_032 value=0.0>
+<input type=hidden name=FRST_033 value=0.0><input type=hidden name=FRST_034 value=0.41>
+<input type=hidden name=FRST_041 value=0.0><input type=hidden name=FRST_042 value=0.0>
+<input type=hidden name=FRST_043 value=0.0><input type=hidden name=FRST_044 value=0.71>
+<input type=hidden name=FRST_051 value=1.0><input type=hidden name=FRST_052 value=1.0>
+<input type=hidden name=FRST_053 value=1.0><input type=hidden name=FRST_054 value=0.71>
+<input type=hidden name=FRST_061 value=0.0><input type=hidden name=FRST_062 value=0.0>
+<input type=hidden name=FRST_063 value=0.0><input type=hidden name=FRST_064 value=0.41>
+<input type=hidden name=FRST_071 value=0.0><input type=hidden name=FRST_072 value=0.0>
+<input type=hidden name=FRST_073 value=0.0><input type=hidden name=FRST_074 value=0.41>
+<input type=hidden name=FRST_081 value=0.0><input type=hidden name=FRST_082 value=0.0>
+<input type=hidden name=FRST_083 value=0.0><input type=hidden name=FRST_084 value=0.5>
+<input type=hidden name=FRST_091 value=0.0><input type=hidden name=FRST_092 value=0.0>
+<input type=hidden name=FRST_093 value=0.0><input type=hidden name=FRST_094 value=0.71>
+<input type=hidden name=FRST_101 value=0.0><input type=hidden name=FRST_102 value=0.0>
+<input type=hidden name=FRST_103 value=0.0><input type=hidden name=FRST_104 value=0.69>
+<input type=hidden name=FRST_111 value=0.0><input type=hidden name=FRST_112 value=0.0>
+<input type=hidden name=FRST_113 value=0.0><input type=hidden name=FRST_114 value=0.81>
+<input type=hidden name=FRST_121 value=0.0><input type=hidden name=FRST_122 value=0.0>
+<input type=hidden name=FRST_123 value=0.0><input type=hidden name=FRST_124 value=0.95>
+<input type=hidden name=FRST_131 value=0.0><input type=hidden name=FRST_132 value=0.0>
+<input type=hidden name=FRST_133 value=0.0><input type=hidden name=FRST_134 value=0.93>
+<input type=hidden name=FRST_141 value=0.0><input type=hidden name=FRST_142 value=0.0>
+<input type=hidden name=FRST_143 value=0.0><input type=hidden name=FRST_144 value=0.83>
+<input type=hidden name=FRST_151 value=0.0><input type=hidden name=FRST_152 value=0.0>
+<input type=hidden name=FRST_153 value=0.0><input type=hidden name=FRST_154 value=0.86>
+
+<!-- User_Defined -->
+<input type=hidden name=USER_011 value=0.0><input type=hidden name=USER_012 value=0.0>
+<input type=hidden name=USER_013 value=0.0><input type=hidden name=USER_014 value=0.0>
+<input type=hidden name=USER_021 value=0.0><input type=hidden name=USER_022 value=0.0>
+<input type=hidden name=USER_023 value=0.0><input type=hidden name=USER_024 value=0.0>
+
+<!-- Feedlot -->
+<input type=hidden name=FEED_011 value=0.0><input type=hidden name=FEED_012 value=0.0>
+<input type=hidden name=FEED_013 value=0.0><input type=hidden name=FEED_014 value=0.0>
+<input type=hidden name=FEED_021 value=0.45><input type=hidden name=FEED_022 value=0.7>
+<input type=hidden name=FEED_023 value=0.0><input type=hidden name=FEED_024 value=0.0>
+<input type=hidden name=FEED_031 value=0.0><input type=hidden name=FEED_032 value=0.85>
+<input type=hidden name=FEED_033 value=0.0><input type=hidden name=FEED_034 value=0.0>
+<input type=hidden name=FEED_041 value=0.0><input type=hidden name=FEED_042 value=0.825>
+<input type=hidden name=FEED_043 value=0.0><input type=hidden name=FEED_044 value=0.0>
+<input type=hidden name=FEED_051 value=0.35><input type=hidden name=FEED_052 value=0.31>
+<input type=hidden name=FEED_053 value=0.0><input type=hidden name=FEED_054 value=0.0>
+<input type=hidden name=FEED_061 value=0.0><input type=hidden name=FEED_062 value=0.8>
+<input type=hidden name=FEED_063 value=0.85><input type=hidden name=FEED_064 value=0.0>
+<input type=hidden name=FEED_071 value=0.55><input type=hidden name=FEED_072 value=0.85>
+<input type=hidden name=FEED_073 value=0.0><input type=hidden name=FEED_074 value=0.0>
+<input type=hidden name=FEED_081 value=0.8><input type=hidden name=FEED_082 value=0.9>
+<input type=hidden name=FEED_083 value=0.0><input type=hidden name=FEED_084 value=0.0>
+<input type=hidden name=FEED_091 value=0.65><input type=hidden name=FEED_092 value=0.6>
+<input type=hidden name=FEED_093 value=0.0><input type=hidden name=FEED_094 value=0.0>
+
+<!-- Urban -->
+<input type=hidden name=URBN_011 value=0.0><input type=hidden name=URBN_012 value=0.0>
+<input type=hidden name=URBN_013 value=0.0><input type=hidden name=URBN_014 value=0.0>
+<input type=hidden name=URBN_021 value=0.6><input type=hidden name=URBN_022 value=0.9>
+<input type=hidden name=URBN_023 value=0.6><input type=hidden name=URBN_024 value=0.95>
+<input type=hidden name=URBN_031 value=0.63><input type=hidden name=URBN_032 value=0.8>
+<input type=hidden name=URBN_033 value=0.0><input type=hidden name=URBN_034 value=0.0>
+<input type=hidden name=URBN_041 value=0.0><input type=hidden name=URBN_042 value=0.0>
+<input type=hidden name=URBN_043 value=0.0><input type=hidden name=URBN_044 value=0.0>
+<input type=hidden name=URBN_051 value=0.9><input type=hidden name=URBN_052 value=0.9>
+<input type=hidden name=URBN_053 value=0.0><input type=hidden name=URBN_054 value=0.9>
+<input type=hidden name=URBN_061 value=0.3><input type=hidden name=URBN_062 value=0.26>
+<input type=hidden name=URBN_063 value=0.27><input type=hidden name=URBN_064 value=0.575>
+<input type=hidden name=URBN_071 value=0.55><input type=hidden name=URBN_072 value=0.685>
+<input type=hidden name=URBN_073 value=0.72><input type=hidden name=URBN_074 value=0.86>
+<input type=hidden name=URBN_081 value=0.5325><input type=hidden name=URBN_082 value=0.6125>
+<input type=hidden name=URBN_083 value=0.0><input type=hidden name=URBN_084 value=0.65>
+<input type=hidden name=URBN_091 value=0.1><input type=hidden name=URBN_092 value=0.25>
+<input type=hidden name=URBN_093 value=0.3><input type=hidden name=URBN_094 value=0.65>
+<input type=hidden name=URBN_101 value=0.6><input type=hidden name=URBN_102 value=0.65>
+<input type=hidden name=URBN_103 value=0.0><input type=hidden name=URBN_104 value=0.75>
+<input type=hidden name=URBN_111 value=0.0><input type=hidden name=URBN_112 value=0.83>
+<input type=hidden name=URBN_113 value=0.83><input type=hidden name=URBN_114 value=0.94>
+<input type=hidden name=URBN_121 value=0.55><input type=hidden name=URBN_122 value=0.6>
+<input type=hidden name=URBN_123 value=0.0><input type=hidden name=URBN_124 value=0.75>
+<input type=hidden name=URBN_131 value=0.0><input type=hidden name=URBN_132 value=0.0>
+<input type=hidden name=URBN_133 value=0.0><input type=hidden name=URBN_134 value=0.0>
+<input type=hidden name=URBN_141 value=0.0><input type=hidden name=URBN_142 value=0.0>
+<input type=hidden name=URBN_143 value=0.0><input type=hidden name=URBN_144 value=0.0>
+<input type=hidden name=URBN_151 value=0.0><input type=hidden name=URBN_152 value=0.0>
+<input type=hidden name=URBN_153 value=0.0><input type=hidden name=URBN_154 value=0.0>
+<input type=hidden name=URBN_161 value=0.43><input type=hidden name=URBN_162 value=0.81>
+<input type=hidden name=URBN_163 value=0.0><input type=hidden name=URBN_164 value=0.0>
+<input type=hidden name=URBN_171 value=0.5><input type=hidden name=URBN_172 value=0.5>
+<input type=hidden name=URBN_173 value=0.7><input type=hidden name=URBN_174 value=0.9>
+<input type=hidden name=URBN_181 value=0.3><input type=hidden name=URBN_182 value=0.3>
+<input type=hidden name=URBN_183 value=0.4><input type=hidden name=URBN_184 value=0.6>
+<input type=hidden name=URBN_191 value=0.5><input type=hidden name=URBN_192 value=0.65>
+<input type=hidden name=URBN_193 value=0.0><input type=hidden name=URBN_194 value=0.9>
+<input type=hidden name=URBN_201 value=0.5><input type=hidden name=URBN_202 value=0.5>
+<input type=hidden name=URBN_203 value=0.7><input type=hidden name=URBN_204 value=0.9>
+<input type=hidden name=URBN_211 value=0.075><input type=hidden name=URBN_212 value=0.175>
+<input type=hidden name=URBN_213 value=0.0><input type=hidden name=URBN_214 value=0.475>
+<input type=hidden name=URBN_221 value=0.4><input type=hidden name=URBN_222 value=0.2>
+<input type=hidden name=URBN_223 value=0.0><input type=hidden name=URBN_224 value=0.8>
+<input type=hidden name=URBN_231 value=0.05><input type=hidden name=URBN_232 value=0.05>
+<input type=hidden name=URBN_233 value=0.0><input type=hidden name=URBN_234 value=0.15>
+<input type=hidden name=URBN_241 value=0.85><input type=hidden name=URBN_242 value=0.65>
+<input type=hidden name=URBN_243 value=0.0><input type=hidden name=URBN_244 value=0.9>
+<input type=hidden name=URBN_251 value=0.35><input type=hidden name=URBN_252 value=0.5>
+<input type=hidden name=URBN_253 value=0.0><input type=hidden name=URBN_254 value=0.8>
+<input type=hidden name=URBN_261 value=0.0><input type=hidden name=URBN_262 value=0.375>
+<input type=hidden name=URBN_263 value=0.4><input type=hidden name=URBN_264 value=0.825>
+<input type=hidden name=URBN_271 value=0.0><input type=hidden name=URBN_272 value=0.515>
+<input type=hidden name=URBN_273 value=0.56><input type=hidden name=URBN_274 value=0.815>
+<input type=hidden name=URBN_281 value=0.4><input type=hidden name=URBN_282 value=0.4525>
+<input type=hidden name=URBN_283 value=0.505><input type=hidden name=URBN_284 value=0.73>
+<input type=hidden name=URBN_291 value=0.0><input type=hidden name=URBN_292 value=0.06>
+<input type=hidden name=URBN_293 value=0.06><input type=hidden name=URBN_294 value=0.16>
+<input type=hidden name=URBN_301 value=0.35><input type=hidden name=URBN_302 value=0.45>
+<input type=hidden name=URBN_303 value=0.0><input type=hidden name=URBN_304 value=0.6>
+<input type=hidden name=URBN_311 value=0.2><input type=hidden name=URBN_312 value=0.44>
+<input type=hidden name=URBN_313 value=0.0><input type=hidden name=URBN_314 value=0.6>
+<input type=hidden name=URBN_321 value=0.35><input type=hidden name=URBN_322 value=0.0>
+<input type=hidden name=URBN_323 value=0.0><input type=hidden name=URBN_324 value=0.8>
+<input type=hidden name=URBN_331 value=0.2><input type=hidden name=URBN_332 value=0.09>
+<input type=hidden name=URBN_333 value=0.13><input type=hidden name=URBN_334 value=0.37>
+
+</form>

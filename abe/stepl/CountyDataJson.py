@@ -19,7 +19,9 @@ class CountyDataJson(View):
 				lsavg = ele.lsavg,
 				cavg = ele.cavg,
 				pavg = ele.pavg,
-				session_id = request.session['IndexInput']['id']
+				session_id = request.session['IndexInput']['id'],
+				LocFileName = request.GET['LocFileName'],
+				LocName = request.GET['LocName'],
 				)
 			cntInput.save()
 		else:
@@ -31,6 +33,8 @@ class CountyDataJson(View):
 			cntInput.lsavg = ele.lsavg
 			cntInput.cavg = ele.cavg
 			cntInput.pavg = ele.pavg
+			cntInput.LocFileName = request.GET['LocFileName']
+			cntInput.LocName = request.GET['LocName']
 			cntInput.save()
 
 		#return for inputMain view

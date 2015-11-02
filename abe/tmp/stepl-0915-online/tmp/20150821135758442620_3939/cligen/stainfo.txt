@@ -1,0 +1,3 @@
+Station:	LAFAYETTE 5 S IN
+State:	Indiana
+County:	Tippecanoe

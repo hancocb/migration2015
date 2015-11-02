@@ -1,0 +1,205 @@
+<!DOCTYPE HTML SYSTEM>
+<html>
+<head>
+  <title>Feedlot DB Table</title>
+</head>
+<!--#### Programmed by Youn Shik Park -->
+
+<body onLoad="init();">
+<form name=Feedlot action="./inputMain.cgi">
+<br><center>
+  <table border=1>
+    <tr>
+      <td align=center colspan=5><font color=blue><b>Ratio of nutrients produced by animals relative to 1000 lb of slaughter steer</b></font></td>
+    </tr>
+    <tr>
+      <td align=center bgcolor="#BDBDBD"><b>Animal</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>N</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>P</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>BOD</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>COD</b></td>
+    </tr>
+    <tr>
+      <td align=center>Slaughter Steer</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_011></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_012></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_013></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_014></td>
+    </tr>
+    <tr>
+      <td align=center>Young Beef</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_021></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_022></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_023></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_024></td>
+    </tr>
+    <tr>
+      <td align=center>Dairy Cow</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_031></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_032></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_033></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_034></td>
+    </tr>
+    <tr>
+      <td align=center>Young Dairy Stock</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_041></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_042></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_043></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_044></td>
+    </tr>
+    <tr>
+      <td align=center>Swine</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_051></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_052></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_053></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_054></td>
+    </tr>
+    <tr>
+      <td align=center>Feeder Pig</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_061></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_062></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_063></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_064></td>
+    </tr>
+    <tr>
+      <td align=center>Sheep</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_071></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_072></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_073></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_074></td>
+    </tr>
+    <tr>
+      <td align=center>Horse</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_081></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_082></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_083></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_084></td>
+    </tr>
+    <tr>
+      <td align=center>Chicken</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_091></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_092></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_093></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_094></td>
+    </tr>
+    <tr>
+      <td align=center>Turkey</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_101></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_102></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_103></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_104></td>
+    </tr>
+    <tr>
+      <td align=center>Duck</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_111></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_112></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_113></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Feedlot_114></td>
+    </tr>
+  </table>
+<br>
+
+<input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Update" onClick="javascript:returnVal()">
+</center>
+</form>
+<script language="JavaScript" type="text/javascript">
+function init() {
+  document.Feedlot.Feedlot_011.value = opener.document.inputMain.Feedlot_011.value ;
+  document.Feedlot.Feedlot_012.value = opener.document.inputMain.Feedlot_012.value ;
+  document.Feedlot.Feedlot_013.value = opener.document.inputMain.Feedlot_013.value ;
+  document.Feedlot.Feedlot_014.value = opener.document.inputMain.Feedlot_014.value ;
+  document.Feedlot.Feedlot_021.value = opener.document.inputMain.Feedlot_021.value ;
+  document.Feedlot.Feedlot_022.value = opener.document.inputMain.Feedlot_022.value ;
+  document.Feedlot.Feedlot_023.value = opener.document.inputMain.Feedlot_023.value ;
+  document.Feedlot.Feedlot_024.value = opener.document.inputMain.Feedlot_024.value ;
+  document.Feedlot.Feedlot_031.value = opener.document.inputMain.Feedlot_031.value ;
+  document.Feedlot.Feedlot_032.value = opener.document.inputMain.Feedlot_032.value ;
+  document.Feedlot.Feedlot_033.value = opener.document.inputMain.Feedlot_033.value ;
+  document.Feedlot.Feedlot_034.value = opener.document.inputMain.Feedlot_034.value ;
+  document.Feedlot.Feedlot_041.value = opener.document.inputMain.Feedlot_041.value ;
+  document.Feedlot.Feedlot_042.value = opener.document.inputMain.Feedlot_042.value ;
+  document.Feedlot.Feedlot_043.value = opener.document.inputMain.Feedlot_043.value ;
+  document.Feedlot.Feedlot_044.value = opener.document.inputMain.Feedlot_044.value ;
+  document.Feedlot.Feedlot_051.value = opener.document.inputMain.Feedlot_051.value ;
+  document.Feedlot.Feedlot_052.value = opener.document.inputMain.Feedlot_052.value ;
+  document.Feedlot.Feedlot_053.value = opener.document.inputMain.Feedlot_053.value ;
+  document.Feedlot.Feedlot_054.value = opener.document.inputMain.Feedlot_054.value ;
+  document.Feedlot.Feedlot_061.value = opener.document.inputMain.Feedlot_061.value ;
+  document.Feedlot.Feedlot_062.value = opener.document.inputMain.Feedlot_062.value ;
+  document.Feedlot.Feedlot_063.value = opener.document.inputMain.Feedlot_063.value ;
+  document.Feedlot.Feedlot_064.value = opener.document.inputMain.Feedlot_064.value ;
+  document.Feedlot.Feedlot_071.value = opener.document.inputMain.Feedlot_071.value ;
+  document.Feedlot.Feedlot_072.value = opener.document.inputMain.Feedlot_072.value ;
+  document.Feedlot.Feedlot_073.value = opener.document.inputMain.Feedlot_073.value ;
+  document.Feedlot.Feedlot_074.value = opener.document.inputMain.Feedlot_074.value ;
+  document.Feedlot.Feedlot_081.value = opener.document.inputMain.Feedlot_081.value ;
+  document.Feedlot.Feedlot_082.value = opener.document.inputMain.Feedlot_082.value ;
+  document.Feedlot.Feedlot_083.value = opener.document.inputMain.Feedlot_083.value ;
+  document.Feedlot.Feedlot_084.value = opener.document.inputMain.Feedlot_084.value ;
+  document.Feedlot.Feedlot_091.value = opener.document.inputMain.Feedlot_091.value ;
+  document.Feedlot.Feedlot_092.value = opener.document.inputMain.Feedlot_092.value ;
+  document.Feedlot.Feedlot_093.value = opener.document.inputMain.Feedlot_093.value ;
+  document.Feedlot.Feedlot_094.value = opener.document.inputMain.Feedlot_094.value ;
+  document.Feedlot.Feedlot_101.value = opener.document.inputMain.Feedlot_101.value ;
+  document.Feedlot.Feedlot_102.value = opener.document.inputMain.Feedlot_102.value ;
+  document.Feedlot.Feedlot_103.value = opener.document.inputMain.Feedlot_103.value ;
+  document.Feedlot.Feedlot_104.value = opener.document.inputMain.Feedlot_104.value ;
+  document.Feedlot.Feedlot_111.value = opener.document.inputMain.Feedlot_111.value ;
+  document.Feedlot.Feedlot_112.value = opener.document.inputMain.Feedlot_112.value ;
+  document.Feedlot.Feedlot_113.value = opener.document.inputMain.Feedlot_113.value ;
+  document.Feedlot.Feedlot_114.value = opener.document.inputMain.Feedlot_114.value ;
+}
+
+function returnVal() {
+  opener.document.inputMain.Feedlot_011.value = document.Feedlot.Feedlot_011.value ;
+  opener.document.inputMain.Feedlot_012.value = document.Feedlot.Feedlot_012.value ;
+  opener.document.inputMain.Feedlot_013.value = document.Feedlot.Feedlot_013.value ;
+  opener.document.inputMain.Feedlot_014.value = document.Feedlot.Feedlot_014.value ;
+  opener.document.inputMain.Feedlot_021.value = document.Feedlot.Feedlot_021.value ;
+  opener.document.inputMain.Feedlot_022.value = document.Feedlot.Feedlot_022.value ;
+  opener.document.inputMain.Feedlot_023.value = document.Feedlot.Feedlot_023.value ;
+  opener.document.inputMain.Feedlot_024.value = document.Feedlot.Feedlot_024.value ;
+  opener.document.inputMain.Feedlot_031.value = document.Feedlot.Feedlot_031.value ;
+  opener.document.inputMain.Feedlot_032.value = document.Feedlot.Feedlot_032.value ;
+  opener.document.inputMain.Feedlot_033.value = document.Feedlot.Feedlot_033.value ;
+  opener.document.inputMain.Feedlot_034.value = document.Feedlot.Feedlot_034.value ;
+  opener.document.inputMain.Feedlot_041.value = document.Feedlot.Feedlot_041.value ;
+  opener.document.inputMain.Feedlot_042.value = document.Feedlot.Feedlot_042.value ;
+  opener.document.inputMain.Feedlot_043.value = document.Feedlot.Feedlot_043.value ;
+  opener.document.inputMain.Feedlot_044.value = document.Feedlot.Feedlot_044.value ;
+  opener.document.inputMain.Feedlot_051.value = document.Feedlot.Feedlot_051.value ;
+  opener.document.inputMain.Feedlot_052.value = document.Feedlot.Feedlot_052.value ;
+  opener.document.inputMain.Feedlot_053.value = document.Feedlot.Feedlot_053.value ;
+  opener.document.inputMain.Feedlot_054.value = document.Feedlot.Feedlot_054.value ;
+  opener.document.inputMain.Feedlot_061.value = document.Feedlot.Feedlot_061.value ;
+  opener.document.inputMain.Feedlot_062.value = document.Feedlot.Feedlot_062.value ;
+  opener.document.inputMain.Feedlot_063.value = document.Feedlot.Feedlot_063.value ;
+  opener.document.inputMain.Feedlot_064.value = document.Feedlot.Feedlot_064.value ;
+  opener.document.inputMain.Feedlot_071.value = document.Feedlot.Feedlot_071.value ;
+  opener.document.inputMain.Feedlot_072.value = document.Feedlot.Feedlot_072.value ;
+  opener.document.inputMain.Feedlot_073.value = document.Feedlot.Feedlot_073.value ;
+  opener.document.inputMain.Feedlot_074.value = document.Feedlot.Feedlot_074.value ;
+  opener.document.inputMain.Feedlot_081.value = document.Feedlot.Feedlot_081.value ;
+  opener.document.inputMain.Feedlot_082.value = document.Feedlot.Feedlot_082.value ;
+  opener.document.inputMain.Feedlot_083.value = document.Feedlot.Feedlot_083.value ;
+  opener.document.inputMain.Feedlot_084.value = document.Feedlot.Feedlot_084.value ;
+  opener.document.inputMain.Feedlot_091.value = document.Feedlot.Feedlot_091.value ;
+  opener.document.inputMain.Feedlot_092.value = document.Feedlot.Feedlot_092.value ;
+  opener.document.inputMain.Feedlot_093.value = document.Feedlot.Feedlot_093.value ;
+  opener.document.inputMain.Feedlot_094.value = document.Feedlot.Feedlot_094.value ;
+  opener.document.inputMain.Feedlot_101.value = document.Feedlot.Feedlot_101.value ;
+  opener.document.inputMain.Feedlot_102.value = document.Feedlot.Feedlot_102.value ;
+  opener.document.inputMain.Feedlot_103.value = document.Feedlot.Feedlot_103.value ;
+  opener.document.inputMain.Feedlot_104.value = document.Feedlot.Feedlot_104.value ;
+  opener.document.inputMain.Feedlot_111.value = document.Feedlot.Feedlot_111.value ;
+  opener.document.inputMain.Feedlot_112.value = document.Feedlot.Feedlot_112.value ;
+  opener.document.inputMain.Feedlot_113.value = document.Feedlot.Feedlot_113.value ;
+  opener.document.inputMain.Feedlot_114.value = document.Feedlot.Feedlot_114.value ;
+  alert("Updated") ;
+  self.close() ; 
+}
+</script>
+
+</body>
+</html>
+

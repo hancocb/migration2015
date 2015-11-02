@@ -7,7 +7,9 @@ from stepl.models import *
 from stepl.templatetags.simple_tags import twonum
 from stepl.tools import extract
       
-    
+#Note: SoilData is in sql/soildata.sql TODO: it's better to move here.
+
+
 def iReferenceRunoff(data):
     keyMap = (  ('Urban',   'urban'),
                 ('Cropland',    'crop'),
@@ -106,7 +108,7 @@ def iIrrigation():
     i.Water_Depth_in_per_Irrigation_After_BMP = 0
     i.Irrigation_Frequency_perYear = 0
     i.save()
-    
+
 #Reference_xxx
 def iAnimalWeight(data):
     Animals = ['','Beef cattle','Dairy cow','Hog','Sheep','Horse','Chicken (Layer)','Turkey','Duck','Goose','Deer','Beaver','Raccoon','Other',]

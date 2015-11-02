@@ -91,14 +91,14 @@
             );
 
             var myStDsc = extendData[2] ;
-            top.opener.document.inputMain.LocName.value = myStDsc ;
+            top.opener.document.inputMain.LocName.value = myStDsc ;//stationN
             var state = extendData[8];
             var countyName = extendData[14];
-            top.opener.document.inputMain.State.value = state;
-            top.opener.document.inputMain.CountyName.value = countyName;
-            top.opener.document.inputMain.LocFileName.value = feature.attributes.name ; 
+            top.opener.document.inputMain.State.value = state;//stateN
+            top.opener.document.inputMain.CountyName.value = countyName;//countyN
+            top.opener.document.inputMain.LocFileName.value = feature.attributes.name ;//FileName 
             // End of changes        
-            
+
             feature.popup = popup;
             map.addPopup(popup);
         }

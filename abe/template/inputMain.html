@@ -215,13 +215,17 @@
     var gbutton = document.getElementsByName("GraphButton")[0]; 
     gbutton.type = 'button';   
     var state = document.getElementsByName("State")[0].value;   
-    var countyName = document.getElementsByName("CountyName")[0].value;   
+    var countyName = document.getElementsByName("CountyName")[0].value; 
+    var LocFileName = document.getElementsByName("LocFileName")[0].value; 
+    var LocName = document.getElementsByName("LocName")[0].value; 
     $.ajax({ 
       url:"CountyDataJson", 
       type:"GET", 
       data:{
         "State" : state, 
-        "County" : countyName, 
+        "County" : countyName,
+        "LocFileName" : LocFileName,
+        "LocName" : LocName,
       }, 
         success : function(response){     
           var ret = response.ret;

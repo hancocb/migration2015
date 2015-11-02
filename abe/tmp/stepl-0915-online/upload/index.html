@@ -1,0 +1,91 @@
+<html>
+
+<head>
+<SCRIPT LANGUAGE="JavaScript">
+
+function realtimeClock() {
+  document.main.rtcInput.value = getTimeStamp();
+
+  setTimeout("realtimeClock()", 1000);
+}
+
+
+function getTimeStamp() {
+  var d = new Date();
+
+  var s =
+    leadingZeros(d.getFullYear(), 4) +
+    leadingZeros(d.getMonth() + 1, 2) +
+    leadingZeros(d.getDate(), 2) +
+    leadingZeros(d.getHours(), 2) +
+    leadingZeros(d.getMinutes(), 2) +
+    leadingZeros(d.getSeconds(), 2);
+
+  return s;
+}
+
+
+function leadingZeros(n, digits) {
+  var zero = '';
+  n = n.toString();
+
+  if (n.length < digits) {
+    for (i = 0; i < digits - n.length; i++)
+      zero += '0';
+  }
+  return zero + n;
+}
+</SCRIPT>
+</head>
+
+<body onload="realtimeClock()" bgcolor=white>
+  <br><center> 
+
+  <table border=1>
+    <tr>
+      <td colspan=2 align=center><b> Available File Format </b></td>
+    </tr>
+    <tr>
+      <td align=center> Tab Delimited Format </td>
+      <td align=center> <a href="./Examples/tab.txt" target=_new> Example1 </a> </td>
+    </tr>
+    <tr>
+      <td align=center> Space Delimited Format </td>
+      <td align=center> <a href="./Examples/sdf.txt" target=_new> Example2 </a> </td>
+    </tr>
+    <tr>
+      <td align=center> Comma-Separated Values Format </td>
+      <td align=center> <a href="./Examples/csv.csv" target=_new> Example3 </a> </td>
+    </tr>
+  </table>
+
+  <br><br>
+
+  <form name=main enctype="multipart/form-data" action="index2.cgi" method="POST">
+    <table border=1>
+      <tr>
+	<td align=center>
+          <input type="hidden" name="rtcInput" size="20" readonly>
+          <p>File: <input type="file" name="filename" /></p>
+          <p><input type="submit" value="Upload" /></p>
+        </td>
+      </tr>
+    </table>
+   </form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

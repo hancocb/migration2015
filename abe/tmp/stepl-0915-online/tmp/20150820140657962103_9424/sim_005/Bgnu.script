@@ -1,0 +1,13 @@
+set key top left
+set terminal jpeg font "Helvetica,10"
+set xtics border in scale 1,0.5 nomirror rotate by 0  offset character 0, 0.5, -2
+set yrange[0.00:527.89]
+set autoscale y2
+set output "./tmp/20150820140657962103_9424/sim_005/B_bar.jpg"
+set xlabel "Watershed (Reduction, %)"
+set ylabel "Annual Loads (lbs)"
+set style data histogram
+set style histogram cluster gap 1
+set style fill solid border -1
+set boxwidth 0.9
+plot "./tmp/20150820140657962103_9424/sim_005/Bgnu.dat" using 2:xtic(1) ti col lt 1, "" u 3 ti col lt 2 

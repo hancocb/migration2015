@@ -1,0 +1,419 @@
+#!/usr/local/bin/python
+#------------------------------------------------------
+print "Content-Type: text/html\n\n";
+print "<link rel=\"stylesheet\" type=\"text/css\" href=\"button2.css\">\n" ;
+#----------------------------------------------
+#### Programmed by Youn Shik Park
+
+import cgi, cgitb, os, string, random, datetime, glob, locale
+from string import split,join
+form = cgi.FieldStorage()
+cgitb.enable()
+
+#----S input----------------------------------------------------------------------------------------------------
+ystime = str(form.getvalue('ystime'))
+ystimeldc = str(form.getvalue('ystimeldc'))
+allPct = float(form.getvalue('allPct'))
+sltWQname = str(form.getvalue('sltWQname'))
+numWSD = int(form.getvalue('numWSD'))
+rankArr = str(form.getvalue('rankArrAll'))
+
+rankArr = rankArr.split('____')
+rankArr.pop(-1)
+
+#maxAreaPct = [0.0] * 6
+#for i in range(len(maxAreaPct)) :
+#  tmpStr1 = str(form.getvalue('maxAreaPct_' + str(i)))
+#  if ( tmpStr1 != '' and tmpStr1[0] != 'N' and tmpStr1[0] != 'n' ) :
+#    maxAreaPct[i] = int(tmpStr1)
+
+#---get UrbnConc, BMPs.txt
+BMPset_2 = [0.0] * 5
+for i in range(1,5) :
+  BMPset_2[i] = [0.0] * 10
+  for j in range(1,10) :
+    tmpVal = str(form.getvalue('UrbnConc_' + str(i) + str(j)))
+    if ( tmpVal == 'None' or tmpVal == '' ) :
+      BMPset_2[i][j] = '%.4f' % float(0.0)
+    else :
+      BMPset_2[i][j] = '%.4f' % float(tmpVal)
+
+path = './tmp/' + ystime + '/opt/'
+
+#print '<li>', ystime
+#print '<li>', ystimeldc
+#print '<li>', allPct
+#print '<li>', sltWQname
+#print '<li>', rankArr
+#print '<li>', maxAreaPct
+#----E input----------------------------------------------------------------------------------------------------
+#----------------S declare array--------------------------------------------------------------------------------
+for i in range(len(rankArr)) :
+  rankArr[i] = rankArr[i].split('__')
+  rankArr[i][3] = float(rankArr[i][3]) / 100.0							# luse, bmp, cost, eff. N, P, B, S
+  rankArr[i][4] = float(rankArr[i][4]) / 100.0
+  rankArr[i][5] = float(rankArr[i][5]) / 100.0
+  rankArr[i][6] = float(rankArr[i][6]) / 100.0
+#  print '<li>', rankArr[i]
+
+
+#---urban dist.
+mainINPfile = open(path + 'mainINP.txt','r')
+tmpArr1 = mainINPfile.readlines()
+mainINPfile.close()
+
+dashCnt = 0
+dashLne = 1
+urbnDist = ''
+for i in range(len(tmpArr1)) :
+  tmpArr1[i] = tmpArr1[i].replace('\r','')
+  tmpArr1[i] = tmpArr1[i].replace('\n','')
+  if ( 1 < len(tmpArr1[i]) and tmpArr1[i][0] == '-' ) :
+    dashCnt += 1
+  if ( dashCnt == 10 ) :
+    dashLne = i
+
+urbnDist = tmpArr1[dashLne] 
+urbnDist = urbnDist.split('\t')
+
+areaWSD = tmpArr1[2]
+#----------------E declare array--------------------------------------------------------------------------------
+#-----------------------------------S BMPset_2, urban concentration values, fixed-------------------------------
+urbnConcArr = [''] * 4
+for i in range(1,len(BMPset_2)) :
+  urbnConcStr = ''
+  for j in range(1,len(BMPset_2[i])-1) :
+    urbnConcStr += str(BMPset_2[i][j]) + '\t'
+  urbnConcStr += str(BMPset_2[i][-1])
+  urbnConcArr[i-1] = urbnConcStr + '\n'
+
+#for i in range(len(urbnConcArr)) :
+#  print '<li>', urbnConcArr[i]
+
+#-----------------------------------E BMPset_2, urban concentration values, fixed-------------------------------
+#---S def urbn area---------------------------------------------------------------------------------------------
+def urbnArea(urbnDist,ATA) : 
+  urbnStr = '' 
+  for j in range(1,len(urbnDist)-2) :
+    tmpVal1 = float(urbnDist[j]) * float(urbnDist[0]) / 100.0 * ATA / 100.0
+    tmpVal1 = '%.4f'%tmpVal1
+    urbnStr += str(tmpVal1) + '\t'
+  tmpVal1 = float(urbnDist[-2]) * float(urbnDist[0]) / 100.0 * ATA / 100.0
+  tmpVal1 = '%.4f'%tmpVal1
+  urbnStr += str(tmpVal1)
+
+#  print '<li>aaaaaaa', urbnStr
+  return urbnStr
+    
+#ATA = 41.96
+#urbnStr = ''
+#urbnStr = urbnArea(urbnDist,ATA)
+#---E def urbn area---------------------------------------------------------------------------------------------
+#--------------------------------------------S default myBMPset-------------------------------------------------
+myBMPset = []
+header = '\tN\tP\tBOD\tSediment\tAppliedArea\n'
+zeroEff1 = '0.0000\t0.0000\t0.0000\t0.0000\t100.0000\n'                                       # no BMP for non-urban
+zeroEff2 = '0.0000\t0.0000\t0.0000\t0.0000\t0.0000\t0.0000\t0.0000\t0.0000\t0.0000\n'         # no BMP for urban
+for i in range(4) :
+  myBMPset.append(header)
+  myBMPset.append(zeroEff1)
+  myBMPset.append('\n')
+myBMPset.append(header)
+myBMPset.append(zeroEff1)
+myBMPset.append('------------ Followings are BMPs for Urban-------------------------------------------------\n')
+for i in range(len(urbnConcArr)) :
+  myBMPset.append(urbnConcArr[i])
+
+urbnStr = urbnArea(urbnDist,100)
+myBMPset.append('\n')
+myBMPset.append(urbnStr + '\n')
+myBMPset.append('\n')
+
+for i in range(4) :
+  myBMPset.append(zeroEff2)
+  myBMPset.append('\n')
+
+#print '<pre>'
+noBMPset = [''] * len(myBMPset)
+for i in range(len(myBMPset)) :
+  noBMPset[i] = myBMPset[i] 						# no BMP
+#  print '<li>', myBMPset[i]
+#--------------------------------------------E default myBMPset-------------------------------------------------
+#-----------------------S update myBMPset-----------------------------------------------------------------------
+def updateBMPset(myBMPset,rankArr,urbnConcStr,urbnDist,ATA) :
+  #print '<li>', rankArr[0]
+  if ( rankArr[0] == 'Urban' ) :
+    urbnStr = urbnArea(urbnDist,ATA)
+    myBMPset[20] = urbnStr + '\n'
+    nVal = ''
+    pVal = ''
+    bVal = ''
+    sVal = ''
+    for i in range(8) :
+      nVal += '%.4f'%float(rankArr[3]) + '\t'
+      pVal += '%.4f'%float(rankArr[4]) + '\t'
+      bVal += '%.4f'%float(rankArr[5]) + '\t'
+      sVal += '%.4f'%float(rankArr[6]) + '\t'
+    nVal += '%.4f'%float(rankArr[3]) + '\n'
+    pVal += '%.4f'%float(rankArr[4]) + '\n'
+    bVal += '%.4f'%float(rankArr[5]) + '\n'
+    sVal += '%.4f'%float(rankArr[6]) + '\n'
+
+    myBMPset[22] = nVal
+    myBMPset[24] = pVal
+    myBMPset[26] = bVal
+    myBMPset[28] = sVal
+
+  #---update bmp eff. Cropland
+  else :
+    nVal = float(rankArr[3]) * float(ATA) / 100.0
+    pVal = float(rankArr[4]) * float(ATA) / 100.0
+    bVal = float(rankArr[5]) * float(ATA) / 100.0
+    sVal = float(rankArr[6]) * float(ATA) / 100.0
+    nonBMPeffStr = str('%.4f'%nVal) + '\t' + str('%.4f'%pVal) + '\t'
+    nonBMPeffStr += str('%.4f'%bVal) + '\t' + str('%.4f'%sVal) + '\t' + str(int(ATA+0.5)) + '\n'
+
+    if ( rankArr[0] == 'Cropland' ) :
+      myBMPset[1] = nonBMPeffStr 
+    if ( rankArr[0] == 'Forest' ) :
+      myBMPset[7] = nonBMPeffStr
+    elif ( rankArr[0] == 'Feedlots' ) :
+      myBMPset[13] = nonBMPeffStr
+
+  return myBMPset
+
+#-----------------------E update myBMPset-----------------------------------------------------------------------
+#---S write BMPs.txt--------------------------------------------------------------------------------------------
+def writeBMPs(myBMPset,path) :
+  bmp = open(path + 'BMPs.txt','w')
+  for i in range(len(myBMPset)) :
+#    print '<li>', i, '::', myBMPset[i]
+    bmp.write(myBMPset[i]) 
+  bmp.close()
+#---E write BMPs.txt--------------------------------------------------------------------------------------------
+#-----------------------------------------S read STEPL rst------------------------------------------------------
+def readRst(path,sltWQname) :
+  rstFile = open(path + 'myRST.csv','r')
+  rst = rstFile.readlines()
+  rstFile.close()
+
+  clm = 12
+  if ( sltWQname[0] == 'N' ) :
+    clm = 9
+  elif ( sltWQname[0] == 'P' ) :
+    clm = 10 
+  elif ( sltWQname[0] == 'B' ) :
+    clm = 11
+
+  myRdc1 = rst[-1].split()
+  curLoad = float(myRdc1[clm])
+
+#  print '<hr><li>', sltWQname, clm, '::', myRdc1
+  return curLoad 
+
+#-----------------------------------------E read STEPL rst------------------------------------------------------
+#---S cal. cost ($/mass)----------------------------------------------------------------------------------------
+# run STEPL with no BMP
+writeBMPs(myBMPset,path)
+os.chdir(path)
+os.system('./stepl_amc')
+os.chdir('../../../')
+curLoad = readRst(path,sltWQname)						# 0 is to read load
+#print '<li>', curLoad
+
+
+# extract luse area to calculate net cost
+areaArr1 = tmpArr1[2].split('\t')						# from mainINP.txt
+
+
+# run STEPL with BMP of 100 %
+areaArr2 = [0.0] * len(rankArr)
+simLoad = [0.0] * len(rankArr)
+for i in range(len(rankArr)) :
+  for j in range(len(areaArr1)) :
+    if ( rankArr[i][0] == 'Urban' and areaArr1[0] != '' ) :
+      areaArr2[i] = float(areaArr1[0])
+    elif ( rankArr[i][0] == 'Cropland' and areaArr1[1] != '' ) :
+      areaArr2[i] = float(areaArr1[1])
+    elif ( rankArr[i][0] == 'Pastureland' and areaArr1[2] != '' ) :
+      areaArr2[i] = float(areaArr1[2])
+    elif ( rankArr[i][0] == 'Forest' and areaArr1[3] != '' ) :
+      areaArr2[i] = float(areaArr1[3])
+    elif ( rankArr[i][0] == 'Feedlots' and areaArr1[5] != '' ) :
+      areaArr2[i] = float(areaArr1[5])
+  for j in range(len(noBMPset)) :						# reset BMPs
+    myBMPset[j] = noBMPset[j]
+  myBMPset = updateBMPset(myBMPset,rankArr[i],urbnConcStr,urbnDist,100)
+  writeBMPs(myBMPset,path)
+  os.chdir(path)
+  os.system('./stepl_amc')
+  os.chdir('../../../')
+  simLoad[i] = readRst(path,sltWQname)
+
+
+#---calculate $/mass and update rankArrAll
+rankArr2 = [] 									# tmpporary array, 0 is cost ($/mass)
+for i in range(len(rankArr)) :
+  if ( 0.0 < (curLoad - simLoad[i]) ) :
+    tmpVal2 = (areaArr2[i] * float(rankArr[i][7])) / (curLoad - simLoad[i])
+  else : 
+    tmpVal2 = -1
+#  print '<li>', rankArr[i][0], '--', simLoad[i], '--', areaArr2[i], '--', rankArr[i][7], '--', curLoad, '::::', tmpVal2
+#  print '<li>was::::', rankArr[i]
+  rankArr[i][2] = tmpVal2
+#  print '<li>is::::', rankArr[i]
+  rnkStr1 = str(rankArr[i][2]) + '__' + str(rankArr[i][0]) + '__' + str(rankArr[i][1]) + '__' + str(rankArr[i][3])
+  rnkStr1 += '__' + str(rankArr[i][4]) + '__' + str(rankArr[i][5]) + '__' + str(rankArr[i][6]) + '__' + str(rankArr[i][7])
+  rankArr2.append(rnkStr1)
+
+for i in range(len(rankArr2)) :
+  rankArr2[i] = rankArr2[i].split('__')
+  rankArr2[i][0] = float(rankArr2[i][0])
+rankArr2.sort()
+
+rankArr = []
+for i in range(len(rankArr2)) :
+  rnkStr2 = str(rankArr2[i][1]) + '__' + str(rankArr2[i][2]) + '__' + str('%.6f'%float(rankArr2[i][0])) + '__' + str(rankArr2[i][3])
+  rnkStr2 += '__' + str(rankArr2[i][4]) + '__' + str(rankArr2[i][5]) + '__' + str(rankArr2[i][6]) + '__' + str(rankArr2[i][7])
+  rankArr.append(rnkStr2)
+
+rankArrAll = ''
+for i in range(len(rankArr)) :
+  rankArrAll += rankArr[i] + '____'
+ 
+
+bmpEffClm = 0
+if ( sltWQname[0] == 'N' ) :
+  bmpEffClm =0
+elif ( sltWQname[0] == 'P' ) :
+  bmpEffClm =1
+elif ( sltWQname[0] == 'B' ) :
+  bmpEffClm =2
+elif ( sltWQname[0] == 'S' ) :
+  bmpEffClm =3
+
+#---E cal. cost ($/mass)----------------------------------------------------------------------------------------
+#-----------------------------------------------S HTML----------------------------------------------------------
+print '<html>'
+print '<head>'
+print '  <title>STEPL BMP Optimization Module</title>'
+
+print '<script language="JavaScript">'
+print 'function init() {'
+for i in range(1,5) :
+  for j in range(1,10) :
+    tmpStr = '  document.main.UrbnConc_' + str(i) + str(j) + '.value = opener.document.bmpMain.UrbnConc_' + str(i) + str(j) + '.value ;'
+    print tmpStr
+print '}'
+print '</script>'
+
+
+print '</head>'
+print '<body onLoad="init();">'
+print '<center><br><img src="./img/STEPL_WEB_title.jpg" width=400><hr><br>'
+print '<form name=main method="POST" action="./bmpopt3.cgi">'
+print '  <input type=hidden name=ystimeldc value="' + ystimeldc + '">'
+print '  <input type=hidden name=ystime value="' + ystime + '">'
+print '  <input type=hidden name=sltWQname value="' + sltWQname + '">'
+print '  <input type=hidden name=rankArrAll value="' + rankArrAll + '">'
+print '  <input type=hidden name=numWSD value="' + str(numWSD) + '">'
+
+print '  <table border=0 width=800>'
+print '    <tr>'
+print '      <td align=left><font face="Times New Roman">'
+print '        The table shows BMP list to apply. The module will apply BMPs by the order in the table.<br>'
+print '        Changing the MATA, the module will run STEPL until the estimated pollutant load meets the target load.'
+print '      </td>'
+print '    </tr>'
+print '    <tr><td> </td></tr>'
+print '    <tr>'
+print '      <td align=left><font face="Times New Roman">'
+print '        Water quality parater is <b><font color=tomato>', sltWQname, '</font></b>.<br>'
+#print '        Required Reduction Percent is <b><font color=tomato>', '%.2f'%float(allPct), '</font>(%)</b>.'
+myStr1 = '        Required Reduction Percentage is <input type=text name=allPct value="'
+myStr1 += str('%.2f'%float(allPct)) + '" style="text-align:right" size=4>'
+print myStr1
+print '      </td>'
+print '    </tr>'
+print '  </table>'
+
+
+print '  <table border=1 width=800>'
+print '    <tr>'
+print '      <td align=center><font face="Times New Roman"><b>Landuse</font></td>'
+print '      <td align=center><font face="Times New Roman"><b>BMP</font></td>'
+print '      <td align=center><font face="Times New Roman"><b>BMP Efficiency (%)</td>'
+#print '      <td align=center><font face="Times New Roman"><b>Cost<sup><font color=red>1</font></sup></td>'
+print '      <td align=center><font face="Times New Roman"><b>MATA<sup><font color=red>*</font></sup></td>'
+print '    </tr>'
+for i in range(len(rankArr)) :
+  tblStr1 = rankArr[i].split('__')
+  tblStr2 = '    <tr>\n'
+  tblStr2 += '      <td align=left><font face="Times New Roman">' + tblStr1[0] + '</font></td>\n'
+  tblStr2 += '      <td align=left><font face="Times New Roman">' + tblStr1[1] + '</font></td>\n'
+  tblStr2 += '      <td align=right><font face="Times New Roman">' + str('%.1f'%(float(tblStr1[3+bmpEffClm])*100)) + '</font></td>\n'
+#  tblStr2 += '      <td align=right><font face="Times New Roman">' + str('%.5f'%float(tblStr1[2])) + '</font></td>\n'
+  tblStr2 += '      <td align=center><input type=text name=maxAreaPct_' + str(i) + ' size=4 style="text-align:right" value=100></td>\n'
+  tblStr2 += '    </tr>\n'
+  print tblStr2
+print '  </table>'
+print '  <table width=800 border=0>'
+print '    <tr>'
+print '      <td width=300> </td>'
+print '      <td align=left><font face="Times New Roman">'
+#print '        <b><sup><font color=red>1</font></sup></b>Cost: $ per area to apply per 1% of pollutant reduction at watershed level<br>'
+print '        <b><sup><font color=red>*</font></sup></b>MATA: Max. Area to Apply (%), setting required'
+print '      </td>'
+print '    </tr>'
+print '  </table><br><hr>'
+
+print '<input type=submit style=\'width:200;height:30;cursor:hand\' value=\'Proceed Optimization\'><br>'
+
+for i in range(1,5) :
+  for j in range(1,10) :
+    UrbnConcStr = '<input type=hidden name="UrbnConc_' + str(i) + str(j) + '" size=3>'
+    print UrbnConcStr
+#  print '<br>'
+
+
+
+print '</form>'
+print '</body>'
+print '</html>'
+#-----------------------------------------------E HTML----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+chmod777dir = 'chmod 777 ' + path 
+chmod777file1 = 'chmod 777 ' + path + '*'
+chmod777file2 = 'chmod 777 ' + path + '*.*'
+os.system(chmod777dir)
+os.system(chmod777file1)
+os.system(chmod777file2)

@@ -1,0 +1,224 @@
+<!DOCTYPE HTML SYSTEM>
+<html>
+<head>
+  <title>Gully & Streambank DB Table </title>
+</head>
+<!--#### Programmed by Youn Shik Park-->
+
+<body onLoad="init();">
+<form name=GullyDB action="./inputMain.cgi">
+<br><center>
+  <table border=1 width=680>
+    <tr>
+      <td align=center colspan=3><font color=blue><b>Soil Textural DB</b></font></td>
+    </tr>
+    <tr>
+      <td align=center bgcolor="#BDBDBD"><b>Soil Textural Class</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>Dry Density (tons/ft<sup>3</sup>)</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>Correction Factor</b></td>
+    </tr>
+    <tr>
+      <td align=center>Clay</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_011></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_012></td>
+    </tr>
+    <tr>
+      <td align=center>Clay loam</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_021></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_022></td>
+    </tr>
+    <tr>
+      <td align=center>Fine Sandy loam</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_031></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_032></td>
+    </tr>
+    <tr>
+      <td align=center>Loams, sandy clay loams</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_041></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_042></td>
+    </tr>
+    <tr>
+      <td align=center>Organic</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_051></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_052></td>
+    </tr>
+    <tr>
+      <td align=center>Sands, Loamy sands</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_061></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_062></td>
+    </tr>
+    <tr>
+      <td align=center>Sandy clay</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_071></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_072></td>
+    </tr>
+    <tr>
+      <td align=center>Sandy loam</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_081></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_082></td>
+    </tr>
+    <tr>
+      <td align=center>Silt Loam</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_091></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_092></td>
+    </tr>
+    <tr>
+      <td align=center>Silty clay loam, silty clay</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_101></td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_102></td>
+    </tr>
+  </table>
+
+<br>
+
+  <table border=1 width=680>
+    <tr>
+      <td align=center colspan=3><font color=blue><b>Lateral Recession Rate (LRR) DB</b></font></td>
+    </tr>
+    <tr>
+      <td align=center bgcolor="#BDBDBD"><b>Category<sup>*</sup></b></td>
+      <td align=center bgcolor="#BDBDBD"><b>LRR (ft/yr)</b></td>
+      <td align=center bgcolor="#BDBDBD"><b>Medium Value</b></td>
+    </tr>
+    <tr>
+      <td align=center>Slight</td>
+      <td align=center>0.01 - 0.05</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_111></td>
+    </tr>
+    <tr>
+      <td align=center>Moderate</td>
+      <td align=center>0.06 - 0.20</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_121></td>
+    </tr>
+    <tr>
+      <td align=center>Severe</td>
+      <td align=center>0.30 - 0.50</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_131></td>
+    </tr>
+    <tr>
+      <td align=center>Very Severe</td>
+      <td align=center>0.50 +</td>
+      <td align=center><input type=text style="text-align:right;border-width:0px;font-size:11pt" size=10 name=GullyDB_141></td>
+    </tr>
+  </table>
+<br>
+
+<input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Update" onClick="javascript:returnVal()">
+</center>
+</form>
+
+<hr>
+<table border=0 width=680>
+  <tr align=center>
+    <td align=left colspan=3>
+      <b><sup>*</sup>LRR Category Description</b> : <br>
+    </td>
+  </tr>
+  <tr>
+    <td width=10> </td>
+    <td align=right width=100>Slight :<br> &nbsp; </td>
+    <td align=left>
+      Some bare bank but active erosion not readily apparent.<br>
+      Some rills but no vegetative overhang.  No exposed tree roots.
+    </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td align=right>Moderate :</td>
+    <td align=left>
+      Bank is predominantly bare with some rills and vegetative overhang.
+    </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td align=right>Severe :<br> &nbsp; <br> &nbsp; <br> &nbsp; <br> &nbsp;  </td>
+    <td align=left>
+      Bank is bare with rills and severe vegetative overhang.<br>
+      Many exposed tree roots and some fallen trees and slumps or slips.<br> 
+      Some changes in cultural features such as <br>
+      fence corners missing and realignment of roads or trails.<br>
+      Channel cross-section becomes more U-shaped as opposed to V-shaped.
+    </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td align=right>Very Severe :<br> &nbsp; <br> &nbsp; <br> &nbsp; <br> &nbsp;<br> &nbsp;  </td>
+    <td align=left>
+      Bank is bare with gullies and severe vegetative overhang.<br>
+      Many fallen trees, drains and culverts eroding out and changes <br>
+      in cultural features as above.<br>
+      Massive slips or washouts common.<br>
+      Channel cross-section is U-shaped and streamcourse<br>
+      or gully may be meandering.
+    </td>
+  </tr>
+</table>
+
+
+<script language="JavaScript" type="text/javascript">
+function init() {
+  document.GullyDB.GullyDB_011.value = opener.document.inputMain.GullyDB_011.value ;
+  document.GullyDB.GullyDB_012.value = opener.document.inputMain.GullyDB_012.value ;
+  document.GullyDB.GullyDB_021.value = opener.document.inputMain.GullyDB_021.value ;
+  document.GullyDB.GullyDB_022.value = opener.document.inputMain.GullyDB_022.value ;
+  document.GullyDB.GullyDB_031.value = opener.document.inputMain.GullyDB_031.value ;
+  document.GullyDB.GullyDB_032.value = opener.document.inputMain.GullyDB_032.value ;
+  document.GullyDB.GullyDB_041.value = opener.document.inputMain.GullyDB_041.value ;
+  document.GullyDB.GullyDB_042.value = opener.document.inputMain.GullyDB_042.value ;
+  document.GullyDB.GullyDB_051.value = opener.document.inputMain.GullyDB_051.value ;
+  document.GullyDB.GullyDB_052.value = opener.document.inputMain.GullyDB_052.value ;
+  document.GullyDB.GullyDB_061.value = opener.document.inputMain.GullyDB_061.value ;
+  document.GullyDB.GullyDB_062.value = opener.document.inputMain.GullyDB_062.value ;
+  document.GullyDB.GullyDB_071.value = opener.document.inputMain.GullyDB_071.value ;
+  document.GullyDB.GullyDB_072.value = opener.document.inputMain.GullyDB_072.value ;
+  document.GullyDB.GullyDB_081.value = opener.document.inputMain.GullyDB_081.value ;
+  document.GullyDB.GullyDB_082.value = opener.document.inputMain.GullyDB_082.value ;
+  document.GullyDB.GullyDB_091.value = opener.document.inputMain.GullyDB_091.value ;
+  document.GullyDB.GullyDB_092.value = opener.document.inputMain.GullyDB_092.value ;
+  document.GullyDB.GullyDB_101.value = opener.document.inputMain.GullyDB_101.value ;
+  document.GullyDB.GullyDB_102.value = opener.document.inputMain.GullyDB_102.value ;
+  document.GullyDB.GullyDB_111.value = opener.document.inputMain.GullyDB_111.value ;
+  document.GullyDB.GullyDB_121.value = opener.document.inputMain.GullyDB_121.value ;
+  document.GullyDB.GullyDB_131.value = opener.document.inputMain.GullyDB_131.value ;
+  document.GullyDB.GullyDB_141.value = opener.document.inputMain.GullyDB_141.value ;
+}
+function returnVal() {
+  opener.document.inputMain.GullyDB_011.value = document.GullyDB.GullyDB_011.value ;
+  opener.document.inputMain.GullyDB_012.value = document.GullyDB.GullyDB_012.value ;
+  opener.document.inputMain.GullyDB_021.value = document.GullyDB.GullyDB_021.value ;
+  opener.document.inputMain.GullyDB_022.value = document.GullyDB.GullyDB_022.value ;
+  opener.document.inputMain.GullyDB_031.value = document.GullyDB.GullyDB_031.value ;
+  opener.document.inputMain.GullyDB_032.value = document.GullyDB.GullyDB_032.value ;
+  opener.document.inputMain.GullyDB_041.value = document.GullyDB.GullyDB_041.value ;
+  opener.document.inputMain.GullyDB_042.value = document.GullyDB.GullyDB_042.value ;
+  opener.document.inputMain.GullyDB_051.value = document.GullyDB.GullyDB_051.value ;
+  opener.document.inputMain.GullyDB_052.value = document.GullyDB.GullyDB_052.value ;
+  opener.document.inputMain.GullyDB_061.value = document.GullyDB.GullyDB_061.value ;
+  opener.document.inputMain.GullyDB_062.value = document.GullyDB.GullyDB_062.value ;
+  opener.document.inputMain.GullyDB_071.value = document.GullyDB.GullyDB_071.value ;
+  opener.document.inputMain.GullyDB_072.value = document.GullyDB.GullyDB_072.value ;
+  opener.document.inputMain.GullyDB_081.value = document.GullyDB.GullyDB_081.value ;
+  opener.document.inputMain.GullyDB_082.value = document.GullyDB.GullyDB_082.value ;
+  opener.document.inputMain.GullyDB_091.value = document.GullyDB.GullyDB_091.value ;
+  opener.document.inputMain.GullyDB_092.value = document.GullyDB.GullyDB_092.value ;
+  opener.document.inputMain.GullyDB_101.value = document.GullyDB.GullyDB_101.value ;
+  opener.document.inputMain.GullyDB_102.value = document.GullyDB.GullyDB_102.value ;
+  opener.document.inputMain.GullyDB_111.value = document.GullyDB.GullyDB_111.value ;
+  opener.document.inputMain.GullyDB_121.value = document.GullyDB.GullyDB_121.value ;
+  opener.document.inputMain.GullyDB_131.value = document.GullyDB.GullyDB_131.value ;
+  opener.document.inputMain.GullyDB_141.value = document.GullyDB.GullyDB_141.value ;
+  alert("Updated") ;
+  self.close() ;
+}
+
+</script>
+
+
+</body>
+
+
+
+
+</html>
+
+

@@ -106,6 +106,8 @@ class CountyData(CountyDataAbstract):
 
 #model for county input data
 class CountyDataInput(CountyDataAbstract):
+  LocFileName = models.CharField(max_length=30) 
+  LocName = models.CharField(max_length=30) 
   session_id = models.IntegerField(unique=True) 
 
 #soil data

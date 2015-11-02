@@ -1,0 +1,55 @@
+Landuse	BMP & Efficiency	N	P	BOD	Sediment	Type	cost	BMPcode
+Cropland	Contour Farming	0.485	0.55	0	0.405	3	999999	1_3
+Cropland	Diversion	0.1	0.3	0	0.35	3	999999	1_4
+Cropland	Filter strip	0.7	0.75	0	0.65	4	20	1_5
+Cropland	Reduced Tillage Systems	0.55	0.45	0	0.75	3	2.72	1_6
+Cropland	Streambank stabilization and fencing	0.75	0.75	0	0.75	2	999999	1_7
+Cropland	Terrace	0.2	0.7	0	0.85	3	999999	1_8
+Forest	Road dry seeding	0	0	0	0.41	3	776	3_3
+Forest	Road grass and legume seeding	0	0	0	0.71	3	118	3_4
+Forest	Road hydro mulch	0	0	0	0.41	3	19200	3_6
+Forest	Road straw mulch	0	0	0	0.41	3	19200	3_7
+Forest	Road tree planting	0	0	0	0.5	3	118	3_8
+Forest	Site preparation/hydro mulch/seed/fertilizer	0	0	0	0.71	3	19285	3_9
+Forest	Site preparation/hydro mulch/seed/fertilizer/transplants	0	0	0	0.69	3	19403	3_10
+Forest	Site preparation/steep slope seeder/transplant	0	0	0	0.81	3	999999	3_11
+Forest	Site preparation/straw/crimp seed/fertilizer/transplant	0	0	0	0.95	3	999999	3_12
+Forest	Site preparation/straw/crimp/net	0	0	0	0.93	3	999999	3_13
+Forest	Site preparation/straw/net/seed/fertilizer/transplant	0	0	0	0.83	3	19403	3_14
+Forest	Site preparation/straw/polymer/seed/fertilizer/transplant	0	0	0	0.86	3	999999	3_15
+Feedlots	Diversion	0.45	0.7	0	0	3	999999	5_2
+Feedlots	Filter strip	0	0.85	0	0	4	20	5_3
+Feedlots	Runoff Mgmt System	0	0.825	0	0	5	999999	5_4
+Feedlots	Solids Separation Basin	0.35	0.31	0	0	5	999999	5_5
+Feedlots	Solids Separation Basin w/Infilt Bed	0	0.8	0.85	0	5	999999	5_6
+Feedlots	Terrace	0.55	0.85	0	0	3	999999	5_7
+Feedlots	Waste Mgmt System	0.8	0.9	0	0	5	999999	5_8
+Feedlots	Waste Storage Facility	0.65	0.6	0	0	5	999999	5_9
+Urban	Alum Treatment	0.6	0.9	0.6	0.95	5	999999	6_1
+Urban	Bioretention facility	0.63	0.8	0	0	4	999999	6_2
+Urban	Concrete Grid Pavement	0.9	0.9	0	0.9	3	999999	6_4
+Urban	Dry Detention	0.3	0.26	0.27	0.575	4	44000	6_5
+Urban	Extended Wet Detention	0.55	0.685	0.72	0.86	4	999999	6_6
+Urban	Filter Strip-Agricultural	0.5325	0.6125	0	0.65	4	999999	6_7
+Urban	Grass Swales	0.1	0.25	0.3	0.65	4	41382	6_8
+Urban	Infiltration Basin	0.6	0.65	0	0.75	4	999999	6_9
+Urban	Infiltration Devises	0	0.83	0.83	0.94	4	999999	6_10
+Urban	Infiltration Trench	0.55	0.6	0	0.75	4	999999	6_11
+Urban	LID/Bioretention	0.43	0.81	0	0	4	999999	6_15
+Urban	LID/Dry Well	0.5	0.5	0.7	0.9	4	999999	6_16
+Urban	LID/Filter/Buffer Strip	0.3	0.3	0.4	0.6	4	2504700	6_17
+Urban	LID/Infiltration Swale	0.5	0.65	0	0.9	4	999999	6_18
+Urban	LID/Infiltration Trench	0.5	0.5	0.7	0.9	4	999999	6_19
+Urban	LID/Vegetated Swale	0.075	0.175	0	0.475	4	999999	6_20
+Urban	LID/Wet Swale	0.4	0.2	0	0.8	4	999999	6_21
+Urban	Oil/Grit Separator	0.05	0.05	0	0.15	5	999999	6_22
+Urban	Porous Pavement	0.85	0.65	0	0.9	3	418612	6_23
+Urban	Sand Filter/Infiltration Basin	0.35	0.5	0	0.8	4	54000	6_24
+Urban	Sand Filters	0	0.375	0.4	0.825	4	54000	6_25
+Urban	Settling Basin	0	0.515	0.56	0.815	4	999999	6_26
+Urban	Vegetated Filter Strips	0.4	0.4525	0.505	0.73	4	2504700	6_27
+Urban	Weekly Street Sweeping	0	0.06	0.06	0.16	1	5000	6_28
+Urban	Wet Pond	0.35	0.45	0	0.6	4	26115	6_29
+Urban	Wetland Detention	0.2	0.44	0.63	0.775	4	2315649.6	6_30
+Urban	WQ Inlet w/Sand Filter	0.35	0	0	0.8	5	999999	6_31
+Urban	WQ Inlets	0.2	0.09	0.13	0.37	5	999999	6_32

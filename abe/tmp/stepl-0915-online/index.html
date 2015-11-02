@@ -1,0 +1,147 @@
+<!--w3c Validated-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script>
+function check_numWSD() {
+  var frm = document.getElementsByName("main")[0];
+  frm.action = "./inputMain.cgi";
+  document.main.rerun.value = 0;
+  numWSDtmp = document.main.numWSD.value * 1.0 ;
+  //numWSDtmp = Math.round(numWSDtmp*100) / 100 ;
+  numWSDtmp = Math.floor(numWSDtmp) ;
+  if ( numWSDtmp <= 0 ) {
+    alert("Number of watershed shoud be greater than 1.") ;
+  } else {
+    document.main.submit() ;
+  }
+}
+
+function loadHist() {
+  var frm = document.getElementsByName("main")[0];
+  frm.action = "./dashboard.cgi";
+  document.main.rerun.value = 1;
+  document.main.submit() ;
+
+}
+</script>
+
+  <title>Web-based STEPL</title>
+</head>
+<!--#### Programmed by Youn Shik Park-->
+
+<body>
+<div style = "text-align:center">
+
+<form name=main method="POST" action="./inputMain.cgi">
+  <br><br>
+  <img src="./img/STEPL_WEB_title.jpg" alt = " " width=400><br>
+  <br>
+  <br>
+  <div style="text-align:center; width:500px; margin: 0 auto; text-align:left;">
+  We developed a web-based model (STEPL WEB) with an updated approach to more closely follow the SCS-CN formula to estimate annual direct runoff. Moreover, this model is integrated with the Purdue Web-based Load Duration Curve Tool which identifies least cost BMPs for each landuse and optimizes BMP selection to identify the most cost-effective BMP implementations. 
+  </div>
+  <br>
+  <br>
+  <div style="text-align:center; width:500px; margin: 0 auto; text-align:left;">
+  The integrated tools provide an easy-to-use approach to performing TMDL analysis and identifying cost effective approaches to controlling nonpoint source pollution.
+  </div>
+  <br>
+  <br>
+  <div style="text-align:center; width:500px; margin: 0 auto; text-align:left;">
+   <span style="text-align:center; width:500px; margin: 0 auto; text-align:left; font-weight:bold">How does this model work?</span> STEPL WEB computes annual direct runoff using the SCS-CN method, annual contribution to shallow groundwater by soil infiltration fractions for precipitation, and annual pollutant loads by pollutant coefficients multiplied by annual direct runoff and groundwater. Sediment load is computed based on the Universal Soil Loss Equation (USLE) and sediment delivery ratio.
+  </div>
+  <br>
+  <img src="./STEPLflowchart.jpg" alt="STEPL Process Flowchart" style="width:700px;height:500px;">
+  <br>
+  <br>
+  <p>[ <a href="http://docs.lib.purdue.edu/dissertations/AAI3636487/">Park Thesis</a> | <a href="https://engineering.purdue.edu/mapserve/ldc/STEPL/referenceList.html">References</a> ]</p>
+  <hr>
+  <div style="text-align:center; width:500px; margin: 0 auto; text-align:left; font-weight:bold">
+  Begin input:
+  </div>
+  <br>
+  <div style="text-align:center; width:500px; margin: 0 auto; text-align:left;">
+  STEPL WEB has two sources of nutrient loads (N, P, and BOD). The first source is the nutrient loads from landuses, which are computed by pollutant coefficients and annual direct runoff and shallow groundwater contribution. The second source is nutrient loads in sediment, which are computed by soil nutrient concentrations and sediment load. 
+  </div>
+  <br>
+  <br>
+  <table border=1 style="width:500px;  margin: 0 auto;">
+    <tr>
+      <td style="text-align:center; background-color:#BDBDBD;" colspan=2><b>Number of Subwatersheds</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:right;">Select the number of subwatersheds:</td>
+      <td style="text-align:center"><input type=text name=numWSD style="text-align:right;border-width:1px;font-size:11pt" value=1 size=4></td>
+    </tr>
+  </table><br>
+  <div style="text-align:center; width:500px; margin: 0 auto; text-align:left;">  
+  These sediment sources are important in high flow regime BMPs.
+  </div>
+  <br>
+  <table border=1 style="width:500px;  margin: 0 auto;">
+    <tr>
+      <td style="text-align:center; background-color:#BDBDBD;; " colspan=2 ><b>Number of Special Sediment Sources in the Subwatersheds</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:right;">Gully formations:</td>
+      <td style="text-align:center"><input type=text name=numGLY style="text-align:right;border-width:1px;font-size:11pt" value=0 size=4></td>
+    </tr>
+    <tr>
+      <td style="text-align:right">Imparied Streambanks:</td>
+      <td style="text-align:center"><input type=text name=numSTR style="text-align:right;border-width:1px;font-size:11pt" value=0 size=4></td>
+    </tr>
+  </table><br><br>
+  <div style="text-align:center; width:500px; margin: 0 auto; text-align:left;">  
+  Purdue Web STEPL’s is a web-based model capable of simulating pollutant load reductions for BMPs.
+  </div>
+  <br>
+  <input type=text name=logNum style="text-align:right;border-width:1px;font-size:11pt" value='' size=10>
+  <input style="WIDTH:100px;height:20px;CURSOR:hand" type=button value="Load" onClick="javascript:loadHist()">
+  <hr>
+  <input type=hidden name=ystimeldc value="noldc">
+  <input type=hidden name=rerun value=0>
+  <input style="WIDTH:200px;height:30px;CURSOR:hand" type=button value="Next Step" onClick="javascript:check_numWSD()">
+</form>
+
+<br><br><hr>
+<div style="font-size:0.82em">
+  <div style="color:gray">
+    Copyright &copy; 2015, Purdue University and Kangwon National University, all rights reserved. <br>
+    Purdue University is an equal access/equal opportunity university.<br>
+  </div>
+  Contact <a href=mailto:engelb@purdue.edu>Dr. Bernie Engel</a>
+  or <a href=mailto:theller@purdue.edu>Larry Theller</a>
+  for more details if you need any help with STEPL WEB. 
+  <br>
+  This implementation of the classic EPA model was designed by Dr. <a href=mailto:ysparkwithyou@gmail.com>Youn Shik Park</a>, Assistant Professor, Kongju National University, South-Korea.
+  <br>
+  Programmatic support from US EPA, Illinois-Indiana Sea Grant,  and US Army Corp of Engineers.
+</div><br>
+</div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

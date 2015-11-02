@@ -166,7 +166,19 @@ class RunStep1View(View):
             Feedlot += '%.3f' % r.COD + "\t"
             Feedlot += "\n"
 
-        #pcp.txt
+        #pcp.txt -- pass to generate pcp.txt
+        #LocFileName-->myFile = str(form.getvalue('FileName'))
+        #State-->stateN = str(form.getvalue('stateN'))
+        #CountyName-->countyN = str(form.getvalue('countyN'))
+        #LocName-->stationN = str(form.getvalue('stationN'))
+        c = CountyDataInput.objects.get(session_id=session_id)
+        pcp = {
+            'FileName': c.LocFileName,
+            'stateN': c.State,
+            'countyN': c.CountyName,
+            'stationN': c.LocName,
+        }
+
         #mainINP.txt
         #Septic.txt
         #LandRain_GW1.txt
@@ -174,7 +186,7 @@ class RunStep1View(View):
 
         #URL_RUN_STEP_1 is from stepl_setting
         ret = requests.post(URL_RUN_STEP_1,data={
-            "GullyDB.txt":guyllyDB,'WildLife.txt':WildLife，"Reference.txt" : Reference,
+            "GullyDB.txt":guyllyDB,'WildLife.txt':WildLife, "Reference.txt" : Reference,
             })
         return ret.text
 
