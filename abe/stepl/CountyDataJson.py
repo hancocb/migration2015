@@ -12,8 +12,8 @@ class CountyDataJson(View):
 		#save to db
 		if not CountyDataInput.objects.filter(session_id=request.session['IndexInput']['id']).exists():
 			cntInput = CountyDataInput(
-				state_name = ele.state_name,
-				name  = ele.name,
+				state_name = ele.state_name,#State
+				name  = ele.name, #County
 				rmean = ele.rmean,
 				kmean = ele.kmean,
 				lsavg = ele.lsavg,

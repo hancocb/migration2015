@@ -1,6 +1,15 @@
 TODO.txt
+
+Nov 12:
+#table 6
+        #TODO: it's better to limit the order here!!
+        #using eles = list2dictWthKey('Landuse',ReferenceRunoffInput.objects.filter(session_id=session_id).values())
+        :::done by order_by('id')
+        
+
 Nov 1:
   the order in Lateral Recession Rate (LRR) DB is wrong!
+  :::done by order_by('id')
   
 Oct 31:
 1. in bmpMain.html, UrbnConc, they should loaded from a refrence db like in InputMain

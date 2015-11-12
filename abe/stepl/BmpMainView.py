@@ -74,6 +74,25 @@ class BmpMainView(View):
             septicNillegal.Direct_Discharge_Reduction_Percent = request.POST['RdcDrtDc_' + twonum(watershd_id)]
             septicNillegal.save()
 
+        #process UniversalSoilLossEquation
+        for watershd_id in context['rangeWSD'] :
+            if not UniversalSoilLossEquation.objects.filter(session_id=indexInput.id, watershd_id=watershd_id).exists():
+                ele = UniversalSoilLossEquation(
+                    session_id=indexInput.id, 
+                    watershd_id=watershd_id
+                    )
+            else:
+                ele = UniversalSoilLossEquation.objects.get(session_id=indexInput.id, watershd_id=watershd_id)
+            for i in range(1,6):
+                setattr( ele,"Cropland_"+UniversalSoilLossEquation_index_map[i],request.POST['usleCropland_'+str(i)+twonum(watershd_id)] )   
+            for i in range(1,6):
+                setattr( ele,"Pastureland_"+UniversalSoilLossEquation_index_map[i],request.POST['uslePasture_'+str(i)+twonum(watershd_id)] )   
+            for i in range(1,6):
+                setattr( ele,"Forest_"+UniversalSoilLossEquation_index_map[i],request.POST['usleForest_'+str(i)+twonum(watershd_id)] )   
+            for i in range(1,6):
+                setattr( ele,"UserDefined_"+UniversalSoilLossEquation_index_map[i],request.POST['usleUser_'+str(i)+twonum(watershd_id)] )               
+            ele.save()
+
         #load LanduseDistribution    
         context['LanduseDistributionInput'] = list2dictWthKey('watershd_id',LanduseDistributionInput.objects.filter(session_id=indexInput.id).values())    
 

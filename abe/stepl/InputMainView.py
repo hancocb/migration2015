@@ -68,7 +68,7 @@ class InputMainView(View):
 
         context = request.session
         for i in range(0,7):
-            all_eles = sample_models[i].objects.filter(Standard = INPUT_STANDARD)
+            all_eles = sample_models[i].objects.filter(Standard = INPUT_STANDARD).order_by('id')
             for ele in all_eles:
                 inp = input_models[i](
                             session_id = context['IndexInput']['id'] ,
@@ -117,7 +117,7 @@ class InputMainView(View):
                 soilInput.save()
 
         #6.Reference runoff curve number
-        all_eles = ReferenceRunoff.objects.filter(Standard = INPUT_STANDARD)
+        all_eles = ReferenceRunoff.objects.filter(Standard = INPUT_STANDARD).order_by('id')
         for ele in all_eles:
             if not ReferenceRunoffInput.objects.filter(
                 session_id=context['IndexInput']['id'],Landuse=ele.Landuse).exists():
@@ -131,7 +131,7 @@ class InputMainView(View):
                     )
                 inp.save()
         #6a. Detailed urban reference runoff curve number
-        all_eles = DetailedRunoff.objects.filter(Standard = INPUT_STANDARD)
+        all_eles = DetailedRunoff.objects.filter(Standard = INPUT_STANDARD).order_by('id')
         for ele in all_eles:
             if not DetailedRunoffInput.objects.filter(
                 session_id=context['IndexInput']['id'],Urban=ele.Urban).exists():
@@ -146,7 +146,7 @@ class InputMainView(View):
                 inp.save()
 
         #7.Nutrient concentration in runoff (mg/l)
-        all_eles = NutrientRunoff.objects.filter(Standard = INPUT_STANDARD)
+        all_eles = NutrientRunoff.objects.filter(Standard = INPUT_STANDARD).order_by('id')
         for ele in all_eles:
             if not NutrientRunoffInput.objects.filter(
                 session_id=context['IndexInput']['id'],Landuse=ele.Landuse).exists():
@@ -159,7 +159,7 @@ class InputMainView(View):
                     )
                 inp.save()
         #7a Nutrient concentration in shallow groundwater (mg/l)
-        all_eles = NutrientGroundwaterRunoff.objects.filter(Standard = INPUT_STANDARD)
+        all_eles = NutrientGroundwaterRunoff.objects.filter(Standard = INPUT_STANDARD).order_by('id')
         for ele in all_eles:
             if not NutrientGroundwaterRunoffInput.objects.filter(
                 session_id=context['IndexInput']['id'],Landuse=ele.Landuse).exists():

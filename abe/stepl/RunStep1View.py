@@ -76,29 +76,49 @@ class RunStep1View(View):
         raise Http404("GET of this page does not exist, you need POST")
 
     def runStep1(self, context):
+
+        Gully = getGully(context)
+        WildLife = getWildLife(context)
+        Reference = getReference(context)
+        Feedlot = getFeedlot(context)
+        pcp = getpcp(context)
+        mainINP = getmainINP(context)
+        Septic = getSeptic(context)
+        LandRain_GW1 = getLandRain_GW1(context)
+        BMPs = getBMPs(context)
+
+        #URL_RUN_STEP_1 is from stepl_setting
+        ret = requests.post(URL_RUN_STEP_1,data={
+            "Gully.txt":Gully,      'WildLife.txt':WildLife,        "Reference.txt" : Reference,
+            "Feedlot.txt":Feedlot,  'pcp.txt':pcp,                  "mainINP.txt" : mainINP,
+            "Septic.txt":Septic,    'LandRain_GW1.txt':LandRain_GW1, "BMPs.txt" : BMPs,
+            })
+        return ret.text
+
+    def getGully(self, context):
         session_id=context['IndexInput']['id']
 
         #do the inverse things as in importData.py
-        #GuyllyDB.txt
-        guyllyDB = "";
+        #Gully.txt
+        Gully = "";
         for i in range(1,11):
             textureClass = Soil_Textural_Class_Choices[i-1][1]
             s = SoilTextureInput.objects.get(session_id=session_id,Soil_Textural_Class=textureClass)
             gullyDB_1 = '%.4f' % s.Dry_Density 
             gullyDB_2 = '%.4f' % s.Correction_Factor 
-            guyllyDB += gullyDB_1 + '\t' + gullyDB_2 + '\t\n'
-        guyllyDB += '-----------------------\n'
+            Gully += gullyDB_1 + '\t' + gullyDB_2 + '\t\n'
+        Gully += '-----------------------\n'
 
         g1 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Slight')
         g2 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Moderate')
         g3 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Severe')
         g4 = LateralRecessionRateInput.objects.get(session_id=session_id,Category='Very Severe')
-        guyllyDB += '%.4f' % g1.Medium_Value + "\n" + '%.4f' % g2.Medium_Value + "\n"
-        guyllyDB += '%.4f' % g3.Medium_Value + "\n" + '%.4f' % g4.Medium_Value + "\n"
-        guyllyDB += '-----------------------\n'
+        Gully += '%.4f' % g1.Medium_Value + "\n" + '%.4f' % g2.Medium_Value + "\n"
+        Gully += '%.4f' % g3.Medium_Value + "\n" + '%.4f' % g4.Medium_Value + "\n"
+        Gully += '-----------------------\n'
 
         indexInput = IndexInput.objects.get(id=session_id)
-        guyllyDB += str(indexInput.num_gully) + "\n"
+        Gully += str(indexInput.num_gully) + "\n"
         GullyErosionInput_map = [
               '',
               'watershd_id', 
@@ -114,11 +134,11 @@ class RunStep1View(View):
         for i in context['rangeGLY']:
             g = GullyErosionInput.objects.get(session_id=session_id,Gully_id=i)
             for j in range(1,10):
-                guyllyDB += str(getattr(g,GullyErosionInput_map[j])) + "\t"
-            guyllyDB += "\n"    
-        guyllyDB += '-----------------------\n'
+                Gully += str(getattr(g,GullyErosionInput_map[j])) + "\t"
+            Gully += "\n"    
+        Gully += '-----------------------\n'
 
-        guyllyDB += str(indexInput.num_steambank) + "\n"
+        Gully += str(indexInput.num_steambank) + "\n"
         StreambankErosionInput_map = [
               '',
               'watershd_id', 
@@ -132,15 +152,27 @@ class RunStep1View(View):
         for i in context['rangeSTR']:
             g = StreambankErosionInput.objects.get(session_id=session_id,Streambank_id=i)
             for j in range(1,8):
-                guyllyDB += str(getattr(g,StreambankErosionInput_map[j])) + "\t"
-            guyllyDB += "\n"    
+                Gully += str(getattr(g,StreambankErosionInput_map[j])) + "\t"
+            Gully += "\n"    
         
+        return Gully
+
+
+    def getWildLife(self, context):
+        session_id=context['IndexInput']['id']
+
         #WildLife.txt
         WildLife = ""
         keyMap = ['Goose','Deer','Beaver','Raccoons','Other']
         for key in keyMap:
             w = WildlifeDensityInCropLandInput.objects.get(session_id=session_id,Wildlife=key)
             WildLife += str('%.2f' % w.NumPerMileSquare) + "\n"
+
+        return WildLife
+
+
+    def getReference(self, context):
+        session_id=context['IndexInput']['id']
 
         #Reference.txt
         Reference = 'Typical Animal Mass,lb  BOD,lb/day/1000lb animal        BOD per Animal,lb/day   BOD per Animal,lb/yr \n'
@@ -153,6 +185,11 @@ class RunStep1View(View):
             Reference += '%.2f' % r.BOD_per_day + "\t"
             Reference += '%.2f' % r.BDO_per_year + "\t"
             Reference += "\n"
+        
+        return Reference
+
+    def getFeedlot(self, context):
+        session_id=context['IndexInput']['id']
 
         #Feedlot.txt
         Feedlot = ""
@@ -166,6 +203,10 @@ class RunStep1View(View):
             Feedlot += '%.3f' % r.COD + "\t"
             Feedlot += "\n"
 
+        return Feedlot
+
+    def getpcp(self, context):
+        session_id=context['IndexInput']['id']        
         #pcp.txt -- pass to generate pcp.txt
         #LocFileName-->myFile = str(form.getvalue('FileName'))
         #State-->stateN = str(form.getvalue('stateN'))
@@ -174,21 +215,220 @@ class RunStep1View(View):
         c = CountyDataInput.objects.get(session_id=session_id)
         pcp = {
             'FileName': c.LocFileName,
-            'stateN': c.State,
-            'countyN': c.CountyName,
+            'stateN': c.state_name,
+            'countyN': c.name,
             'stationN': c.LocName,
         }
 
-        #mainINP.txt
-        #Septic.txt
-        #LandRain_GW1.txt
-        #BMPs.txt
+        return pcp
 
-        #URL_RUN_STEP_1 is from stepl_setting
-        ret = requests.post(URL_RUN_STEP_1,data={
-            "GullyDB.txt":guyllyDB,'WildLife.txt':WildLife, "Reference.txt" : Reference,
-            })
-        return ret.text
+    def getmainINP(self, context):
+        session_id=context['IndexInput']['id']  
+        #mainINP.txt
+        mainINP = ""
+        #table 1
+        for watershd_id in context['rangeWSD'] :
+            watershedLandUse = WatershedLandUse.objects.get(session_id=session_id, watershd_id=watershd_id)
+            for i in range(1,7):
+                num = '%.2f' % getattr( watershedLandUse,WatershedLandUse_index_map[i]) + "\t"
+                mainINP += num 
+            # watershedLandUse.HSG is not used here, for with SoilDataInput
+            mainINP += '%.2f' % watershedLandUse.FeedlotPercentPaved + "\t"
+            mainINP += '%.2f' % watershedLandUse.Total + "\n"
+        mainINP += '----------------------------------------------------\n'
+
+        #table 2
+        for watershd_id in context['rangeWSD'] :
+            agriAnimal = AgriAnimal.objects.get(session_id=session_id, watershd_id=watershd_id)
+            for i in range(1,9):
+                num = '%.2f' % getattr( agriAnimal,AgriAnimal_index_map[i]) + "\t"
+                mainINP += num    
+            mainINP += '%.2f' % agriAnimal.numMonthsManureApplied + "\t"
+            mainINP += "\n"
+        mainINP += '----------------------------------------------------\n'
+
+        #table 3
+        for watershd_id in context['rangeWSD'] :
+            ele = SepticNillegal.objects.get(session_id=session_id, watershd_id=watershd_id)
+            mainINP += '%.2f' % ele.numSepticSystems + "\t" #NumSpSys
+            mainINP += '%.2f' % ele.PopulationPerSeptic + "\t" #PpSpSys
+            mainINP += '%.2f' % ele.SepticFailureRate_Percent + "\t" #SpFailRate
+            mainINP += '%.2f' % ele.Wastewater_Direct_Discharge_numPeople + "\t" #NumPpDrtDc
+            mainINP += '%.2f' % ele.Direct_Discharge_Reduction_Percent + "\n" #RdcDrtDc
+        mainINP += '----------------------------------------------------\n'
+
+        #table 4
+        for watershd_id in context['rangeWSD'] :
+            ele = UniversalSoilLossEquation.objects.get(session_id=session_id, watershd_id=watershd_id)
+            for i in range(1,6):
+                num = '%.2f' % getattr( ele,"Cropland_"+UniversalSoilLossEquation_index_map[i]) + "\t"
+                mainINP += num    
+            mainINP += "\n"    
+
+        mainINP += "\n"    
+        for watershd_id in context['rangeWSD'] :
+            ele = UniversalSoilLossEquation.objects.get(session_id=session_id, watershd_id=watershd_id)
+            for i in range(1,6):
+                num = '%.2f' % getattr( ele,"Pastureland_"+UniversalSoilLossEquation_index_map[i]) + "\t"
+                mainINP += num    
+            mainINP += "\n"
+
+        mainINP += "\n"    
+        for watershd_id in context['rangeWSD'] :
+            ele = UniversalSoilLossEquation.objects.get(session_id=session_id, watershd_id=watershd_id)
+            for i in range(1,6):
+                num = '%.2f' % getattr( ele,"Forest_"+UniversalSoilLossEquation_index_map[i]) + "\t"
+                mainINP += num    
+            mainINP += "\n"
+
+        mainINP += "\n"    
+        for watershd_id in context['rangeWSD'] :
+            ele = UniversalSoilLossEquation.objects.get(session_id=session_id, watershd_id=watershd_id)
+            for i in range(1,6):
+                num = '%.2f' % getattr( ele,"UserDefined_"+UniversalSoilLossEquation_index_map[i]) + "\t"
+                mainINP += num    
+            mainINP += "\n"
+        mainINP += '----------------------------------------------------\n'
+
+        #table 5
+        for watershd_id in context['rangeWSD'] :
+            watershedLandUse = WatershedLandUse.objects.get(session_id=session_id, watershd_id=watershd_id)
+            ele = SoilDataInput.objects.get(session_id=session_id, watershd_id=watershd_id)
+            mainINP += watershedLandUse.HSG + "\t"
+            for f in SoilDataAbstract._meta.fields:
+                num = '%.3f' % getattr( ele,f.name) + "\t"
+                mainINP += num    
+            mainINP += "\n"
+        mainINP += '----------------------------------------------------\n'
+
+
+        #table 6
+        eles = ReferenceRunoffInput.objects.filter(session_id=session_id).order_by('id').values()
+        for ele in eles:
+            for f in RunoffAbastract._meta.fields:
+                num = '%.2f' % getattr( ele,f.name) + "\t"
+                mainINP += num    
+            mainINP += "\n"
+        mainINP += '----------------------------------------------------\n'
+
+        #table 6a
+        eles = DetailedRunoffInput.objects.filter(session_id=session_id).order_by('id').values()
+        for ele in eles:
+            for f in RunoffAbastract._meta.fields:
+                num = '%.2f' % getattr( ele,f.name) + "\t"
+                mainINP += num    
+            mainINP += "\n"
+        mainINP += '----------------------------------------------------\n'
+        
+
+        #table 7
+        eles = NutrientRunoffInput.objects.filter(session_id=session_id).order_by('id').values()
+        for ele in eles:
+            for f in NutrientAbstract._meta.fields:
+                num = '%.3f' % getattr( ele,f.name) + "\t"
+                mainINP += num    
+            mainINP += "\n"
+        mainINP += '----------------------------------------------------\n'
+        
+        #table 7a
+        eles = NutrientGroundwaterRunoffInput.objects.filter(session_id=session_id).order_by('id').values()
+        for ele in eles:
+            for f in NutrientAbstract._meta.fields:
+                num = '%.3f' % getattr( ele,f.name) + "\t"
+                mainINP += num    
+            mainINP += "\n"
+        mainINP += '----------------------------------------------------\n'
+        
+        #table 8
+        for watershd_id in context['rangeWSD'] :
+            watershedLandUse = WatershedLandUse.objects.get(session_id=session_id, watershd_id=watershd_id)
+            ele = LanduseDistributionInput.objects.get(session_id=session_id, watershd_id=watershd_id)
+            mainINP += watershedLandUse.Urban + "\t"
+            for f in LanduseDistributionAbstract._meta.fields:
+                num = '%.2f' % getattr( ele,f.name) + "\t"
+                mainINP += num    
+            mainINP += "\n"
+        mainINP += '----------------------------------------------------\n'
+
+        #table 9 
+        for watershd_id in context['rangeWSD'] :
+            watershedLandUse = WatershedLandUse.objects.get(session_id=session_id, watershd_id=watershd_id)
+            ele = IrrigationInput.objects.get(session_id=session_id, watershd_id=watershd_id)
+            mainINP += watershedLandUse.Cropland + "\t"
+            for f in IrrigationAbstract._meta.fields:
+                num = '%.2f' % getattr( ele,f.name) + "\t"
+                mainINP += num    
+            mainINP += "\n"
+        mainINP += '----------------------------------------------------\n'
+
+        return mainINP
+
+    def getSeptic(self, context):
+        session_id=context['IndexInput']['id']  
+        #Septic.txt
+        Septic = ""
+        eles = SepticSystemInput.objects.filter(session_id=session_id).order_by('id').values()
+        for ele in eles:
+            Septic += ele.ACR + "\n"
+        for ele in eles:
+            Septic += ele.Wastewater_per_capita + "\n"    
+        
+        return Septic
+
+    def getLandRain_GW1(self, context):
+        session_id=context['IndexInput']['id']          
+        #LandRain_GW1.txt
+        LandRain_GW1 = ""
+        eles = SoilInfiltrationFractionInput.objects.filter(session_id=session_id).order_by('id').values()
+        for ele in eles:
+            for f in SoilInfiltrationFractionAbstract._meta.fields:
+                num = '%.3f' % getattr( ele,f.name) + "\t"
+                LandRain_GW1 += num    
+            LandRain_GW1 += "\n"
+        return LandRain_GW1
+
+    def getBMPs(self, context):
+        session_id=context['IndexInput']['id']          
+        #BMPs.txt
+        BMPs = ""
+        BMPs += '\tN\tP\tBOD\tSediment\tAppliedArea\tBMP\n'
+        #process landtype_id: 1~5 : Cropland, pastland, forest,user defined,feedlot
+        for landtype_id in range(1,6):
+            for watershd_id in context['rangeWSD']:
+                bmpInput = BMPInput.objects.get(session_id=session_id, landtype_id=landtype_id, 
+                        watershd_id=watershd_id)
+                
+                BMPs += '%.4f' % bmpInput.N + "\t" #= request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"1"]
+                BMPs += '%.4f' % bmpInput.P + "\t"  #= request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"2"]
+                BMPs += '%.4f' % bmpInput.BOD + "\t" #= request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"3"]
+                BMPs += '%.4f' % bmpInput.Sediment + "\t" #=request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"4"]
+                BMPs += '%.4f' % bmpInput.PercentApplied + "\t" #=request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"6"]
+                BMPs += '%.4f' % bmpInput.BMP + "\n" #= request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"5"]
+            BMPs += "\n"
+
+        BMPs += '------------ Followings are BMPs for Urban-------------------------------------------------\n'
+        
+        for i in range(1,5):
+            for j in range(1,10):
+                key = "UrbnConc_"+str(i)+str(j)
+                urbanBmpInput = UrbanBmpInput.objects.get(session_id=session_id, key=key)
+                BMPs += '%.4f' % urbanBmpInput.value + "\t"
+            BMPs += "\n"
+        BMPs += "\n"
+
+        #UrbanBMP_
+        for k in context['range5']:
+            for i in context['rangeWSD']:
+                for j in context['range9']: 
+                    key = 'UrbanBMP_'+str(k)+'_'+twonum(i)+str(j) 
+                    urbanBmpInput = UrbanBmpInput.objects.get(session_id=session_id, key=key)
+                    BMPs += '%.4f' % urbanBmpInput.value + "\t"
+                BMPs += "\n"
+            BMPs += "\n"
+
+        return BMPs
+
+        
 
 
 

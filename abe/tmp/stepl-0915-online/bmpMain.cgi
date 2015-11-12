@@ -743,7 +743,7 @@ try:
   mainINP.write('----------------------------------------------------\n')
 
   for k in range(1, numWSD) :
-    for i in range(1,10) :                                                           # Table 6
+    for i in range(1,10) :                                                           # Table 6a
       for j in range(1,5) :
         CNu[i][j] = '%.2f' % isFloat(CNu[i][j])
         mainINPWSD[k].write(isStr(CNu[i][j]) + '\t')

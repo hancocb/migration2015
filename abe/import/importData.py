@@ -204,8 +204,9 @@ for line in lines:
         print "error in data:"+str(lineNum)+":"+str(line)
         exit()
 
-iWildlifeDensityInCropLand()
+iSepticSystem()
 '''
+iSepticSystem()
 iSoilTexture(data)
 iReferenceRunoff(data)
 iDetailedReferenceRunoff(data)

@@ -57,6 +57,38 @@ class SepticNillegal(models.Model):
   class Meta:
     unique_together = ('session_id', 'watershd_id')
 
+UniversalSoilLossEquation_index_map = ['', "R",  'K', 'LS',  'C', 'P'  ]
+class UniversalSoilLossEquation(models.Model):
+  watershd_id = models.IntegerField()
+  #R  K LS  C P
+  #Cropland
+  Cropland_R = models.FloatField(default=0)
+  Cropland_K = models.FloatField(default=0)
+  Cropland_LS = models.FloatField(default=0)
+  Cropland_C = models.FloatField(default=0)
+  Cropland_P = models.FloatField(default=0)
+  #Pastureland 
+  Pastureland_R = models.FloatField(default=0)
+  Pastureland_K = models.FloatField(default=0)
+  Pastureland_LS = models.FloatField(default=0)
+  Pastureland_C = models.FloatField(default=0)
+  Pastureland_P = models.FloatField(default=0)
+  #Forest  
+  Forest_R = models.FloatField(default=0)
+  Forest_K = models.FloatField(default=0)
+  Forest_LS = models.FloatField(default=0)
+  Forest_C = models.FloatField(default=0)
+  Forest_P = models.FloatField(default=0)
+  #UserDefined
+  UserDefined_R = models.FloatField(default=0)
+  UserDefined_K = models.FloatField(default=0)
+  UserDefined_LS = models.FloatField(default=0)
+  UserDefined_C = models.FloatField(default=0)
+  UserDefined_P = models.FloatField(default=0)
+  session_id = models.IntegerField() 
+  class Meta:
+    unique_together = ('session_id', 'watershd_id')
+
 '''
 #for hidden static data KV...just found that I have already implemented it in other way...
 shit....wasted 2 hours here!!!!!
@@ -110,7 +142,7 @@ class CountyDataInput(CountyDataAbstract):
   LocName = models.CharField(max_length=30) 
   session_id = models.IntegerField(unique=True) 
 
-#soil data
+#Step 5,soil data
 class SoilDataAbstract(models.Model):
   Soil_N_Conc =  models.FloatField()
   Soil_P_Conc =  models.FloatField()
@@ -244,7 +276,6 @@ class IrrigationInput(IrrigationAbstract):
 
 # Reference Soil Infiltration Fraction for Precipitation
 class SoilInfiltrationFractionAbstract(models.Model):
-  HSG = models.CharField(max_length=30,default='',db_index=True)
   A = models.FloatField(default=0) 
   B = models.FloatField(default=0) 
   C = models.FloatField(default=0) 
@@ -253,11 +284,13 @@ class SoilInfiltrationFractionAbstract(models.Model):
     abstract = True
 
 class SoilInfiltrationFraction(SoilInfiltrationFractionAbstract):
+  HSG = models.CharField(max_length=30,default='',db_index=True)
   Standard = models.CharField(max_length=30)
   class Meta:
     unique_together = ('Standard', 'HSG')
 
 class SoilInfiltrationFractionInput(SoilInfiltrationFractionAbstract):
+  HSG = models.CharField(max_length=30,default='',db_index=True)
   session_id = models.IntegerField() 
   class Meta:
     unique_together = ('session_id', 'HSG')
