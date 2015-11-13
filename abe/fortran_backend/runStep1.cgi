@@ -7,12 +7,15 @@ from string import split,join
 form = cgi.FieldStorage()
 cgitb.enable()
 
-#"Gully.txt":Gully,      'WildLife.txt':WildLife,        "Reference.txt" : Reference,
-#            "Feedlot.txt":Feedlot,  'pcp.txt':pcp,                  "mainINP.txt" : mainINP,
-#            "Septic.txt":Septic,    'LandRain_GW1.txt':LandRain_GW1, "BMPs.txt" : BMPs,
+fileNames = [
+"Gully.txt",    'WildLife.txt',     "Reference.txt",
+"Feedlot.txt",  'pcp.txt',          "mainINP.txt",
+"Septic.txt",   'LandRain_GW1.txt', "BMPs.txt",
+]
 
-print 'haha'
-test = form.getvalue('WildLife.txt')
-print test
-test = form.getvalue('GullyDB.txt')
-print test
+for name in fileNames:
+    content = form.getvalue(name)
+    file = open(name,'w')
+    file.write(content)
+
+print "{\"status\":\"succ\"}"

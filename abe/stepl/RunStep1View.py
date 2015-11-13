@@ -57,15 +57,15 @@ class RunStep1View(View):
             for i in context['rangeWSD']:
                 for j in context['range9']: 
                     key = 'UrbanBMP_'+str(k)+'_'+twonum(i)+str(j) 
-                if not UrbanBmpInput.objects.filter(session_id=session_id, key=key).exists():
-                    urbanBmpInput = UrbanBmpInput(
-                        session_id=session_id, 
-                        key=key
-                        )
-                else:
-                    urbanBmpInput = UrbanBmpInput.objects.get(session_id=session_id, key=key)
-                urbanBmpInput.value = request.POST[key]
-                urbanBmpInput.save()
+                    if not UrbanBmpInput.objects.filter(session_id=session_id, key=key).exists():
+                        urbanBmpInput = UrbanBmpInput(
+                            session_id=session_id, 
+                            key=key
+                            )
+                    else:
+                        urbanBmpInput = UrbanBmpInput.objects.get(session_id=session_id, key=key)
+                    urbanBmpInput.value = request.POST[key]
+                    urbanBmpInput.save()
 
         #process through STPEL api to run fortran
         ret = self.runStep1(context)
@@ -77,22 +77,30 @@ class RunStep1View(View):
 
     def runStep1(self, context):
 
-        Gully = getGully(context)
-        WildLife = getWildLife(context)
-        Reference = getReference(context)
-        Feedlot = getFeedlot(context)
-        pcp = getpcp(context)
-        mainINP = getmainINP(context)
-        Septic = getSeptic(context)
-        LandRain_GW1 = getLandRain_GW1(context)
-        BMPs = getBMPs(context)
+        Gully       = self.getGully(context)
+        WildLife    = self.getWildLife(context)
+        Reference   = self.getReference(context)
+        Feedlot     = self.getFeedlot(context)
+        pcp         = self.getpcp(context)
+        mainINP     = self.getmainINP(context)
+        Septic      = self.getSeptic(context)
+        LandRain_GW1 = self.getLandRain_GW1(context)
+        BMPs        = self.getBMPs(context)
 
         #URL_RUN_STEP_1 is from stepl_setting
-        ret = requests.post(URL_RUN_STEP_1,data={
+        data={
             "Gully.txt":Gully,      'WildLife.txt':WildLife,        "Reference.txt" : Reference,
-            "Feedlot.txt":Feedlot,  'pcp.txt':pcp,                  "mainINP.txt" : mainINP,
+            "Feedlot.txt":Feedlot,                                  "mainINP.txt" : mainINP,
             "Septic.txt":Septic,    'LandRain_GW1.txt':LandRain_GW1, "BMPs.txt" : BMPs,
-            })
+            }
+
+        data['pcp_FileName'] = pcp['FileName']
+        data['pcp_stateN'] = pcp['stateN']
+        data['pcp_countyN'] = pcp['countyN']
+        data['pcp_stationN'] = pcp['stationN']
+        data['from_id'] = URL_RUN_FROM_ID + str(context['IndexInput']['id'])
+
+        ret = requests.post(URL_RUN_STEP_1,data = data)
         return ret.text
 
     def getGully(self, context):
@@ -294,7 +302,7 @@ class RunStep1View(View):
         for watershd_id in context['rangeWSD'] :
             watershedLandUse = WatershedLandUse.objects.get(session_id=session_id, watershd_id=watershd_id)
             ele = SoilDataInput.objects.get(session_id=session_id, watershd_id=watershd_id)
-            mainINP += watershedLandUse.HSG + "\t"
+            mainINP += str(watershedLandUse.HSG) + "\t"
             for f in SoilDataAbstract._meta.fields:
                 num = '%.3f' % getattr( ele,f.name) + "\t"
                 mainINP += num    
@@ -303,7 +311,7 @@ class RunStep1View(View):
 
 
         #table 6
-        eles = ReferenceRunoffInput.objects.filter(session_id=session_id).order_by('id').values()
+        eles = ReferenceRunoffInput.objects.filter(session_id=session_id).order_by('id')
         for ele in eles:
             for f in RunoffAbastract._meta.fields:
                 num = '%.2f' % getattr( ele,f.name) + "\t"
@@ -312,7 +320,7 @@ class RunStep1View(View):
         mainINP += '----------------------------------------------------\n'
 
         #table 6a
-        eles = DetailedRunoffInput.objects.filter(session_id=session_id).order_by('id').values()
+        eles = DetailedRunoffInput.objects.filter(session_id=session_id).order_by('id')
         for ele in eles:
             for f in RunoffAbastract._meta.fields:
                 num = '%.2f' % getattr( ele,f.name) + "\t"
@@ -322,7 +330,7 @@ class RunStep1View(View):
         
 
         #table 7
-        eles = NutrientRunoffInput.objects.filter(session_id=session_id).order_by('id').values()
+        eles = NutrientRunoffInput.objects.filter(session_id=session_id).order_by('id')
         for ele in eles:
             for f in NutrientAbstract._meta.fields:
                 num = '%.3f' % getattr( ele,f.name) + "\t"
@@ -331,7 +339,7 @@ class RunStep1View(View):
         mainINP += '----------------------------------------------------\n'
         
         #table 7a
-        eles = NutrientGroundwaterRunoffInput.objects.filter(session_id=session_id).order_by('id').values()
+        eles = NutrientGroundwaterRunoffInput.objects.filter(session_id=session_id).order_by('id')
         for ele in eles:
             for f in NutrientAbstract._meta.fields:
                 num = '%.3f' % getattr( ele,f.name) + "\t"
@@ -343,7 +351,7 @@ class RunStep1View(View):
         for watershd_id in context['rangeWSD'] :
             watershedLandUse = WatershedLandUse.objects.get(session_id=session_id, watershd_id=watershd_id)
             ele = LanduseDistributionInput.objects.get(session_id=session_id, watershd_id=watershd_id)
-            mainINP += watershedLandUse.Urban + "\t"
+            mainINP += str(watershedLandUse.Urban) + "\t"
             for f in LanduseDistributionAbstract._meta.fields:
                 num = '%.2f' % getattr( ele,f.name) + "\t"
                 mainINP += num    
@@ -354,7 +362,7 @@ class RunStep1View(View):
         for watershd_id in context['rangeWSD'] :
             watershedLandUse = WatershedLandUse.objects.get(session_id=session_id, watershd_id=watershd_id)
             ele = IrrigationInput.objects.get(session_id=session_id, watershd_id=watershd_id)
-            mainINP += watershedLandUse.Cropland + "\t"
+            mainINP += str(watershedLandUse.Cropland) + "\t"
             for f in IrrigationAbstract._meta.fields:
                 num = '%.2f' % getattr( ele,f.name) + "\t"
                 mainINP += num    
@@ -367,11 +375,11 @@ class RunStep1View(View):
         session_id=context['IndexInput']['id']  
         #Septic.txt
         Septic = ""
-        eles = SepticSystemInput.objects.filter(session_id=session_id).order_by('id').values()
+        eles = SepticSystemInput.objects.filter(session_id=session_id).order_by('id')
         for ele in eles:
-            Septic += ele.ACR + "\n"
+            Septic += str(ele.ACR) + "\n"
         for ele in eles:
-            Septic += ele.Wastewater_per_capita + "\n"    
+            Septic += str(ele.Wastewater_per_capita) + "\n"    
         
         return Septic
 
@@ -379,7 +387,7 @@ class RunStep1View(View):
         session_id=context['IndexInput']['id']          
         #LandRain_GW1.txt
         LandRain_GW1 = ""
-        eles = SoilInfiltrationFractionInput.objects.filter(session_id=session_id).order_by('id').values()
+        eles = SoilInfiltrationFractionInput.objects.filter(session_id=session_id).order_by('id')
         for ele in eles:
             for f in SoilInfiltrationFractionAbstract._meta.fields:
                 num = '%.3f' % getattr( ele,f.name) + "\t"
@@ -408,9 +416,13 @@ class RunStep1View(View):
 
         BMPs += '------------ Followings are BMPs for Urban-------------------------------------------------\n'
         
+        import time
+        time.sleep(2) # delays for 2 seconds
+
         for i in range(1,5):
             for j in range(1,10):
                 key = "UrbnConc_"+str(i)+str(j)
+                print key
                 urbanBmpInput = UrbanBmpInput.objects.get(session_id=session_id, key=key)
                 BMPs += '%.4f' % urbanBmpInput.value + "\t"
             BMPs += "\n"

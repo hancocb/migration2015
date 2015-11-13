@@ -759,7 +759,7 @@ try:
   mainINP.write('----------------------------------------------------\n')
 
   for k in range(1, numWSD) :
-    for i in range(1,10) :                                                           # Table 6
+    for i in range(1,10) :                                                           # Table 7a
       for j in range(1,4) :
         Rnt[i][j] = '%.3f' % isFloat(Rnt[i][j])
         mainINPWSD[k].write(isStr(Rnt[i][j]) + '\t')
@@ -852,7 +852,7 @@ except:
 #--Septic.txt
 try:
   SepticFile = open(inpPath + 'Septic.txt','w')
-  SepticFile.write(isStr(Septic[0]) + '\n')
+  SepticFile.write(isStr(0]) + '\n')
   SepticFile.write(isStr(Septic[1]) + '\n')
   SepticFile.write(isStr(Septic[2]) + '\n')
   SepticFile.write(isStr(Septic[3]) + '\n')
