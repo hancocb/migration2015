@@ -462,7 +462,7 @@ Lateral_Recession_Choices = [
 class StreambankErosionAbstract(models.Model):
   SoilTexture = models.CharField(max_length=30,default='0',choices=Soil_Textural_Class_Choices)
   BMP_Efficiency = models.FloatField(default=0,choices=BMP_Efficiency_Choices) 
-  Lateral_Recession = models.FloatField(default=0,choices=Lateral_Recession_Choices) 
+  Lateral_Recession = models.IntegerField(default=0,choices=Lateral_Recession_Choices) 
   Height = models.FloatField(default=0) 
   Length = models.FloatField(default=0) 
   class Meta:

@@ -7,6 +7,7 @@ from models import *
 from templatetags.simple_tags import twonum
 from tools import extract
 from utils import requests
+import json
 
 class RunStep1View(View):
     
@@ -68,14 +69,25 @@ class RunStep1View(View):
                     urbanBmpInput.save()
 
         #process through STPEL api to run fortran
-        ret = self.runStep1(context)
+        from_id = URL_RUN_FROM_ID + str(session_id)
+        run1_url = FORTRAN_SERVER + URL_RUN_STEP_1
+        text = self.runStep1(context,from_id,run1_url)
+        print text
 
-        return render(request, 'runStep1.html', { 'ctx':context, 'req' : request, 'ret':ret })
+        #parse text
+        ret = json.loads(text);
+        clmArr = [0,1,3,4,5,7,8,9,11,12,13,15,16]
+        img_prefix = FORTRAN_SERVER + "tmp/" + from_id + "/" 
+
+        return render(request, 'runStep1.html', { 
+            'ctx':context, 'req' : request, 'run1ret':ret['run1ret'][1:], 
+            'img_prefix' : img_prefix, 'clmArr':clmArr
+            })
 
     def get(self, request):
         raise Http404("GET of this page does not exist, you need POST")
 
-    def runStep1(self, context):
+    def runStep1(self, context, from_id, run1_url):
 
         Gully       = self.getGully(context)
         WildLife    = self.getWildLife(context)
@@ -98,9 +110,9 @@ class RunStep1View(View):
         data['pcp_stateN'] = pcp['stateN']
         data['pcp_countyN'] = pcp['countyN']
         data['pcp_stationN'] = pcp['stationN']
-        data['from_id'] = URL_RUN_FROM_ID + str(context['IndexInput']['id'])
+        data['from_id'] = from_id
 
-        ret = requests.post(URL_RUN_STEP_1,data = data)
+        ret = requests.post(run1_url,data = data)
         return ret.text
 
     def getGully(self, context):
@@ -174,7 +186,7 @@ class RunStep1View(View):
         keyMap = ['Goose','Deer','Beaver','Raccoons','Other']
         for key in keyMap:
             w = WildlifeDensityInCropLandInput.objects.get(session_id=session_id,Wildlife=key)
-            WildLife += str('%.2f' % w.NumPerMileSquare) + "\n"
+            WildLife += str( '%.2f' % w.NumPerMileSquare) + "\n"
 
         return WildLife
 
@@ -200,7 +212,7 @@ class RunStep1View(View):
         session_id=context['IndexInput']['id']
 
         #Feedlot.txt
-        Feedlot = ""
+        Feedlot = 'N\tP\tBOD\tCOD\tAnimal\n'
         Animals = ['','Slaughter Steer','Young Beef','Dairy Cow','Young Dairy Stock','Swine','Feeder Pig','Sheep','Horse','Chicken','Turkey','Duck']
         for i in range(1,12):
             Animal = Animals[i]
@@ -234,6 +246,14 @@ class RunStep1View(View):
         session_id=context['IndexInput']['id']  
         #mainINP.txt
         mainINP = ""
+        indexInput = IndexInput.objects.get(id=session_id)
+        mainINP += str(indexInput.num_watershd) + "\t"
+        if indexInput.swsOpt :
+            mainINP += "1\n"
+        else:
+            mainINP += "4\n"
+        mainINP += '----------------------------------------------------\n'
+            
         #table 1
         for watershd_id in context['rangeWSD'] :
             watershedLandUse = WatershedLandUse.objects.get(session_id=session_id, watershd_id=watershd_id)
@@ -249,9 +269,9 @@ class RunStep1View(View):
         for watershd_id in context['rangeWSD'] :
             agriAnimal = AgriAnimal.objects.get(session_id=session_id, watershd_id=watershd_id)
             for i in range(1,9):
-                num = '%.2f' % getattr( agriAnimal,AgriAnimal_index_map[i]) + "\t"
+                num = str( getattr( agriAnimal,AgriAnimal_index_map[i]) ) + "\t"
                 mainINP += num    
-            mainINP += '%.2f' % agriAnimal.numMonthsManureApplied + "\t"
+            mainINP += str(agriAnimal.numMonthsManureApplied) + "\t"
             mainINP += "\n"
         mainINP += '----------------------------------------------------\n'
 
@@ -269,7 +289,7 @@ class RunStep1View(View):
         for watershd_id in context['rangeWSD'] :
             ele = UniversalSoilLossEquation.objects.get(session_id=session_id, watershd_id=watershd_id)
             for i in range(1,6):
-                num = '%.2f' % getattr( ele,"Cropland_"+UniversalSoilLossEquation_index_map[i]) + "\t"
+                num = '%.4f' % getattr( ele,"Cropland_"+UniversalSoilLossEquation_index_map[i]) + "\t"
                 mainINP += num    
             mainINP += "\n"    
 
@@ -277,7 +297,7 @@ class RunStep1View(View):
         for watershd_id in context['rangeWSD'] :
             ele = UniversalSoilLossEquation.objects.get(session_id=session_id, watershd_id=watershd_id)
             for i in range(1,6):
-                num = '%.2f' % getattr( ele,"Pastureland_"+UniversalSoilLossEquation_index_map[i]) + "\t"
+                num = '%.4f' % getattr( ele,"Pastureland_"+UniversalSoilLossEquation_index_map[i]) + "\t"
                 mainINP += num    
             mainINP += "\n"
 
@@ -285,7 +305,7 @@ class RunStep1View(View):
         for watershd_id in context['rangeWSD'] :
             ele = UniversalSoilLossEquation.objects.get(session_id=session_id, watershd_id=watershd_id)
             for i in range(1,6):
-                num = '%.2f' % getattr( ele,"Forest_"+UniversalSoilLossEquation_index_map[i]) + "\t"
+                num = '%.4f' % getattr( ele,"Forest_"+UniversalSoilLossEquation_index_map[i]) + "\t"
                 mainINP += num    
             mainINP += "\n"
 
@@ -293,7 +313,7 @@ class RunStep1View(View):
         for watershd_id in context['rangeWSD'] :
             ele = UniversalSoilLossEquation.objects.get(session_id=session_id, watershd_id=watershd_id)
             for i in range(1,6):
-                num = '%.2f' % getattr( ele,"UserDefined_"+UniversalSoilLossEquation_index_map[i]) + "\t"
+                num = '%.4f' % getattr( ele,"UserDefined_"+UniversalSoilLossEquation_index_map[i]) + "\t"
                 mainINP += num    
             mainINP += "\n"
         mainINP += '----------------------------------------------------\n'
@@ -384,13 +404,18 @@ class RunStep1View(View):
         return Septic
 
     def getLandRain_GW1(self, context):
-        session_id=context['IndexInput']['id']          
+        session_id=context['IndexInput']['id']     
+        indexInput = IndexInput.objects.get(id=session_id)
+
         #LandRain_GW1.txt
-        LandRain_GW1 = ""
+        LandRain_GW1 = 'A\tB\tC\tD\tSHG\n'
         eles = SoilInfiltrationFractionInput.objects.filter(session_id=session_id).order_by('id')
         for ele in eles:
             for f in SoilInfiltrationFractionAbstract._meta.fields:
-                num = '%.3f' % getattr( ele,f.name) + "\t"
+                if indexInput.gwOpt:
+                    num = '%.3f' % getattr( ele,f.name) + "\t"
+                else:
+                    num = '%.3f' % 0 + "\t"
                 LandRain_GW1 += num    
             LandRain_GW1 += "\n"
         return LandRain_GW1
@@ -399,9 +424,9 @@ class RunStep1View(View):
         session_id=context['IndexInput']['id']          
         #BMPs.txt
         BMPs = ""
-        BMPs += '\tN\tP\tBOD\tSediment\tAppliedArea\tBMP\n'
         #process landtype_id: 1~5 : Cropland, pastland, forest,user defined,feedlot
         for landtype_id in range(1,6):
+            BMPs += '\tN\tP\tBOD\tSediment\tAppliedArea\tBMP\n'
             for watershd_id in context['rangeWSD']:
                 bmpInput = BMPInput.objects.get(session_id=session_id, landtype_id=landtype_id, 
                         watershd_id=watershd_id)
@@ -411,8 +436,9 @@ class RunStep1View(View):
                 BMPs += '%.4f' % bmpInput.BOD + "\t" #= request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"3"]
                 BMPs += '%.4f' % bmpInput.Sediment + "\t" #=request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"4"]
                 BMPs += '%.4f' % bmpInput.PercentApplied + "\t" #=request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"6"]
-                BMPs += '%.4f' % bmpInput.BMP + "\n" #= request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"5"]
-            BMPs += "\n"
+                BMPs += str(bmpInput.BMP) + "\n" #= request.POST['BMP_'+str(landtype_id)+"_"+twonum(watershd_id)+"5"]
+            if landtype_id != 5:
+                BMPs += "\n"
 
         BMPs += '------------ Followings are BMPs for Urban-------------------------------------------------\n'
         
@@ -422,7 +448,6 @@ class RunStep1View(View):
         for i in range(1,5):
             for j in range(1,10):
                 key = "UrbnConc_"+str(i)+str(j)
-                print key
                 urbanBmpInput = UrbanBmpInput.objects.get(session_id=session_id, key=key)
                 BMPs += '%.4f' % urbanBmpInput.value + "\t"
             BMPs += "\n"

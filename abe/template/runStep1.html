@@ -17,14 +17,14 @@ function runBMP() {
 </head>
 <body>
 {{ret}}
-<br><img style="margin: 0 auto; display:block " src="./img/STEPL_WEB_title.jpg" alt=" " width=400><br>
+<br><img style="margin: 0 auto; display:block " src="{% static "STEPL_WEB_title.jpg" %}" alt=" " width=400><br>
 <form name=main>
   <br><br>
   <table style="margin: 0px auto; width: 1100px" border=1>
   <tr>
     <td style="text-align:center; vertical-align:middle; font-weight:bold">
       Annual Loads Summary
-<input type=button style='width:240;height:30;cursor:hand' value='Click to Download' onClick="javascript:window.open('./tmp/20151028113637911721_2694/sim_001/AnnualLoads.csv');">
+<input type=button style='width:240;height:30;cursor:hand' value='Click to Download' onClick="javascript:window.open('{{img_prefix}}AnnualLoads.csv');">
 <input type=button style="width:200;height:30;cursor:hand;float:center;" value="Print"
 onClick="javascript:window.print();"></td> 
   </tr></table>
@@ -45,51 +45,15 @@ onClick="javascript:window.print();"></td>
       <td width=85 align=center><b><font size=2 face="Times New Roman">S Reduction<br>%
 </td>
     </tr>
-    <tr>
-      <td width=80 align=right><font size=2 face="Times New Roman">1</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">605</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">420</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">30</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">181</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">110</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">39</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">908</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">547</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">40</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">139</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">83</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">40</td>
-    </tr>
-    <tr>
-      <td width=80 align=right><font size=2 face="Times New Roman">2</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">169</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">164</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">3</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">17</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">17</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">2</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">327</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">307</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">6</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">2</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">2</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">8</td>
-    </tr>
-    <tr>
-      <td width=80 align=right><font size=2 face="Times New Roman">Total</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">774</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">585</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">24</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">198</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">127</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">36</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">1,235</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">854</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">31</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">142</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">85</td>
-      <td width=85 align=right><font size=2 face="Times New Roman">40</td>
-    </tr>
+    {% for row in run1ret %} 
+      <tr>
+        {% for idx in clmArr %} 
+          <td>
+          {{ row|get:idx }}
+          </td>
+        {%endfor%}
+      </tr>
+    {% endfor %}
   </table>
 <br><hr><br>
 <table  style="margin: 0px auto;" border=1>
@@ -97,31 +61,16 @@ onClick="javascript:window.print();"></td>
     <td style="text-align:center; vertical-align:middle;" colspan=2>Graphs</td>
   </tr>
   <tr>
-    <td style="text-align:center; vertical-align:middle;"> <img src="./tmp/20151028113637911721_2694/sim_001/N_bar.jpg" width=400> </td>
-    <td style="text-align:center; vertical-align:middle;"> <img src="./tmp/20151028113637911721_2694/sim_001/P_bar.jpg" width=400> </td>
+    <td style="text-align:center; vertical-align:middle;"> <img src="{{img_prefix}}N_bar.jpg" width=400> </td>
+    <td style="text-align:center; vertical-align:middle;"> <img src="{{img_prefix}}P_bar.jpg" width=400> </td>
   </tr>
   <tr>
-    <td style="text-align:center; vertical-align:middle;"> <img src="./tmp/20151028113637911721_2694/sim_001/B_bar.jpg" width=400> </td>
-    <td style="text-align:center; vertical-align:middle;"> <img src="./tmp/20151028113637911721_2694/sim_001/S_bar.jpg" width=400> </td>
+    <td style="text-align:center; vertical-align:middle;"> <img src="{{img_prefix}}B_bar.jpg" width=400> </td>
+    <td style="text-align:center; vertical-align:middle;"> <img src="{{img_prefix}}S_bar.jpg" width=400> </td>
   </tr>
 </table><br><hr><br>
 </form>
-<table style="margin: 0px auto; border:0;" >
-<tr style="text-align:left"><td>
-Your Log ID is </td><td><span style="color:blue"> 20151028113637911721_2694 </span></td></tr>
-<tr>
-<td>
-Restart STEPL From
-</td>
-<td>
- <input type=button style='width:240px;height:30px;cursor:hand' value='Input Form'
- onClick="runTable1()"> 
-</td>
-<td>
- <input type=button style='width:240px;height:30px;cursor:hand' value='BMP Form'
- onClick="runBMP()"> 
-</td>
-</tr></table><br>
+
 <div style="text-align:center; font-size:0.82em; color:grey"><hr>
     Copyright &copy; 2015, Purdue University and Kangwon National University, all rights reserved. <br>
     Purdue University is an equal access/equal opportunity university.<br>
@@ -132,21 +81,6 @@ Restart STEPL From
   <br>Programmatic support from US EPA, Illinois-Indiana Sea Grant,  and US Army Corp of Engineers.
 </div><br>
 <a href="./tmp/20151028113637911721_2694/sim_001/myRST.csv" target=new><span style="color:white">.</span></a>
-<form name=table1 method="POST" action="./inputMain.cgi" target="_blank">
-<input type=hidden name=numWSD  value=2>
-<input type=hidden name=numGLY  value=0>
-<input type=hidden name=numSTR  value=0>
-<input type=hidden name=rerun value=1>
-<input type=hidden name=ystime value=20151028113637911721_2694>
-<input type=hidden name=ystimeldc value="noldc">
-</form>
-<form name=table2 method="POST" action="./inputMain.cgi" target="_blank">
-<input type=hidden name=numWSD  value=2>
-<input type=hidden name=numGLY  value=0>
-<input type=hidden name=numSTR  value=0>
-<input type=hidden name=rerun value=2 >
-<input type=hidden name=ystime value=20151028113637911721_2694>
-<input type=hidden name=ystimeldc value="noldc">
-</form>
+
 </body>
 </html>
