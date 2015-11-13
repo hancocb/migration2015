@@ -1,5 +1,5 @@
 OCT 31:
-    I eventually know how dist_ work...........
+    I eventually know how dist_ work............
     The way that I use in bmpMain.html is wrong!!!! the dist should be get from DB!!
     
 OCT 31:
