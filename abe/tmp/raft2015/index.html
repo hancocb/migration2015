@@ -1,0 +1,89 @@
+<html>
+<head>
+  <title>Web-based STEPL</title>
+</head>
+<!--#### Programmed by Youn Shik Park-->
+
+<body>
+<center>
+
+<form name=main method="POST" action="./inputMain.cgi">
+  <br><br>
+  <img src="./img/STEPL_WEB_title.jpg" width=400><br>
+  <br>
+
+  <table border=1 width=500>
+    <tr>
+      <td align=center colspan=2 bgcolor=#BDBDBD><b>Number of Subwatersheds</b></td>
+    </tr>
+    <tr>
+      <td align=right>Select the number of subwatersheds:</td>
+      <td align=center><input type=text name=numWSD style="text-align:right;border-width:1px;font-size:11pt" value=1 size=4></td>
+    </tr>
+  </table><br>
+
+  <table border=1 width=500>
+    <tr>
+      <td align=center colspan=2 bgcolor=#BDBDBD><b>Number of Special Sediment Sources in the Subwatersheds</b></td>
+    </tr>
+    <tr>
+      <td align=right>Gully formations:</td>
+      <td align=center><input type=text name=numGLY style="text-align:right;border-width:1px;font-size:11pt" value=0 size=4></td>
+    </tr>
+    <tr>
+      <td align=right>Imparied Streambanks:</td>
+      <td align=center><input type=text name=numSTR style="text-align:right;border-width:1px;font-size:11pt" value=0 size=4></td>
+    </tr>
+  </table><br><br><hr>
+  <input type=hidden name=ystimeldc value="noldc">
+  <input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Next Step" onClick="javascript:check_numWSD()">
+</form>
+
+<br><br><hr>
+<font size=2>
+  <font color=gray>
+    Copyright &copy; 2012, Purdue University and Kangwon National University, all rights reserved. <br>
+    Purdue University is an equal access/equal opportunity university.<br>
+  </font>
+  Contact <a href=mailto:engelb@purdue.edu>Dr. Bernie Engel</a>
+  for more details if you need any help for STEPL WEB.
+  <br>
+  Programmed by <a href=mailto:parkyounshik@gmail.com>Youn Shik Park</a>, Purdue University Research Assistant
+</font><br>
+
+</body>
+<script language="JavaScript">
+function check_numWSD() {
+  numWSDtmp = document.main.numWSD.value * 1.0 ;
+  //numWSDtmp = Math.round(numWSDtmp*100) / 100 ;
+  numWSDtmp = Math.floor(numWSDtmp) ;
+  if ( numWSDtmp <= 0 ) {
+    alert("Number of watershed shoud be greater than 1.") ;
+  } else {
+    document.main.submit() ;
+  }
+}
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,118 @@
+<html>
+<head>
+  <title>Septic DB Table</title>
+</head>
+<!--#### Programmed by Youn Shik Park-->
+
+<body onLoad="init();">
+<form name=Septic>
+<br><center>
+  <table border=1>
+    <tr>
+      <td align=center colspan=3><font color=blue><b>DB for Septic System</b></font></td>
+    </tr>
+    <tr>
+      <td> &nbsp </td>
+      <td align=center bgcolor=#BDBDBD><b>ACR</b><sup>1</sup></font>
+      <td align=center bgcolor=#BDBDBD><b>Wastewater per capita</b></font>
+    </tr>
+    <tr>
+      <td align=center>Total Nitrogen</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Septic_11>
+	  <font size=2>mg/L (range of 20 to 100)</td>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Septic_12>
+	  <font size=2>mg/L (range of 20 to 85)</td>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Total Phosphorus</td>
+      <td align=center>
+       <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Septic_21>
+	 <font size=2>mg/L (range of 18 to 29)</td>
+      </td>
+      <td align=center>
+       <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Septic_22>
+	 <font size=2>mg/L (range of 4 to 15)</td>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Organics (BOD)</td>
+      <td align=center>
+       <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Septic_31>
+	 <font size=2>mg/L (range of 200 to 290)</td>
+      </td>
+      <td align=center>
+       <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Septic_32>
+	 <font size=2>mg/L (range of 110 to 400)</td>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>TSO<sup>2</sup></td>
+      <td align=center>
+       <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Septic_41>
+	 <font size=2>gal/day/person (range of 45 to 100)</td>
+      </td>
+      <td align=center>
+       <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Septic_42>
+	 <font size=2>gal/day/person (range of 75 to 125)</td>
+      </td>
+    </tr>
+  </table>
+
+  <table border=0 width=800>
+    <tr>
+      <td width=220> </td>
+      <td align=right><font size=2>
+	ACR<sup>1</sup>: 
+      </td>
+      <td align=left><font size=2>
+	Assume the average concentrations reaching the stream (from septic overcharge)
+      </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td align=center><font size=2>
+        TSO<sup>2</sup>: 
+      </td>
+      <td align=left><font size=2>
+        Typical septic overcharge flow rate of
+      </td>
+    </tr>
+  </table>
+<br>
+
+<input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Update" onClick="javascript:returnVal()">
+
+</form>
+</body>
+<script language="JavaScript">
+function init() {
+  document.Septic.Septic_11.value = opener.document.inputMain.Septic_11.value ;
+  document.Septic.Septic_12.value = opener.document.inputMain.Septic_12.value ;
+  document.Septic.Septic_21.value = opener.document.inputMain.Septic_21.value ;
+  document.Septic.Septic_22.value = opener.document.inputMain.Septic_22.value ;
+  document.Septic.Septic_31.value = opener.document.inputMain.Septic_31.value ;
+  document.Septic.Septic_32.value = opener.document.inputMain.Septic_32.value ;
+  document.Septic.Septic_41.value = opener.document.inputMain.Septic_41.value ;
+  document.Septic.Septic_42.value = opener.document.inputMain.Septic_42.value ;
+
+}
+
+function returnVal() {
+  opener.document.inputMain.Septic_11.value = document.Septic.Septic_11.value ;
+  opener.document.inputMain.Septic_12.value = document.Septic.Septic_12.value ;
+  opener.document.inputMain.Septic_21.value = document.Septic.Septic_21.value ;
+  opener.document.inputMain.Septic_22.value = document.Septic.Septic_22.value ;
+  opener.document.inputMain.Septic_31.value = document.Septic.Septic_31.value ;
+  opener.document.inputMain.Septic_32.value = document.Septic.Septic_32.value ;
+  opener.document.inputMain.Septic_41.value = document.Septic.Septic_41.value ;
+  opener.document.inputMain.Septic_42.value = document.Septic.Septic_42.value ;
+  alert("Updated") ;
+  self.close() ;
+}
+</script>
+</html>
+

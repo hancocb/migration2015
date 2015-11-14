@@ -51,7 +51,7 @@ class CountyDataJson(View):
 				0.04,
 				ele.pavg, #4
 				ele.rmean , ele.kmean, ele.lsavg,#0,1,2
-				0.03,
+				0.003,
 				ele.pavg, #4
 				ele.rmean , ele.kmean, ele.lsavg,#0,1,2
 				ele.cavg, #3
@@ -64,7 +64,7 @@ class CountyDataJson(View):
 				0,0,0,0,
 				0.04,
 				0,0,0,0,
-				0.03,
+				0.003,
 				0,0,0,0,0,0,
 				]
 		return JsonResponse(data)

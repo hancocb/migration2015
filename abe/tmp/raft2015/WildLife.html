@@ -1,0 +1,73 @@
+<html>
+<head>
+  <title>Wildlige Density Table</title>
+</head>
+<!--#### Programmed by Youn Shik Park-->
+
+<body onLoad="init();">
+<form name=WildLife>
+<br><center>
+  <table border=1>
+    <tr>
+      <td align=center colspan=2 bgcolor=#BDBDBD>
+	<font color=blue><b>Wildlife density in cropland (Cropland, #/mi<sup>2</sup>)</b></font>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Goose</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=WildLife_1 value=0>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Deer</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=WildLife_2 value=0>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Beaver</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=WildLife_3 value=0>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Raccoons</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=WildLife_4 value=0>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Other</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=WildLife_5 value=0>
+      </td>
+    </tr>
+  </table>
+<br>
+
+<input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Update" onClick="javascript:returnVal()">
+
+</form>
+</body>
+<script language="JavaScript">
+function init() {
+  document.WildLife.WildLife_1.value = opener.document.inputMain.WildLife_1.value ;
+  document.WildLife.WildLife_2.value = opener.document.inputMain.WildLife_2.value ;
+  document.WildLife.WildLife_3.value = opener.document.inputMain.WildLife_3.value ;
+  document.WildLife.WildLife_4.value = opener.document.inputMain.WildLife_4.value ;
+  document.WildLife.WildLife_5.value = opener.document.inputMain.WildLife_5.value ;
+}
+function returnVal() {
+  opener.document.inputMain.WildLife_1.value = document.WildLife.WildLife_1.value ;
+  opener.document.inputMain.WildLife_2.value = document.WildLife.WildLife_2.value ;
+  opener.document.inputMain.WildLife_3.value = document.WildLife.WildLife_3.value ;
+  opener.document.inputMain.WildLife_4.value = document.WildLife.WildLife_4.value ;
+  opener.document.inputMain.WildLife_5.value = document.WildLife.WildLife_5.value ;
+  alert("Updated") ;
+  self.close();
+}
+</script>
+
+</html>
+

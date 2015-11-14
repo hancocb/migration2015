@@ -1,0 +1,356 @@
+<html>
+<head>
+  <title>Standard Animal Weight Table</title>
+</head>
+<!--#### Programmed by Youn Shik Park-->
+
+<body onLoad="init();">
+<form name=Reference>
+<br><center>
+  <table border=1>
+    <tr>
+      <td align=center colspan=5><font color=blue><b>Standard Animal Weight Table</b></font></td>
+    </tr>
+    <tr>
+      <td align=center bgcolor=#BDBDBD><b>Animal</td>
+      <td align=center bgcolor=#BDBDBD><b>Typical Animal Mass,lb</td>
+      <td align=center bgcolor=#BDBDBD><b>BOD,lb/day/1000lb animal</td>
+      <td align=center bgcolor=#BDBDBD><b>BOD per Animal,lb/day</td>
+      <td align=center bgcolor=#BDBDBD><b>BOD per Animal,lb/yr</td>
+    </tr>
+    <tr>
+      <td align=center>Beef cattle</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_011>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_012>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_013>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_014>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Dairy cow</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_021>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_022>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_023>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_024>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Hog</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_031>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_032>
+      </td>
+      <td align=center>
+        <input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_033>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_034>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Sheep</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_041>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_042>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_043>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_044>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Horse</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_051>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_052>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_053>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_054>
+      </td>
+    </tr>
+    <tr>
+      <td align=center><font size=2>Chicken (Layer)</font></td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_061>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_062>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_063>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_064>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Turkey</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_071>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_072>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_073>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_074>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Duck</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_081>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_082>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_083>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_084>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Goose</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_091>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_092>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_093>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_094>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Deer</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_101>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_102>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_103>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_104>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Beaver</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_111>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_112>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_113>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_114>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Raccoon</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_121>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_122>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_123>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_124>
+      </td>
+    </tr>
+    <tr>
+      <td align=center>Other</td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_131>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_132>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_133>
+      </td>
+      <td align=center>
+	<input type=text style="text-align:right;border-width:0px;font-size:11pt" size=4 name=Reference_134>
+      </td>
+    </tr>
+  </table>
+<br>
+
+<input style="WIDTH:200;height:30;CURSOR:hand" type=button value="Update" onClick="javascript:returnVal()">
+
+</form>
+
+</body>
+<script language="JavaScript">
+function init() {
+  document.Reference.Reference_011.value = opener.document.inputMain.Reference_011.value ; 
+  document.Reference.Reference_012.value = opener.document.inputMain.Reference_012.value ;
+  document.Reference.Reference_013.value = opener.document.inputMain.Reference_013.value ;
+  document.Reference.Reference_014.value = opener.document.inputMain.Reference_014.value ;
+  document.Reference.Reference_021.value = opener.document.inputMain.Reference_021.value ;
+  document.Reference.Reference_022.value = opener.document.inputMain.Reference_022.value ;
+  document.Reference.Reference_023.value = opener.document.inputMain.Reference_023.value ;
+  document.Reference.Reference_024.value = opener.document.inputMain.Reference_024.value ;
+  document.Reference.Reference_031.value = opener.document.inputMain.Reference_031.value ;
+  document.Reference.Reference_032.value = opener.document.inputMain.Reference_032.value ;
+  document.Reference.Reference_033.value = opener.document.inputMain.Reference_033.value ;
+  document.Reference.Reference_034.value = opener.document.inputMain.Reference_034.value ;
+  document.Reference.Reference_041.value = opener.document.inputMain.Reference_041.value ;
+  document.Reference.Reference_042.value = opener.document.inputMain.Reference_042.value ;
+  document.Reference.Reference_043.value = opener.document.inputMain.Reference_043.value ;
+  document.Reference.Reference_044.value = opener.document.inputMain.Reference_044.value ;
+  document.Reference.Reference_051.value = opener.document.inputMain.Reference_051.value ;
+  document.Reference.Reference_052.value = opener.document.inputMain.Reference_052.value ;
+  document.Reference.Reference_053.value = opener.document.inputMain.Reference_053.value ;
+  document.Reference.Reference_054.value = opener.document.inputMain.Reference_054.value ;
+  document.Reference.Reference_061.value = opener.document.inputMain.Reference_061.value ;
+  document.Reference.Reference_062.value = opener.document.inputMain.Reference_062.value ;
+  document.Reference.Reference_063.value = opener.document.inputMain.Reference_063.value ;
+  document.Reference.Reference_064.value = opener.document.inputMain.Reference_064.value ;
+  document.Reference.Reference_071.value = opener.document.inputMain.Reference_071.value ;
+  document.Reference.Reference_072.value = opener.document.inputMain.Reference_072.value ;
+  document.Reference.Reference_073.value = opener.document.inputMain.Reference_073.value ;
+  document.Reference.Reference_074.value = opener.document.inputMain.Reference_074.value ;
+  document.Reference.Reference_081.value = opener.document.inputMain.Reference_081.value ;
+  document.Reference.Reference_082.value = opener.document.inputMain.Reference_082.value ;
+  document.Reference.Reference_083.value = opener.document.inputMain.Reference_083.value ;
+  document.Reference.Reference_084.value = opener.document.inputMain.Reference_084.value ;
+  document.Reference.Reference_091.value = opener.document.inputMain.Reference_091.value ;
+  document.Reference.Reference_092.value = opener.document.inputMain.Reference_092.value ;
+  document.Reference.Reference_093.value = opener.document.inputMain.Reference_093.value ;
+  document.Reference.Reference_094.value = opener.document.inputMain.Reference_094.value ;
+  document.Reference.Reference_101.value = opener.document.inputMain.Reference_101.value ;
+  document.Reference.Reference_102.value = opener.document.inputMain.Reference_102.value ;
+  document.Reference.Reference_103.value = opener.document.inputMain.Reference_103.value ;
+  document.Reference.Reference_104.value = opener.document.inputMain.Reference_104.value ;
+  document.Reference.Reference_111.value = opener.document.inputMain.Reference_111.value ;
+  document.Reference.Reference_112.value = opener.document.inputMain.Reference_112.value ;
+  document.Reference.Reference_113.value = opener.document.inputMain.Reference_113.value ;
+  document.Reference.Reference_114.value = opener.document.inputMain.Reference_114.value ;
+  document.Reference.Reference_121.value = opener.document.inputMain.Reference_121.value ;
+  document.Reference.Reference_122.value = opener.document.inputMain.Reference_122.value ;
+  document.Reference.Reference_123.value = opener.document.inputMain.Reference_123.value ;
+  document.Reference.Reference_124.value = opener.document.inputMain.Reference_124.value ;
+  document.Reference.Reference_131.value = opener.document.inputMain.Reference_131.value ;
+  document.Reference.Reference_132.value = opener.document.inputMain.Reference_132.value ;
+  document.Reference.Reference_133.value = opener.document.inputMain.Reference_133.value ;
+  document.Reference.Reference_134.value = opener.document.inputMain.Reference_134.value ;
+}
+
+function returnVal() {
+  opener.document.inputMain.Reference_011.value = document.Reference.Reference_011.value ;
+  opener.document.inputMain.Reference_012.value = document.Reference.Reference_012.value ;
+  opener.document.inputMain.Reference_013.value = document.Reference.Reference_013.value ;
+  opener.document.inputMain.Reference_014.value = document.Reference.Reference_014.value ;
+  opener.document.inputMain.Reference_021.value = document.Reference.Reference_021.value ;
+  opener.document.inputMain.Reference_022.value = document.Reference.Reference_022.value ;
+  opener.document.inputMain.Reference_023.value = document.Reference.Reference_023.value ;
+  opener.document.inputMain.Reference_024.value = document.Reference.Reference_024.value ;
+  opener.document.inputMain.Reference_031.value = document.Reference.Reference_031.value ;
+  opener.document.inputMain.Reference_032.value = document.Reference.Reference_032.value ;
+  opener.document.inputMain.Reference_033.value = document.Reference.Reference_033.value ;
+  opener.document.inputMain.Reference_034.value = document.Reference.Reference_034.value ;
+  opener.document.inputMain.Reference_041.value = document.Reference.Reference_041.value ;
+  opener.document.inputMain.Reference_042.value = document.Reference.Reference_042.value ;
+  opener.document.inputMain.Reference_043.value = document.Reference.Reference_043.value ;
+  opener.document.inputMain.Reference_044.value = document.Reference.Reference_044.value ;
+  opener.document.inputMain.Reference_051.value = document.Reference.Reference_051.value ;
+  opener.document.inputMain.Reference_052.value = document.Reference.Reference_052.value ;
+  opener.document.inputMain.Reference_053.value = document.Reference.Reference_053.value ;
+  opener.document.inputMain.Reference_054.value = document.Reference.Reference_054.value ;
+  opener.document.inputMain.Reference_061.value = document.Reference.Reference_061.value ;
+  opener.document.inputMain.Reference_062.value = document.Reference.Reference_062.value ;
+  opener.document.inputMain.Reference_063.value = document.Reference.Reference_063.value ;
+  opener.document.inputMain.Reference_064.value = document.Reference.Reference_064.value ;
+  opener.document.inputMain.Reference_071.value = document.Reference.Reference_071.value ;
+  opener.document.inputMain.Reference_072.value = document.Reference.Reference_072.value ;
+  opener.document.inputMain.Reference_073.value = document.Reference.Reference_073.value ;
+  opener.document.inputMain.Reference_074.value = document.Reference.Reference_074.value ;
+  opener.document.inputMain.Reference_081.value = document.Reference.Reference_081.value ;
+  opener.document.inputMain.Reference_082.value = document.Reference.Reference_082.value ;
+  opener.document.inputMain.Reference_083.value = document.Reference.Reference_083.value ;
+  opener.document.inputMain.Reference_084.value = document.Reference.Reference_084.value ;
+  opener.document.inputMain.Reference_091.value = document.Reference.Reference_091.value ;
+  opener.document.inputMain.Reference_092.value = document.Reference.Reference_092.value ;
+  opener.document.inputMain.Reference_093.value = document.Reference.Reference_093.value ;
+  opener.document.inputMain.Reference_094.value = document.Reference.Reference_094.value ;
+  opener.document.inputMain.Reference_101.value = document.Reference.Reference_101.value ;
+  opener.document.inputMain.Reference_102.value = document.Reference.Reference_102.value ;
+  opener.document.inputMain.Reference_103.value = document.Reference.Reference_103.value ;
+  opener.document.inputMain.Reference_104.value = document.Reference.Reference_104.value ;
+  opener.document.inputMain.Reference_111.value = document.Reference.Reference_111.value ;
+  opener.document.inputMain.Reference_112.value = document.Reference.Reference_112.value ;
+  opener.document.inputMain.Reference_113.value = document.Reference.Reference_113.value ;
+  opener.document.inputMain.Reference_114.value = document.Reference.Reference_114.value ;
+  opener.document.inputMain.Reference_121.value = document.Reference.Reference_121.value ;
+  opener.document.inputMain.Reference_122.value = document.Reference.Reference_122.value ;
+  opener.document.inputMain.Reference_123.value = document.Reference.Reference_123.value ;
+  opener.document.inputMain.Reference_124.value = document.Reference.Reference_124.value ;
+  opener.document.inputMain.Reference_131.value = document.Reference.Reference_131.value ;
+  opener.document.inputMain.Reference_132.value = document.Reference.Reference_132.value ;
+  opener.document.inputMain.Reference_133.value = document.Reference.Reference_133.value ;
+  opener.document.inputMain.Reference_134.value = document.Reference.Reference_134.value ;
+  alert("Updated") ;
+  self.close();
+}
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
