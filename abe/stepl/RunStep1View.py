@@ -412,6 +412,8 @@ class RunStep1View(View):
         eles = SoilInfiltrationFractionInput.objects.filter(session_id=session_id).order_by('id')
         for ele in eles:
             for f in SoilInfiltrationFractionAbstract._meta.fields:
+                if f.name == 'HSG':
+                    continue
                 if indexInput.gwOpt:
                     num = '%.3f' % getattr( ele,f.name) + "\t"
                 else:

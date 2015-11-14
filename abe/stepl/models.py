@@ -276,6 +276,7 @@ class IrrigationInput(IrrigationAbstract):
 
 # Reference Soil Infiltration Fraction for Precipitation
 class SoilInfiltrationFractionAbstract(models.Model):
+  HSG = models.CharField(max_length=30,default='',db_index=True)
   A = models.FloatField(default=0) 
   B = models.FloatField(default=0) 
   C = models.FloatField(default=0) 
@@ -284,13 +285,11 @@ class SoilInfiltrationFractionAbstract(models.Model):
     abstract = True
 
 class SoilInfiltrationFraction(SoilInfiltrationFractionAbstract):
-  HSG = models.CharField(max_length=30,default='',db_index=True)
   Standard = models.CharField(max_length=30)
   class Meta:
     unique_together = ('Standard', 'HSG')
 
 class SoilInfiltrationFractionInput(SoilInfiltrationFractionAbstract):
-  HSG = models.CharField(max_length=30,default='',db_index=True)
   session_id = models.IntegerField() 
   class Meta:
     unique_together = ('session_id', 'HSG')
