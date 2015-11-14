@@ -1,3 +1,19 @@
+Nov 14:
+    to install:
+# First, update the DB so it thinks no migrations were applied to the app
+python manage.py migrate --fake <app_name> zero
+
+# Erase all migrations in the app folder
+rm -r "<app_name>/migrations/*"
+
+# Erase the application tables
+python manage.py sqlclear <app_name> | python manage.py dbshell
+
+# Recreate the app tables, that will be empty
+python manage.py makemigrations <app_name>
+python manage.py migrate <app_name>
+
+
 OCT 31:
     I eventually know how dist_ work............
     The way that I use in bmpMain.html is wrong!!!! the dist should be get from DB!!
