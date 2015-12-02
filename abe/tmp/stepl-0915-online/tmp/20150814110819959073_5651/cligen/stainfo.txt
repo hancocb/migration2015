@@ -1,3 +1,0 @@
-Station:	WABASH IN
-State:	Indiana
-County:	Wabash

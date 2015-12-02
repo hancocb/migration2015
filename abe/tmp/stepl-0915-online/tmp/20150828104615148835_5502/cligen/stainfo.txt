@@ -1,3 +1,0 @@
-Station:	TUSCOLA IL
-State:	Illinois
-County:	Douglas

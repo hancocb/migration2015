@@ -1,3 +1,0 @@
-Station:	WEST LAFAYETTE 6 NW IN
-State:	Indiana
-County:	Tippecanoe

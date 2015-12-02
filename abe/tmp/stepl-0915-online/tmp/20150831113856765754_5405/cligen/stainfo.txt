@@ -1,3 +1,0 @@
-Station:	HOOPESTON IL
-State:	Indiana
-County:	Warren

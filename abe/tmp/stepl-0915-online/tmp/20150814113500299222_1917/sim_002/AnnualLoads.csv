@@ -1,8 +1,0 @@
- Watershed,N Load (no BMP),N Reduction,N Load (with BMP),	 %N Reduction,P Load (no BMP), P Reduction, P Load (with BMP),%P Reduction, BOD Load (no BMP),BOD Reduction,BOD (with BMP),%BOD Reduction,Sediment Load (no BMP),Sediment Reduction,Sediment Load (with BMP),%Sed Reduction
-
-1,122.4117,26.01598,96.39571,21.25286,31.80269,10.56580,21.23688,33.22299,234.9097,40.78603,194.1237,17.36243,18.20805,6.372818,11.83523,35.00000
-Total,122.4117,26.01598,96.39571,21.25286,31.80269,10.56580,21.23688,33.22299,234.9097,40.78603,194.1237,17.36243,18.20805,6.372818,11.83523,35.00000
-
-
-----
-Unit is "ton/year" for sediment and is "lb/year" for the others.

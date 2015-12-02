@@ -1,3 +1,0 @@
-Station:	CLINTON NO 1 IA
-State:	Illinois
-County:	Whiteside
