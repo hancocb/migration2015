@@ -166,5 +166,5 @@ def AdminListDisplayViewModify():
     print Log
 
 
-if __name__ == "__main__":
-    AdminListDisplayViewModify()
+#if __name__ == "__main__":
+AdminListDisplayViewModify()
