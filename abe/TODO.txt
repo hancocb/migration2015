@@ -17,3 +17,4 @@ Oct 31:
 
 Jan 18:
 1. importAdminDisplyManage.py, objects.all() is bad behavior
+::: done by refactoring
