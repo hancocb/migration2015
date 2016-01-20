@@ -8,7 +8,7 @@
     var url_string;
     var deg_buffer;
     var partype_filter='';
-    var server_url = "http://buckeye.agriculture.purdue.edu:8080/geoserver"
+    var server_url = "/geoserver"
     // pink tile avoidance
     OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
     // make OL compute scale according to WMS spec
