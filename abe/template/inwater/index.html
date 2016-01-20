@@ -1,0 +1,129 @@
+{% load staticfiles %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Indiana Water Monitoring Sites</title>
+        <!-- Import OL CSS, auto import does not work with our minified OL.js build -->
+        <link rel="stylesheet" type="text/css" href="http://buckeye.agriculture.purdue.edu:8080/geoserver/openlayers/theme/default/style.css"/>
+        <link rel="stylesheet" type="text/css" href="{% static "inwater/css/index.css" %}"/>
+        <!-- Basic CSS definitions -->
+
+        <!-- Import OpenLayers, reduced, wms read only version-->
+       	<script src="http://openlayers.org/api/OpenLayers.js"></script>
+		<script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+		<script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>    
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+
+        <script src="{% static "inwater/js/index.js" %}"></script>
+		
+       </head>
+    <body onload="init()"  id='main_body'>
+
+		<table>  
+  <tr>
+    <td colspan="2"><img src="{% static "inwater/images/banner.jpg" %}" alt="banner image" width="1039" height="88" /></td>
+    </tr>
+  <tr>
+    <td colspan="2"><span class="style3">The Indiana Water Monitoring Inventory is a portal for locating water monitoring information in the state of Indiana. Many government agencies and organizations monitor Indiana's waters, and this site provides a one-stop site where you can  locate monitoring sites, determine what data have been collected, and contact the data holders or their web site for more information.  The actual monitoring data is not stored here -- only detailed information on the location of the monitoring site and what is being monitored or was monitored in the past. </span></td>
+    </tr>
+  <tr>
+    <td valign="top"><div id="map"  style=' height: 680px; width : 555px'>
+    </div></td>
+	<td valign="top">
+		
+		<strong>Map</strong>
+				<input type="button" id="viewall" value="View Original Map" onclick="viewall()"/><br>
+				Zoom in using the slider at left or hold the shift key and draw a box around the area you want. <br />
+				<br />
+				Or search by city, state (i.e., Lafayette, IN) or zipcode <br/> 
+				<input type="text" id="address"/><input type="button" id="aButton" value="go" onclick="showAddress(document.getElementById('address').value)"/><br>
+				<b> HUC 8, 10, and 12 Layer:<input type="checkbox" name="hucWI" onClick="switchHuc()" id="hucWI" autocomplete="off">
+
+		&nbsp&nbsp NHD Water Layer:<input type="checkbox" name="stream" onClick="switchstreams()" id="stream" autocomplete="off"></b><br/>
+		<br>
+				<hr />
+				<p><strong>All Locations: </strong>There are currently more than 5400 locations in the database so we recommend zooming in before displaying all locations.  "Download all locations" provides the location information in a spreadsheet.<br />
+				<br />
+				<input type="button" style="width: 140px" id="show_all" value="download all locations" onclick="downloadall()"/>
+				<input type="button" style="width: 140px" id="show_all" value="display all locations" onclick="showall()"/>
+				<br />
+				<br />
+				Legend:
+				<br />				      <img  src="{% static "inwater/images/legend3col.png" %}" width="501" height="87" id="legend"  title="Legend"/>
+				  <br />
+	  <hr />
+				  <strong>Select Locations</strong><br />
+				1. Agency Type:
+				<div id="High_Agency_div">
+                    <select id="High_Agency" name="High_Agency" onchange="agency_select(this.value)" autocomplete="off" style="width: 300px">
+                        <option value="all">all</option>
+                    </select>
+                </div><br />
+					&nbsp&nbsp Agency:
+					<div id="Agency_div">
+                        <select id="Agency" name="Agency" onchange="org_select(this.value)" autocomplete="off" style="width: 300px">
+                            <option value="all">all</option>               
+                        </select>
+                    </div><br />
+                    
+				2. Dataset Name:
+				<div id="dataset_div">
+                    <select id="dataset" name="dataset" autocomplete="off" style="width: 300px">
+                        <option value="all">all</option>            
+                    </select>                        
+                </div><br />
+				3. Location Name:<input type="text" id="loc" name="loc" autocomplete="off" style="width: 300px"></input><br /><br />				
+				4. Parameter Type:<br> <table><td>
+		        <input type="checkbox" name="type" value="All" id="cAll" autocomplete="off" onClick="uck_par()" checked=yes>All<br />
+				<input type="checkbox" name="type" value="Aquatic Plants/Algal Biomass" id="Aqu" autocomplete="off" onClick="uck_all()">Aquatic Plants/Algal Biomass<br />
+				<input type="checkbox" name="type" value="Bacteriology/Microbiology" id="Bac" autocomplete="off" onClick="uck_all()">Bacteriology/Microbiology<br />
+				<input type="checkbox" name="type" value="Fish" autocomplete="off" id="Fis" onClick="uck_all()">Fish<br />
+				<input type="checkbox" name="type" value="Flow/Stage" autocomplete="off" id="Flo" onClick="uck_all()">Flow/Stage<br />
+				<input type="checkbox" name="type" value="General Chemistry" autocomplete="off" id="Gen"  onClick="uck_all()">General Chemistry<br />
+				<input type="checkbox" name="type" value="Groundwater Level" autocomplete="off" id="Gro1" onClick="uck_all()">Groundwater Level<br />
+				<input type="checkbox" name="type" value="Groundwater Quality" autocomplete="off" id="Gro2" onClick="uck_all()">Groundwater Quality<br /></td><td>
+				<input type="checkbox" name="type" value="Habitat" autocomplete="off" id="Hab" onClick="uck_all()">Habitat<br />
+				<input type="checkbox" name="type" value="Lake Clarity" autocomplete="off" id="Lak" onClick="uck_all()">Lake Clarity<br />
+				<input type="checkbox" name="type" value="Macroinvertebrates" autocomplete="off" id="Mac" onClick="uck_all()">Macroinvertebrates<br />
+				<input type="checkbox" name="type" value="Metals" autocomplete="off" id="Met" onClick="uck_all()">Metals<br />
+				<input type="checkbox" name="type" value="Nutrients" autocomplete="off" id="Nut" onClick="uck_all()">Nutrients<br />
+				<input type="checkbox" name="type" value="Organics/Pesticides" autocomplete="off" id="Org" onClick="uck_all()">Organics/Pesticides<br />
+				<input type="checkbox" name="type" value="Radiological" autocomplete="off" id="Rad" onClick="uck_all()">Radiological<br />
+				<input type="checkbox" name="type" value="Hoosier Riverwatch" autocomplete="off" id="Hoo" onClick="uck_all()">Hoosier Riverwatch</td>
+				</table>
+				<br />
+				5. Hydrologic Unit Code</b>:<br/><input type="radio" name="huc" id="huc" value="huc_8" autocomplete="off">HUC08<input type="radio" id="huc" name="huc" value="huc_10" autocomplete="off">HUC10<input type="radio" name="huc" id="huc" value="huc_12" autocomplete="off">HUC12
+<input type='text' id='huc_code' name='huc_code' autocomplete="off">	<br /><br />	
+<input type="button" id="search" style="width: 240px" value="select locations using these criteria" onclick="seek_query()">
+				<input type="button" id="down_part" style="width: 200px" value="download selected locations" onclick="dn_query()">
+<br /><br />	</td>
+  </tr>
+  <tr>
+    <td><div align="left">
+      <p><a href="http://www.inwmc.org/"></a><img src="{% static "inwater/images/InWMC_logo.png" %}" alt="Indiana Water Monitoring Inventory" width="124" height="200" align="left" /></p>
+      <p>&nbsp;</p>
+      <p>This project is in collaboration with the <a href="http://www.inwmc.org/">Indiana Water Monitoring Council</a> which serves as a broad-based, state-wide body to enhance the communication, collaboration and coordination of professionals, organizations, and individuals involved in water monitoring within Indiana. </p>
+    </div></td>
+    <td valign="top"><p>&nbsp;</p>
+      <p><strong>Project Contacts:</strong><br/>
+        <a href="mailto:lesman@purdue.edu">Laura Esman</a><br/>
+        <a href="mailto:frankenb@purdue.edu">Jane Frankenberger</a><br/>
+        <a href="https://engineering.purdue.edu/watersheds/">Indiana Watershed Leadership Academy</a><br/>
+        <a href="http://www.purdue.edu/purdue/ea_eou_statement.html">Purdue Equal Access/Equal Opportunity University</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">This project has been funded wholly or in part by the United States Environmental Protection Agency under assistance agreement C997548210 to the Indiana Department of Environmental Management.  The contents of this document do not necessarily reflect the views and policies of the Environmental Protection Agency, nor does mention of trade names or commercial products constitute endorsement or recommendation for use. Read more information on the Indiana Department of Environmental Management's <a href="http://www.in.gov/idem/nps/3464.htm">watershed planning</a> and their <a href="http://www.in.gov/idem/nps/3378.htm">Section 319 Nonpoint Source Grant Program</a>. </td>
+    </tr>
+</table>
+        <div id="wrapper">
+
+            <div id="location"></div>
+            <div id="scale">
+            </div>
+        </div>
+        <div id="nodelist">           
+        </div>
+    </body>
+
+</html>

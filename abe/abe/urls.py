@@ -19,4 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^stepl/', include('stepl.urls')),
+    url(r'^inwater/', include('inwater.urls')),
 ]
