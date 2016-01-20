@@ -577,8 +577,8 @@
     function showAddress(address) {
         $.getJSON( "http://maps.googleapis.com/maps/api/geocode/json?address="+address+"&sensor=false", function( data ) {
             
-                var lat = data['results']['geometry']['location']['lat']
-                var lon = data['results']['geometry']['location']['lng']
+                var lat = data['results'][0]['geometry']['location']['lat']
+                var lon = data['results'][0]['geometry']['location']['lng']
                 var zoom = 11;
                 var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
                 map.setCenter(lonLat, zoom);
