@@ -8,6 +8,7 @@
     var url_string;
     var deg_buffer;
     var partype_filter='';
+    var server_url = "http://buckeye.agriculture.purdue.edu:8080/geoserver"
     // pink tile avoidance
     OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
     // make OL compute scale according to WMS spec
@@ -57,10 +58,8 @@
         panel.addControls([button_1, button_2]);
         map.addControl(panel);      
         
-    
-        
         tiled = new OpenLayers.Layer.WMS(
-            "inwater - Tiled", "http://inwater.agriculture.purdue.edu/geoserver/wms",
+            "inwater - Tiled", server_url+"/wms",
             {
                 projection: new OpenLayers.Projection("EPSG:4326"),
                 height: '330',
@@ -80,9 +79,9 @@
         );
         
         // setup single tiled layer
-        
+        //seems that it won't be used anymore
         untiled = new OpenLayers.Layer.WMS(
-            "Monitoring Sites", "http://inwater.agriculture.purdue.edu/geoserver/wms",
+            "Monitoring Sites", server_url+"/wms",
             {
             projection: new OpenLayers.Projection("EPSG:4326"),
                 
@@ -202,10 +201,10 @@
                     }    
 
                     if(huc_type == '' && huc_number == ''){
-                        var wfs_url="http://inwater.agriculture.purdue.edu/geoserver/wfs?service=wfs&version=1.0.0&request=GetFeature&typeName=inwater:inwater&propertyName=id,agency_type,agency_organization,name,description,site_no,parameter,parameter_type,frequency,publicly_available,quality,start_date,end_date,huc_12,contact_url&Filter="+escape("<ogc:Filter xmlns:gml='http://www.opengis.net/gml' xmlns:ogc='http://www.opengis.net/ogc'><ogc:And><ogc:And><ogc:DWithin><ogc:PropertyName>clipped_geom</ogc:PropertyName><gml:Point><gml:coordinates>"+lonlat.lon+","+lonlat.lat+"</gml:coordinates></gml:Point><Distance units='deg'>"+deg_buffer+"</Distance></ogc:DWithin><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_type</ogc:PropertyName><ogc:Literal>"+document.getElementById('High_Agency').value+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_organization</ogc:PropertyName><ogc:Literal>"+Agency_name+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>name</ogc:PropertyName><ogc:Literal>"+Dataset_name+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsLike matchCase='false' wildCard='*' singleChar='.' escape='!'><ogc:PropertyName>description</ogc:PropertyName><ogc:Literal>*"+document.getElementById('loc').value+"*</ogc:Literal></ogc:PropertyIsLike></ogc:And>"+partype_filter+"</ogc:And></ogc:Filter>");
+                        var wfs_url=server_url+"/wfs?service=wfs&version=1.0.0&request=GetFeature&typeName=inwater:inwater&propertyName=gid,agency_type,agency_organization,name,description,site_no,parameter,parameter_type,frequency,publicly_available,quality,start_date,end_date,huc_12,contact_url&Filter="+escape("<ogc:Filter xmlns:gml='http://www.opengis.net/gml' xmlns:ogc='http://www.opengis.net/ogc'><ogc:And><ogc:And><ogc:DWithin><ogc:PropertyName>clipped_geom</ogc:PropertyName><gml:Point><gml:coordinates>"+lonlat.lon+","+lonlat.lat+"</gml:coordinates></gml:Point><Distance units='deg'>"+deg_buffer+"</Distance></ogc:DWithin><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_type</ogc:PropertyName><ogc:Literal>"+document.getElementById('High_Agency').value+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_organization</ogc:PropertyName><ogc:Literal>"+Agency_name+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>name</ogc:PropertyName><ogc:Literal>"+Dataset_name+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsLike wildCard='*' singleChar='.' escape='!'><ogc:PropertyName>description</ogc:PropertyName><ogc:Literal>*"+document.getElementById('loc').value+"*</ogc:Literal></ogc:PropertyIsLike></ogc:And>"+partype_filter+"</ogc:And></ogc:Filter>");
                                             
                     }else{
-                        var wfs_url="http://inwater.agriculture.purdue.edu/geoserver/wfs?service=wfs&version=1.0.0&request=GetFeature&typeName=inwater:inwater&propertyName=id,agency_type,agency_organization,name,description,site_no,parameter,parameter_type,frequency,publicly_available,quality,start_date,end_date,huc_12,contact_url&Filter="+escape("<ogc:Filter xmlns:gml='http://www.opengis.net/gml' xmlns:ogc='http://www.opengis.net/ogc'><ogc:And><ogc:And><ogc:DWithin><ogc:PropertyName>clipped_geom</ogc:PropertyName><gml:Point><gml:coordinates>"+lonlat.lon+","+lonlat.lat+"</gml:coordinates></gml:Point><Distance units='deg'>"+deg_buffer+"</Distance></ogc:DWithin><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_type</ogc:PropertyName><ogc:Literal>"+document.getElementById('High_Agency').value+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_organization</ogc:PropertyName><ogc:Literal>"+Agency_name+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>name</ogc:PropertyName><ogc:Literal>"+Dataset_name+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>"+huc_type+"</ogc:PropertyName><ogc:Literal>"+huc_number+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsLike matchCase='false' wildCard='*' singleChar='.' escape='!'><ogc:PropertyName>description</ogc:PropertyName><ogc:Literal>*"+document.getElementById('loc').value+"*</ogc:Literal></ogc:PropertyIsLike></ogc:And>"+partype_filter+"</ogc:And></ogc:Filter>");
+                        var wfs_url=server_url+"/wfs?service=wfs&version=1.0.0&request=GetFeature&typeName=inwater:inwater&propertyName=gid,agency_type,agency_organization,name,description,site_no,parameter,parameter_type,frequency,publicly_available,quality,start_date,end_date,huc_12,contact_url&Filter="+escape("<ogc:Filter xmlns:gml='http://www.opengis.net/gml' xmlns:ogc='http://www.opengis.net/ogc'><ogc:And><ogc:And><ogc:DWithin><ogc:PropertyName>clipped_geom</ogc:PropertyName><gml:Point><gml:coordinates>"+lonlat.lon+","+lonlat.lat+"</gml:coordinates></gml:Point><Distance units='deg'>"+deg_buffer+"</Distance></ogc:DWithin><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_type</ogc:PropertyName><ogc:Literal>"+document.getElementById('High_Agency').value+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_organization</ogc:PropertyName><ogc:Literal>"+Agency_name+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>name</ogc:PropertyName><ogc:Literal>"+Dataset_name+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>"+huc_type+"</ogc:PropertyName><ogc:Literal>"+huc_number+"</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsLike wildCard='*' singleChar='.' escape='!'><ogc:PropertyName>description</ogc:PropertyName><ogc:Literal>*"+document.getElementById('loc').value+"*</ogc:Literal></ogc:PropertyIsLike></ogc:And>"+partype_filter+"</ogc:And></ogc:Filter>");
                     }
                 
                     wfs_url=wfs_url.replace(escape("<ogc:PropertyIsEqualTo><ogc:PropertyName>agency_type</ogc:PropertyName><ogc:Literal>all</ogc:Literal></ogc:PropertyIsEqualTo>"), escape(""));
@@ -213,7 +212,39 @@
                     wfs_url=wfs_url.replace(escape("<ogc:PropertyIsEqualTo><ogc:PropertyName>name</ogc:PropertyName><ogc:Literal>all</ogc:Literal></ogc:PropertyIsEqualTo>"), escape(""));
                     wfs_url=wfs_url.replace(escape("<ogc:PropertyIsEqualTo><ogc:PropertyName>parameter_type</ogc:PropertyName><ogc:Literal>all</ogc:Literal></ogc:PropertyIsEqualTo>"), escape(""));
                 
-                    OpenLayers.Request.GET({url:wfs_url, callback: rresult});      
+                    //for test only
+                    //wfs_url = "/static/inwater/js/mockgeoserver.js"
+                    
+                    $.getJSON( wfs_url, function( data ) {
+                        if(data['totalFeatures']<=0){
+                            site_info = "<html><body><font size=\"2\">There is no result within " + 100000 * deg_buffer + " meters from the click. Please zoom in and click again !</font></body></html>";
+                        }else{
+                            site_data = data['features'][0]['properties']
+                            if (site_data['contact_url'].substring(0,4)!="http"){
+                                    site_data['contact_url']
+                            }
+
+                            site_info = 
+                                  "Agency: "+site_data['agency_organization']+"<br/>"+
+                                  "Dataset: "+site_data['name']+"<br/>"+
+                                  "Site #: "+site_data['site_no']+"<br/>"+
+                                  "Parameter(s) sampled: "+site_data['parameter']+"<br/>"+
+                                  "Parameter Type: "+site_data['parameter_type']+"<br/>"+
+                                  "Monitoring Frequency: "+site_data['frequency']+"<br/>"+
+                                  "Publicly Available?: "+site_data['publicly_available']+"<br/>"+
+                                  "Data Quality Information: "+site_data['quality']+"<br/>"+
+                                  "Date of record: "+site_data['start_date']+" to "+site_data['end_date']+"<br/>"+
+                                  "HUC12: "+site_data['huc_12']+"<br/>"+
+                                  "For more information: <a title=\"Click URL\" onClick=\"window.open('"+site_data['contact_url']+"')\">"+site_data['contact_url']+"</a><br/>"+
+                                  "<hr style=\"color: 'black'; height: '2'; width: '300'\"><br/>";  
+                        }
+                        popup = new OpenLayers.Popup.FramedCloud("featurePopup", lonlat2,
+                                    new OpenLayers.Size(300, 300),
+                                    site_info,
+                                    null, true);
+                        popup.autoSize = false;
+                        map.addPopup(popup);
+                    });
                     OpenLayers.Event.stop(e);               
                 }               
             }
@@ -223,51 +254,6 @@
         map.addControl(click);
         click.activate();
     
-        function rresult(response) {
-
-            if (response.responseText.search("inwater") != -1) {
-                var xml_input = response.responseText;
-                var xmlHttp2;
-                try {
-                    // Firefox, Opera 8.0+, Safari
-                    xmlHttp2 = new XMLHttpRequest();
-                } catch (e) {
-                    // Internet Explorer
-                    try {
-                        xmlHttp2 = new ActiveXObject("Msxml2.XMLHTTP");
-                    } catch (e) {
-                        try {
-                            xmlHttp2 = new ActiveXObject("Microsoft.XMLHTTP");
-                        } catch (e) {
-                            alert("Your browser does not support AJAX!");
-                            return false;
-                        }
-                    }
-                }
-                xmlHttp2.onreadystatechange = function() {
-                    if (xmlHttp2.readyState == 4) {
-                        site_info = xmlHttp2.responseText;
-
-                        if (site_info == "<html><body><font size=\"1\"></font></body></html>") {
-                            site_info = "<html><body><font size=\"2\">There is no result within " + 100000 * deg_buffer + " meters from the click. Please zoom in and click again !</font></body></html>";
-                        }
-                        popup = new OpenLayers.Popup.FramedCloud("featurePopup", lonlat2,
-                            new OpenLayers.Size(300, 300),
-                            site_info,
-                            null, true);
-                        popup.autoSize = false;
-                        map.addPopup(popup);
-                    }
-                }
-
-                var parameters = "xml=" + escape(xml_input) + "&lat=" + lonlat.lat + "&lon=" + lonlat.lon;
-
-                xmlHttp2.open("POST", "xml_process.php", true)
-                xmlHttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-                xmlHttp2.send(parameters)
-            }
-        }
-
         // From here to the end of init(), display agency type
         var xmlHttp;
         try {
@@ -329,16 +315,6 @@
 
     // shows/hide the control panel
     function toggleControlPanel(event) {
-
-        /*
-        var toolbar = document.getElementById("toolbar");
-        if (toolbar.style.display == "none") {
-            toolbar.style.display = "block";
-        }
-        else {
-            toolbar.style.display = "none";
-        }
-        */
         event.stopPropagation();
         map.updateSize()
     }
@@ -717,9 +693,9 @@
             }
         }
         if (huc_type == '' && huc_number == '') {
-            var dl_url = "http://inwater.agriculture.purdue.edu/geoserver/wfs?service=wfs&version=1.1.0&request=GetFeature&typeName=inwater:inwater&outputFormat=excel&propertyName=agency_type,agency_organization,name,description,site_no,parameter,parameter_type,frequency,publicly_available,quality,start_date,end_date,contact_url,huc_8,huc_10,huc_12,clipped_geom&Filter=" + escape("<ogc:Filter xmlns:gml='http://www.opengis.net/gml' xmlns:ogc='http://www.opengis.net/ogc'><ogc:And><ogc:And><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_type</ogc:PropertyName><ogc:Literal>" + document.getElementById('High_Agency').value + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_organization</ogc:PropertyName><ogc:Literal>" + Agency_name + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>name</ogc:PropertyName><ogc:Literal>" + Dataset_name + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsLike wildCard='*' singleChar='.' escape='!'><ogc:PropertyName>description</ogc:PropertyName><ogc:Literal>*" + document.getElementById('loc').value + "*</ogc:Literal></ogc:PropertyIsLike></ogc:And>" + partype_filter + "</ogc:And></ogc:Filter>");
+            var dl_url = server_url+"/wfs?service=wfs&version=1.1.0&request=GetFeature&typeName=inwater:inwater&outputFormat=csv&propertyName=agency_type,agency_organization,name,description,site_no,parameter,parameter_type,frequency,publicly_available,quality,start_date,end_date,contact_url,huc_8,huc_10,huc_12,clipped_geom&Filter=" + escape("<ogc:Filter xmlns:gml='http://www.opengis.net/gml' xmlns:ogc='http://www.opengis.net/ogc'><ogc:And><ogc:And><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_type</ogc:PropertyName><ogc:Literal>" + document.getElementById('High_Agency').value + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_organization</ogc:PropertyName><ogc:Literal>" + Agency_name + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>name</ogc:PropertyName><ogc:Literal>" + Dataset_name + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsLike wildCard='*' singleChar='.' escape='!'><ogc:PropertyName>description</ogc:PropertyName><ogc:Literal>*" + document.getElementById('loc').value + "*</ogc:Literal></ogc:PropertyIsLike></ogc:And>" + partype_filter + "</ogc:And></ogc:Filter>");
         } else {
-            var dl_url = "http://inwater.agriculture.purdue.edu/geoserver/wfs?service=wfs&version=1.1.0&request=GetFeature&typeName=inwater:inwater&outputFormat=excel&propertyName=agency_type,agency_organization,name,description,site_no,parameter,parameter_type,frequency,publicly_available,quality,start_date,end_date,contact_url,huc_8,huc_10,huc_12,clipped_geom&Filter=" + escape("<ogc:Filter xmlns:gml='http://www.opengis.net/gml' xmlns:ogc='http://www.opengis.net/ogc'><ogc:And><ogc:And><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_type</ogc:PropertyName><ogc:Literal>" + document.getElementById('High_Agency').value + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_organization</ogc:PropertyName><ogc:Literal>" + Agency_name + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>name</ogc:PropertyName><ogc:Literal>" + Dataset_name + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>" + huc_type + "</ogc:PropertyName><ogc:Literal>" + huc_number + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsLike wildCard='*' singleChar='.' escape='!'><ogc:PropertyName>description</ogc:PropertyName><ogc:Literal>*" + document.getElementById('loc').value + "*</ogc:Literal></ogc:PropertyIsLike></ogc:And>" + partype_filter + "</ogc:And></ogc:Filter>");
+            var dl_url = server_url+"/wfs?service=wfs&version=1.1.0&request=GetFeature&typeName=inwater:inwater&outputFormat=csv&propertyName=agency_type,agency_organization,name,description,site_no,parameter,parameter_type,frequency,publicly_available,quality,start_date,end_date,contact_url,huc_8,huc_10,huc_12,clipped_geom&Filter=" + escape("<ogc:Filter xmlns:gml='http://www.opengis.net/gml' xmlns:ogc='http://www.opengis.net/ogc'><ogc:And><ogc:And><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_type</ogc:PropertyName><ogc:Literal>" + document.getElementById('High_Agency').value + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>agency_organization</ogc:PropertyName><ogc:Literal>" + Agency_name + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>name</ogc:PropertyName><ogc:Literal>" + Dataset_name + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsEqualTo><ogc:PropertyName>" + huc_type + "</ogc:PropertyName><ogc:Literal>" + huc_number + "</ogc:Literal></ogc:PropertyIsEqualTo><ogc:PropertyIsLike wildCard='*' singleChar='.' escape='!'><ogc:PropertyName>description</ogc:PropertyName><ogc:Literal>*" + document.getElementById('loc').value + "*</ogc:Literal></ogc:PropertyIsLike></ogc:And>" + partype_filter + "</ogc:And></ogc:Filter>");
         }
         dl_url = dl_url.replace(escape("<ogc:PropertyIsEqualTo><ogc:PropertyName>agency_type</ogc:PropertyName><ogc:Literal>all</ogc:Literal></ogc:PropertyIsEqualTo>"), escape(""));
         dl_url = dl_url.replace(escape("<ogc:PropertyIsEqualTo><ogc:PropertyName>agency_organization</ogc:PropertyName><ogc:Literal>all</ogc:Literal></ogc:PropertyIsEqualTo>"), escape(""));
@@ -740,7 +716,7 @@
     }
 
     function downloadall() {
-        var dl_url = "http://inwater.agriculture.purdue.edu/geoserver/wfs?request=GetFeature&version=1.1.0&typeName=inwater:inwater&outputFormat=excel";
+        var dl_url = server_url+"/wfs?request=GetFeature&version=1.1.0&typeName=inwater:inwater&outputFormat=csv";
         window.open(dl_url);
     }
 
