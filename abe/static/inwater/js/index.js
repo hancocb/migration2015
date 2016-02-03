@@ -421,7 +421,7 @@
         if (pureCoverage)
             return;
 
-        var filterType = document.getElementById('filterType').value;
+        var filterType = "cql";//document.getElementById('filterType').value;
         var filter = url_string;
 
         // by default, reset all filters                
