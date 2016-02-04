@@ -120,11 +120,11 @@
 
         layerMapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
 
-        untiled.setVisibility(false);
+        untiled.setVisibility(true);
         
         aliasproj = new OpenLayers.Projection("EPSG:3857");
         gmap.projection=gsat.projection=ghyb.projection=gphy.projection=layerMapnik.projection=untiled.projection=aliasproj;           
-        map.addLayers([ gmap, gsat, ghyb, gphy, layerMapnik, untiled]); 
+        map.addLayers([  gsat, ghyb, gphy, layerMapnik, untiled]); 
 
         var lat=39.7690048218;
         var lon=-86.157333374;
