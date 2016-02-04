@@ -124,7 +124,7 @@
         
         aliasproj = new OpenLayers.Projection("EPSG:3857");
         gmap.projection=gsat.projection=ghyb.projection=gphy.projection=layerMapnik.projection=untiled.projection=aliasproj;           
-        map.addLayers([  gsat, ghyb, gphy, layerMapnik, untiled]); 
+        map.addLayers([  ghyb, gsat,  gphy, layerMapnik, untiled]); 
 
         var lat=39.7690048218;
         var lon=-86.157333374;
