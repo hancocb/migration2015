@@ -1,0 +1,69 @@
+.greenbutton {
+    background-color:#3D8D93;
+    color: #FFFFFF;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 25ex;
+}
+.pinkbutton {
+    background-color: #FF6699;
+    color: #FFFFFF;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 25ex;
+}
+.graybutton {
+    background-color: #909090;
+    color: #FFFFFF;
+    width: 25ex;
+}
+.titlerow {
+    width: 100%;
+    height: 3ex;
+    background-color: #008040;
+    text-align: center;
+}
+.tablerow td{
+    font-family: "Verdana"; 
+    color: #ffffcc; 
+    font-size: 13px;
+    padding-top: 4px; 
+    background-color: #400080;
+    width: 20%; 
+    height: 3ex;
+    text-align: center;
+}
+.tablerow>td:first-child
+{
+    width: 40%;
+}
+.datarow td{
+    font-family: "Verdana"; 
+    color: #ffffcc; 
+    font-size: 13px;
+    padding-top: 4px; 
+    background-color: #009090;
+    width: 20%; 
+    height: 3ex;
+    text-align: center;
+}
+.datarow>td:first-child
+{
+    background-color: #004D99;
+    width: 40%;
+}
+.undefinedrow td{
+    font-family: "Verdana"; 
+    color: #ffffcc; 
+    font-size: 13px;
+    padding-top: 4px; 
+    background-color: #990099;
+    width: 20%; 
+    height: 3ex;
+    text-align: center;
+}
+.undefinedrow>td:first-child
+{
+    background-color: #004D99;
+    width: 40%;
+}

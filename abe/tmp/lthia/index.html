@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ><!--xmlns:v="urn:schemas-microsoft-com:vml"-->
+
+<head>
+
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+<title>Great Lakes Regional L-THIA Model</title>
+<style type="text/css">
+v\:* {
+      behavior:url(#default#VML);
+}
+body {
+      background-color:#339900;
+      font-family:Arial,Helvetica,Sans Serif;
+      font-size: 10pt;
+}
+.style1 {
+    font-size: 12px;
+    font-weight: bold;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="main/layout.css" />
+<script type="text/javascript" src="scripts/tools.js"></script>
+<script type="text/javascript" src="scripts/del_map.js"></script>
+
+<script type="text/javascript" src="scripts/key.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false" + myKey></script>
+
+<script type="text/javascript" src="scripts/wms.js" ></script>
+      <!-- ArcGIS api for hit -->
+<script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/gmaps?v=1.4"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/arcgislink/src/arcgislink.js" ></script>
+
+<script type="text/javascript" src="scripts/j_window.js"></script>
+<link rel="stylesheet" type="text/css" href="scripts/j_window.css" />
+<link rel="stylesheet" type="text/css" href="scripts/tabs.css" />
+<script type="text/javascript" src="scripts/tabs.js"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+
+    $(function(){
+        $("#faqText").load("faq.html");
+    });
+
+</script>
+
+</head>
+<body onload="load(); adjustcontrols();" onunload="clearstate()" >
+
+    <form name="mainform" id="mainform" action="http://lthia.agriculture.purdue.edu/cgi-bin/del_point.py" method="get">
+        <input type="hidden" name="latitude" value="" />
+        <input type="hidden" name="longitude" value="" />
+        <input type="hidden" name="mode" value="" />
+        <input type="hidden" name="geometry" value="" />
+        <input type="hidden" name="huc12" value="" />
+        <input type="hidden" name="huc8" value="" />
+        <input type="hidden" name="hucarea" value="" />
+        <input type="hidden" name="county" value="" />
+        <input type="hidden" name="state" value="" />
+    </form>
+
+<div id="geopanel" style="position: absolute; Bottom: 5px; left: 50%; margin-left: -180px; z-index: 5; background-color: #fff; padding: 5px; border: 1px solid #999;">
+    <input id="geoaddress" type="textbox" value="">
+    <input type="button" value="Geocode" onclick="codeAddress()">
+</div>
+
+<div id="map" style="width:1250px; height: 1000px; position: absolute;">
+    <div align="justify"></div>
+</div>  
+
+<div id="watershed" class="floatingcontrol" style="top: 20px; left: 900px; width: 450px; height: 500px; border-style: solid; background: #FFFFFF; z-index: 10000" onmousedown="bringToTop('watershed')">
+    <div id="watershedBar" style="width: 444px;" class="floatingbar movecursor" onmousedown="moveMapControl('watershed')">
+        <div class="floatingtitle">L-THIA GLWMS</div>
+        <div align="right" class="floatingbutton2"> 
+            <img src="/images/minimize.png" id="watershedMinimizeButton" onmousedown="if (event.preventDefault) event.preventDefault();" onClick="minimizeControl('watershed')" class="div_control" alt="Minimize Button" />
+        </div>
+        <div align="right" class="floatingbutton">  
+            <img src="/images/maximize.png" id="watershedMaximizeButton" onmousedown="if (event.preventDefault) event.preventDefault();" onClick="maximizeControl('watershed')" class="div_control" alt="Maximize Button" />
+        </div>
+    </div>
+    <div id="watershedText" style="top: 24px; height: 448px; width: 442px; position: absolute; padding: 4px; display: inline; overflow-y: auto;">
+        <div id="watershedTimer" style="visibility: hidden; display: none;">
+            <p style="text-align: center; font-size: 2.25ex;"> Your watershed is being delineated.</p>
+            <p>&nbsp;</p>
+            <p style="text-align: center; font-size: 2ex;">Please wait, it can take more than <span id="estimate">50</span> seconds.</p>
+
+            <form id="timerform" action="">
+                <p align="center" style="text-align: center; font-size: 2ex; color: green;">Time elapsed
+                    <input type="text" name="counter" id="counter" value="" />
+                </p>
+            </form>
+
+            <p style=" font-size: 1.75ex; color: green;">
+            The Agricultural and Biological Engineering department (ABE) at Purdue University has developed this tool with support from USEPA, USDA, US Army CERL, and the Corps of Engineers.
+            </p>
+        </div>
+        <span id="watershedSpan" style="width: 442px; overflow-y: auto;">
+            <div class="utab1" id="watershedContents">
+                <ul class="tbnav">
+                    <li class="tab3"><a onClick="changetab('3','watershedContents');">Delineate</a></li>
+                    <li class="tab1"><a onClick="changetab('1','watershedContents');">Watershed</a></li>
+                    <li class="tab2"><a onClick="changetab('2','watershedContents');">Tools</a></li>
+                    <li class="tab4"><a onClick="changetab('4','watershedContents');">Layers</a></li>
+                    <li class="tab5"><a onClick="changetab('5','watershedContents');">FAQ</a></li>
+                </ul>
+                <div class="tab1" id="resultstuff" style="width: 442px; overflow-y: auto;">
+                    <div style="overflow-y: hidden;">
+                        <div class="utab1" id="watershedResults">
+                        <a href="https://engineering.purdue.edu/mapserve/LTHIA7/movies/lthia_glwms/Export.mp4" target="_blank"><b>Video: Exporting to LID or STEPL</b></a>
+                            <ul class="tbnav">
+                                <li class="tab1"><a onClick="changetab('1','watershedResults');">Land Use</a></li>
+                                <li class="tab2"><a onClick="changetab('2','watershedResults');">HIT</a></li>
+                                <li class="tab3"><a onClick="changetab('3','watershedResults');">NPS Results</a></li>
+                                <li class="tab4"><a onClick="changetab('4','watershedResults');">Graphs</a></li>
+                            </ul>
+                            <div class="tab1" style="overflow-y: auto;" id="watershedLanduse">
+                            </div>
+                            <div class="tab2" id="watershedHIT">
+                                You must determine a watershed before data can be displayed.
+
+                                <!--end of hit sediment table #################################-->
+                            </div>
+                            <div class="tab3" id="watershedResultsTables">
+                                Run a <a onClick="changetab('2','watershedContents');changetab('3','tooltabs');" class="link">model</a> to see data tables.
+                            </div>
+                            <div class="tab4" style="overflow-y: auto;" id="watershedResultsGraphs">
+                                <div id="wRGdiv">
+                                    Run a <a onClick="changetab('2','watershedContents');changetab('3','tooltabs');" class="link">model</a> to see data graphs.
+                                </div>
+                                <div id="rstFrame">
+                                </div>
+                            </div>
+                            <!-- watershed results will go here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="tab2" id="toolsText" style="width: 442px; overflow-y: auto;">
+                    <div id="toolsct" style="top: 24px; height: 433px; position: absolute; padding: 4px; overflow-y: auto;">
+                        <!--<iframe name="toolsFrame" id="toolsFrame" style="height: 429px; width: 288px;"></iframe >-->
+                    </div>
+                </div>
+                <div class="tab3" id="delineateText" style="width: 442px; overflow-y: auto;">
+                    <div class="utab1" id="tbnav1">
+                        <ul class="tbnav">
+                            <li class="tab1"><a onClick="changetab('1','tbnav1');">Start</a></li>
+                            <li class="tab2"><a onClick="changetab('2','tbnav1');">Point</a></li>
+                            <li class="tab3"><a onClick="changetab('3','tbnav1');">HUC</a></li>
+                            <li class="tab4"><a onClick="changetab('4','tbnav1');">LatLng</a></li>
+                            <li class="tab5"><a onClick="changetab('5','tbnav1');">Box</a></li>
+                        </ul>
+                        <p><i>Agricultural and Biological Engineering, Purdue University</i></p>
+                        <div class="tab1" style="overflow-y: auto;">
+                            <p align="left" ><b>  This is Purdue University's L-THIA for the Great Lakes Watershed Management System.  This tool will delineate the area that flows to a pour point and allow you to send that outline, and the soil and landuse data within the outline to our online models.</b> </p>
+                            
+                            <p>
+                            <strong>Quick State Selection:</strong><br />
+                            <a onClick="state_zoom('IN');" class="link">Indiana</a>
+                            <a onClick="state_zoom('IL');" class="link">Illinois</a>
+                            <a onClick="state_zoom('MI');" class="link">Michigan</a>
+                            <a onClick="state_zoom('MN');" class="link">Minnesota</a>
+                            <a onClick="state_zoom('OH');" class="link">Ohio</a>
+                            <a onClick="state_zoom('WI');" class="link">Wisconsin</a><br/>
+                            <a onClick="state_zoom('Reset');" class="link">Reset</a>
+                            </p>
+                            
+                            <p><strong>Process:</strong> four separate ways to locate your point: </p>
+                            <p>A) <a onClick="changetab('2','tbnav1');" class="link">Search / Zoom</a> and click &quot;Delineate&quot; <br />
+                            B) <a onClick="changetab('4','tbnav1');" class="link">Type in your location coordinates</a><br />
+                            C) <a onClick="changetab('3','tbnav1');" class="link">Select a HUC area for analysis</a><br />
+                            D) <a onClick="changetab('5','tbnav1');" class="link">Manually select an area to analyze</a><br /><br /><br />
+                            Press F11 for full screen in Windows</p><h1>Tutorial Videos</h1>
+                            <a href="https://engineering.purdue.edu/mapserve/LTHIA7/movies/lthia_glwms/overview2.mp4" target="_blank"><b>Video: L-THIA overview</b></a><br />
+                            <a href="https://engineering.purdue.edu/mapserve/LTHIA7/movies/lthia_glwms/Export.mp4" target="_blank"><b>Video: Exporting to LID or STEPL</b></a><br /></p>
+                            <p class="style1"><a href="/about_us.html" target = "_blank">ABOUT US</a><br />
+                            <a href="https://engineering.purdue.edu/~lthia/"><b>L-THIA HOME</b></a><br />
+                            <a href="https://engineering.purdue.edu/~lthia/MSDSS/index.html"><b>MSDSS LTHIA tutorials and help</b></a><br /><br />
+                            <p style="vertical-align:bottom"> Agricultural and Biological Engineering, Purdue University
+                            Copyright &#169; 2015, Purdue University, all rights reserved.
+                            An equal access/equal opportunity university.
+                            If you have trouble accessing this page because of a disability, please contact the Webmaster at theller@purdue.edu.</p>
+                            <img style="max-width:440px" src = "images/abe_pu2015.png">
+                        </div>
+                        <div class="tab2">
+                            <p>Select &quot;Delineate&quot; button and click on the stream whose watershed you plan to analyze. Your location is sent to our L-THIA engine and the watershed of that point is calculated; then you can run our L-THIA model on it to predict runoff. </p>
+
+                            <form action=''>
+                                <input type="button" onClick="delineate()" value="Delineate" id="DelineateButton" />
+                            </form>
+                        </div>
+                        <div class="tab4">
+                            <form name="ztwdbypoint" id="ztwdbypoint" method="post" action="http://lthia.agriculture.purdue.edu/cgi-bin/del_point.py" onsubmit="return ChkCS();">
+
+                                <p><a name="xy" id="xy"></a>Enter a specific latitude-longitude, longitude with minus sign must be within -85.00 to -82.50000 and latitude within 40.50000 to 42.00</p>
+
+                                <p> Finally click Done</p>
+
+                                <br />
+                                Lat: <input type="text" name="cy" value="" /><br />
+                                Lng: <input type="text" name="cx" value="" /><br />
+                                <input type="hidden" name="img_extent" value="" />
+                                <input type="hidden" name="img_xycoord" value="" />
+                                <input type="button" onClick="ChkCS();" value="Submit" />
+                            </form>
+                        </div>
+                        <div class="tab3">
+                            <p>We are using a 8 - digit HUC watershed as the largest possible size! </p>
+                            <p>(<a href="http://www.geodata.gov/E-FW/DiscoveryServlet?uuid=%7B951516C2-2C5B-4BA0-9C05-3EA5AC771774%7D&amp;xmltransform=metadata_to_html_full.xsl " target = "_blank">What is a 10 Digit HUC </a> versus a 12 digit HUC?) </p>
+                            <p><a name="huc12" id="huc12"></a>To run analysis on a specific <strong>HUC Region</strong>, click one of the buttons and click within the desired watershed.</p>
+                            <p><strong>You can display the HUC 10 and HUC 12 regions from the "L-Thia Layers" frame.</strong></p>
+
+                            <form action=''>
+                                <input type="button" onClick="setHUC(12)" value="HUC 12" id="HUC12Button" />
+                                <input type="button" onClick="setHUC(10)" value="HUC 10" id="HUC10Button" />
+                                <input type="button" onClick="setHUC(8)" value="HUC 8" id="HUC8Button" />
+                            </form>
+                        </div>
+                        <div class="tab5">
+                            <form action="">
+                                <p>This function allows you to manually create an area of interest, rather than relying on actual watersheds. NOTE: You will not be able to create areas that cover large areas; your areas will be limited to a single HUC8 area</p>
+                                After clicking start, click on the map to create corners for your desired area. Hover your mouse over a point, and when a hand appears, press and drag the point for better fit, or click to remove the point.<br />
+                                <table style="text-align:center;">
+                                    <tr>
+                                        <td style="border:1px solid black;">
+                                            <p id="switchtextarea">
+                                                Click <input type='button' id='switch' value='Start' onClick='manual();' /> to begin digization.
+                                            </p>
+                                        </td><td style="border:1px solid black;">
+                                            Click <input type='button' id='zoom' value='Zoom' onClick='zoomToPoly();' /> to zoom to your polygon.
+                                        </td><td style="border:1px solid black;">
+                                            Click <input type='button' id='clear' value='Clear' onClick='removeMarkers();' /> to clear all placed markers on the map.
+                                        </td>
+                                    </tr><tr>
+                                        <td colspan="3">
+                                            Your current area is <span id="mypolyarea">0</span> acres (<span id="mypolyarea2">0</span> km squared).
+                                            <br />
+                                            Click <input type='button' id='finish' value='Submit' onClick='submitPoly();' /> when you are finished creating your polygon.
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tab4" id="layerText" style="width: 442px; overflow-y: auto;">
+                    <p> Check the checkbox to display the map layer. <br/> To view a legend click the link next to the layer in question.</p>
+                    <a style="text-align:left;"><input id="setstates" type="checkbox" checked="checked" onClick="set_stateslayer()" name="setstates" />Delineation Area Outline </a><br />
+                    <a style="text-align:left;"><input id="hitSediment" type="checkbox" onClick="switchHitSediment()" name="hucNumber" />HIT Sediment</a><br />
+                    <a style="text-align:left;"><input id="hitErosion" type="checkbox" onClick="switchHitErosion()" name="hucNumber" />HIT Erosion</a><br />
+                    <a style="text-align:left;"><input id="hucWI" type="checkbox" onClick="switchHuc()" name="hucWI" />HUC 8, 10, and 12 layer</a><br />
+                    <!--<a style="text-align:left;"><input id="stream" type="checkbox" onClick="switchstreams()" name="stream" />NHD water layer</a><br/>-->
+                    <a style="text-align:left;"><input id="soilType" type="checkbox" onClick="switchSoilType()" name="soilType" />Land Use</a> <a target="_blank" href="/landuselegend.html" style="font-size: x-small; vertical-align:2px;">(legend)</a><br/>
+                    <a style="text-align:left;"><input id="hydroGroup" type="checkbox" onClick="switchHydroGroup()" name="hydroGroup" />Dominant Soil Hydrologic Group</a> <a target="_blank" href="/hydrolegend.html" style="font-size: x-small; vertical-align:2px;">(legend)</a><br/>
+                    <a style="text-align:left;"><input id="drainage" type="checkbox" onClick="switchDrainage()" name="drainage" />Dominant Soil Drainage Class <a target="_blank" href="/drainagelegend.html" style="font-size: x-small; vertical-align:2px;">(legend)</a></a><br/>
+                    <a style="text-align:left;"><input id="GLWMS" type="checkbox" checked="checked" onClick="switchGLWMS()" name="GLWMS" />High Resolution Project Areas</a>
+                    <p class="style1"><a href="/metadata.html" target = "_blank"><font face="Arial, Helvetica">Metadata</font></a></p>
+                    
+                    <p style="vertical-align:bottom"> Agricultural and Biological Engineering, Purdue University
+                    Copyright &#169; 2015, Purdue University, all rights reserved.
+                    An equal access/equal opportunity university.
+                    If you have trouble accessing this page because of a disability, please contact the Webmaster at theller@purdue.edu.</p>
+                    <img width="80px" height="80px" style="" src = "images/abe_logo.jpg">
+                </div>
+                <div class="tab5" id="faqText" style="width: 442px; overflow-y: auto;">
+                </div>
+            </div>
+        </span>
+    </div>
+    <img src="/images/resize.png" id="watershedResizeControl" onmousedown="if (event.preventDefault) event.preventDefault();if(getIEVer() != -1) event.srcElement.ondragstart = function() { return false; };resizeMapControl('watershed')" class="resize_control" style="left: 430px; top: 480px; position: absolute;" alt="Resize Button"/>
+</div>
+
+<div id="entry" class="floatingcontrol" style="top: 0px; right: 0px; width: 100%; height: 99%; border-style: solid; background: #FFFFFF; z-index: 9999999; display: none; visibility: hidden;">
+    <div id="entryText" style="top: 1%; height: 95%; width: 99%; position: absolute; padding: 4px; display: inline; overflow-y: auto;text-align:center;">
+        
+    </div>
+</div>
+
+
+
+</body></html>
