@@ -16,7 +16,16 @@ class RerunStep1View(View):
 
         #all saved to session
         context = request.session
+        
+        context['IndexInput'] = {}
         context['IndexInput']['id'] = request.GET['session_id']
+
+        indexInput = IndexInput.objects.get(id=session_id)
+
+        context['rangeWSD'] = range( 1 , int( indexInput.num_watershd ) + 1 )
+        context['rangeGLY'] = range( 1 , int( indexInput.num_gully ) + 1 )
+        context['rangeSTR'] = range( 1 , int( indexInput.num_steambank ) + 1 )
+
 
         #process through STPEL api to run fortran
         from_id = URL_RUN_FROM_ID + str(request.GET['session_id'])

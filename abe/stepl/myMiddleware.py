@@ -15,5 +15,6 @@ class LocaleMiddleware(object):
         print request
 
     def process_response(self, request, response):
-
+        response['Access-Control-Allow-Origin']  = "*" 
+        response['X-Frame-Options']  = 'ALLOWALL'
         return response
