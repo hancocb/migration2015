@@ -1,0 +1,14 @@
+<html>
+<body>
+
+
+{% for ss in ctx %}
+    id:{{ss.session_id}} ### time: {{ss.create_time}} ### huc_id: {{ss.hucid}} ### <a href="/stepl/rerunStep1?session_id={{ss.session_id}}" target="_blank">Rerun!ClickMe!</a> <br/>
+{% endfor %}
+
+<br/>
+<br/>
+<br/>
+<a href="/stepl/logout" target="_blank">Logout</a> <br/>
+</body>
+</html>

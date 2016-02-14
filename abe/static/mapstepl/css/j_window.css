@@ -1,0 +1,121 @@
+
+/*for both main controls, background and border-style must be unspecified
+if either is specified, the javascript cannot clear it when
+minimizing the floating control*/
+.floatingcontrol { 
+    position: absolute; 
+    border-width: 1px;
+    filter: alpha(opacity=90); 
+    opacity: 0.9; 
+    border-radius: 13px 13px 0 0;
+}
+
+.floatingcontrolmini { 
+    position: absolute; 
+    border-width: 1px;
+    filter: alpha(opacity=90); 
+    opacity: 0.9; 
+    border-radius: 0 0 13px 13px;
+}
+
+/* This version is an option if solid control panels are desired*/
+.floatingcontrolsolid {
+    position: absolute; 
+}
+
+/* Settings for the title bar of the control panel */
+.floatingbar {
+    background-color:#339900;/*the color of the title bar*/
+    position:absolute; /* do not change*/
+    border-style:outset; /* gives a 3D effect to the title -- seems to have issues in IE*/
+    border-radius: 13px 13px 0 0;
+    padding-left: 3px;
+
+    border-width:2px; 
+    border-color:black;
+    height:20px;
+}
+
+.floatingbarmini {
+    background-color:#339900;/*the color of the title bar*/
+    position:absolute; /* do not change*/
+    border-style:outset; /* gives a 3D effect to the title -- seems to have issues in IE*/
+    border-radius: 0 0 13px 13px;
+    padding-left: 3px;
+
+    border-width:2px; 
+    border-color:black;
+    height:20px;
+}
+
+/*Changes the cursor to a movement cursor*/
+.movecursor {
+    cursor: move;
+}
+
+/* the text of the title; not much to change unless you need black words for a light background */
+.floatingtitle {
+    width:200px; /* excessivly long to ensure it doesn't cut the text off - restricted in practice by the div */
+    float:left;
+    padding:2px; /* pads around the text to avoid it abutting the edges too closely */
+    font-size:15px;
+    font-weight:bold;
+    color:#FFFFFF;  /* color of the text*/
+}
+
+/* classes for buttons in the upper right, supports up to three by default
+button order counts from the right */
+.floatingbutton {
+    position: absolute; /*do not change */
+    width:5px; 
+    right: 18px; /* distance from the right side of the bar - this is the first from the right */
+    float:left; 
+    padding-top:3px; 
+    border-width:1px;
+}
+
+.floatingbutton2 {
+    position: absolute; 
+    width:5px; 
+    right: 36px;  /* distance from the right side of the bar - this is the second from the right */
+    float:left; 
+    padding-top:3px; 
+    border-width:1px;
+}
+
+.floatingbutton3 {
+    position: absolute; 
+    width:5px; 
+    right: 54px; /* distance from the right side of the bar - this is the third from the right */ 
+    float:left; 
+    padding-top:3px; 
+    border-width:1px;
+}
+
+.floatingbutton4 {
+    position: absolute; 
+    width:5px; 
+    right: 72px; /* distance from the right side of the bar - this is the fourth from the right */ 
+    float:left; 
+    padding-top:3px; 
+    border-width:1px;
+}
+
+/* class for the icons of the buttons, ajusts size and displays the pointer cursor */
+.div_control {
+    width:15px;
+    height:15px;
+    cursor: pointer; /* changes the mouse to a hand to indicate that they are buttons */
+}
+
+/* class for the resize image, ajusts size and displays the pointer cursor */
+.resize_control {
+    width:20px;
+    height:20px;
+    cursor: pointer; /* changes the mouse to a hand to indicate interactivity */
+}
+
+/* the following are used for in-text tab changing links */
+a.link{color:#0000FF;font-weight:bold;text-decoration:underline;} /* psuedo link */
+a.link:hover {cursor:pointer;}   /* mouse over link */
+a.link:active {color:#FF0000;}  /* selected link */

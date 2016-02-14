@@ -1,6 +1,12 @@
 from django.db import models
 from django.utils.functional import lazy
 
+class UserSession(models.Model):
+    username = models.CharField(db_index=True, max_length=30)
+    session_id = models.IntegerField(unique=True) 
+    create_time = models.DateTimeField(auto_now=True)
+    hucid = models.CharField(max_length=12, default="")
+
 #model for index input data
 class IndexInput(models.Model):
     num_watershd = models.IntegerField()

@@ -2,6 +2,14 @@ from django.contrib import admin
 from adminDisplayManage.models import AdminListDisplay
 from .models import *
 
+class UserSessionAdmin(admin.ModelAdmin):
+    list_display = ("create_time", "username", "session_id")
+    ordering = ["create_time"]
+    search_fields = ["create_time", "username"]
+
+admin.site.register(UserSession, UserSessionAdmin)
+
+
 def getDisplayFields(ModelName):
     DisplayFieldsIter = AdminListDisplay.objects.all().filter(ClassName=ModelName, isShown=True)
     FieldList = []

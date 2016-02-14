@@ -6,6 +6,15 @@ def list2dict(mylist):
         i = i+1
     return ret
 
+def list2dictWthCTime(mylist):
+    ret = {}
+    i = 0
+    for ele in mylist:
+        ret[i] = ele
+        ret[i]['create_time'] = ele['create_time'].strftime("%d/%m/%Y %X")
+        i = i+1
+    return ret
+
 def list2dictWthKey(key,mylist):
     ret = {}
     for ele in mylist:

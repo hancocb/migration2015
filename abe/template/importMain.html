@@ -1,0 +1,492 @@
+{% load staticfiles %}
+{% load simple_tags %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+<style>
+.greytd {
+    text-align:center; 
+    background-color:#BDBDBD; 
+    font-size:0.82em;
+}
+.greytd2 {
+    text-align:center; 
+    background-color:#BDBDBD; 
+}
+.center{
+  text-align:center;
+}
+.inputmaintd{
+  text-align:right;
+  border-width:0px;
+  font-size:11pt;
+}
+.chemicaltd{
+  text-align:right;
+  border-width:0px;
+  font-size:8pt;
+}
+</style>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Web-based STEPL</title>
+    <script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+
+<script type="text/javascript">
+
+  {% for k in ctx.rangeWSD %}
+    function totArea{{k|twonum}}() {
+      var tmpArea_1 = document.inputMain.LuseAreaWSD_1{{ k|twonum }}.value * 1.0 ; // Urban
+      var tmpArea_2 = document.inputMain.LuseAreaWSD_2{{ k|twonum }}.value * 1.0 ; // Cropland
+      var tmpArea_3 = document.inputMain.LuseAreaWSD_3{{ k|twonum }}.value * 1.0 ; // Pastureland
+      var tmpArea_4 = document.inputMain.LuseAreaWSD_4{{ k|twonum }}.value * 1.0 ; // Forest
+      var tmpArea_5 = document.inputMain.LuseAreaWSD_5{{ k|twonum }}.value * 1.0 ; // User Defined
+      var tmpArea_6 = document.inputMain.LuseAreaWSD_6{{ k|twonum }}.value * 1.0 ; // Feedlots
+      tmpTotArea = tmpArea_1 + tmpArea_2 + tmpArea_3 + tmpArea_4 + tmpArea_5 + tmpArea_6 ;
+      document.inputMain.TAreaWSD_{{ k|twonum }}.value = tmpTotArea ;
+    }
+  {% endfor %}
+
+
+  function tetratechLink(){
+     window.open("http://it.tetratech-ffx.com/steplweb/steplweb.html");
+  }
+
+  var CountyDataInput_id = 0;
+  function openCountyLink(){
+     if(CountyDataInput_id > 0){
+        window.open("/stepl/item/CountyDataInput/"+CountyDataInput_id+"?s=1",'CountyDataInput', 'status=0,toolbar=1,location=0,menubar=0,scrollbars=1crolling=1,height=400,width=300');
+     }  else{
+        alert("Please choose county first!");
+        openCligenMap();
+     }
+     
+  }  
+
+  function openCligenMap(){
+    window.open('./CLIGENMap','CLIGENMap', 'status=0,toolbar=1,location=0,menubar=0,scrollbars=1crolling=1,height=600,width=780');
+  }
+
+  function complete() {  
+    if ( document.inputMain.TAreaWSD_01.value == 0.0 ) 
+      alert( "At least one input in Step 1 should not be 0. " );
+    else if(document.inputMain.State.value == "" || document.inputMain.State.value == "None")
+      alert("Please select a station.");
+    else
+      document.inputMain.submit();
+  }
+
+  function reloadPage() {
+    document.cleanForm.submit(); 
+  }
+
+  //on load documenbt
+  $(function() {
+    //run all after load!!!
+      {% for k in ctx.rangeWSD %}
+    totArea{{k|twonum}}();
+      {% endfor %}
+
+  });
+
+</script>
+</head>
+
+<body> 
+
+  <div class="center">
+  <a href="https://engineering.purdue.edu/mapserve/ldc/STEPL/index.html">
+  <img src="{% static "STEPL_WEB_title.jpg" %}" width="400" alt=""><br><br>
+  </a>
+  <div style="font-family:Times New Roman"><b>Input Form{Session Id: {{ctx.IndexInput.id}} }</b></div>
+  </div><hr><br>
+
+  <form name="inputMain" method="POST" action="bmpMain" target="new">
+    {% csrf_token %}
+  <div style="color:blue;">
+    <span style="font-weight:bold;">Step 1. Input watershed land use area (ac) </span>
+  </div>
+
+  <table style=" width:1000px; border:0;">
+    <tbody>
+      <tr>
+        <td style="text-align:right">
+          <input type="checkbox" name="gwOpt" checked="">Groundwater load calculation
+        </td>
+        <td style="text-align:right">
+          <input type="checkbox" name="swsOpt" checked="">Treat all the subwatersheds as parts of a single watershed
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  
+  <table border="1" style="margin: 0 auto; width:1000px;">
+    <tbody><tr class="center">
+      <td class="greytd" >Watershed</td>
+      <td class="greytd">Soil Hydrologic Group</td>
+      <td class="greytd">Urban</td>
+      <td class="greytd">Cropland</td>
+      <td class="greytd">Pastureland</td>
+      <td class="greytd">Forest</td>
+      <td class="greytd">User Defined</td>
+      <td class="greytd">Feedlots</td>
+      <td class="greytd">Feedlot<br>Percent<br>Paved</td>
+      <td class="greytd">Total</td>
+    </tr>
+
+    {% for k in ctx.rangeWSD %}
+
+    <tr class="center">
+      
+      <td class="center"> W{{k}} </td>
+      
+      <td style="text-align:center; border-left: solid 1px black; border-top: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black;">
+      
+        <select name="HSG_{{k|twonum}}">
+          <option value="1" {%if ctx.fromLthia.landUse|geti:k|get:'HSG' == 'A'%} selected="selected" {% endif %}>A</option>
+          <option value="2" {%if ctx.fromLthia.landUse|geti:k|get:'HSG' == 'B'%} selected="selected" {% endif %}>B</option>
+          <option value="3" {%if ctx.fromLthia.landUse|geti:k|get:'HSG' == 'C'%} selected="selected" {% endif %}>C</option>
+          <option value="4" {%if ctx.fromLthia.landUse|geti:k|get:'HSG' == 'D'%} selected="selected" {% endif %}>D</option>
+        </select>
+      </td>
+      
+      {%for i in ctx.range6 %}
+      <td class="center">
+        <input type="text" class="inputmaintd" name="LuseAreaWSD_{{i}}{{k|twonum}}" size="5" onchange="javascript:totArea{{k|twonum}}()" value="{{ctx.fromLthia.landUse|geti:k|geti:i}}">
+      </td>
+      {%endfor%}
+      
+      <td class="center">
+        <select name="PctFeedlot_{{k|twonum}}">
+          <option value="20">0-24 %</option>
+          <option value="30">25-49 %</option>
+          <option value="60">50-74 %</option>
+          <option value="80">75-100 %</option>
+        </select>
+      </td>
+      
+      <td class="center">
+        <input type="text" class="inputmaintd" name="TAreaWSD_{{k|twonum}}" size="5" readonly="" value="0.0">
+      </td>
+
+    </tr>
+    {% endfor %}
+
+  </tbody></table>
+
+<table style="font-size:0.82em; color:red; margin: 0 auto; width:1000px; text-align:right;">
+  <tbody>
+  <tr>
+  <td>&nbsp;&nbsp;*at least ONE input should not be 0.</td>
+  </tr>
+</tbody>
+</table>
+  <!-- end of the watershed-->
+
+<!-- begin cligen-->
+<hr><br><br>
+  <div>
+    For precipitation data we use CLIGEN 100 year synthetic precipitation based on the geographic location you select.
+  </div>
+  <table style="width:800px; border:0;">
+  <tbody>
+  <tr class="center">
+
+      <td style="text-align:left">
+        <input type="text" size="30" style="text-align:left;width:150px;border-width:0px;font-size:11pt" name="LocName" value="Select CLIGEN Station">
+      </td> 
+
+      <!-- visiable when location is selected -->
+      <td> <input type=hidden name="GraphButton" style='width:200px;height:30px;cursor:hand' value='History Rainfalls' onClick="javascript:window.open('simpleGraph', 'GraphWindow', 'status=0,toolbar=0,height=500px,width=710px' ); "> 
+      </td>
+
+      <td>
+        <input type="button" style="width:200px;height:30px;cursor:hand" value="CLIGEN Map" 
+          onclick="openCligenMap()" >
+      </td> 
+      <td style= "text-align:left; font-size:0.82em; padding:20px; color:red; " > 
+        *The state and county of the CLIGEN station will be the default for soil data properties.  
+      </td>
+    </tr>
+  </tbody>
+  </table>  
+<hr><br><br>
+
+<script> 
+  function updateCounty() {  
+    var gbutton = document.getElementsByName("GraphButton")[0]; 
+    gbutton.type = 'button';   
+    var state = document.getElementsByName("State")[0].value;   
+    var countyName = document.getElementsByName("CountyName")[0].value; 
+    var LocFileName = document.getElementsByName("LocFileName")[0].value; 
+    var LocName = document.getElementsByName("LocName")[0].value; 
+    $.ajax({ 
+      url:"CountyDataJson", 
+      type:"GET", 
+      data:{
+        "State" : state, 
+        "County" : countyName,
+        "LocFileName" : LocFileName,
+        "LocName" : LocName,
+      }, 
+        success : function(response){     
+          var ret = response.ret;
+          CountyDataInput_id = response.CountyDataInput_id
+
+          for (var i = 0; i < {{ req.POST.numWSD }}; i++) {      
+            
+            {% for i in ctx.range5 %} 
+            document.getElementsByName("usleCropland_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = ret[ {{i}} - 1 ];  
+            {%endfor%}
+
+            {% for i in ctx.range5 %} 
+            document.getElementsByName("uslePasture_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = ret[{{i}} + 4  ];  
+            {%endfor%}
+
+            {% for i in ctx.range5 %} 
+            document.getElementsByName("usleForest_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = ret[{{i}} + 9 ];  
+            {%endfor%}
+
+            {% for i in ctx.range5 %} 
+            document.getElementsByName("usleUser_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = ret[{{i}} + 14 ];  
+            {%endfor%}
+          }
+        },
+          error:function(xhr) {}
+        });
+}  
+</script>   
+
+<!-- end of cligen -->
+
+
+
+<!-- begin of step2 -->
+<span style="font-weight:bold; color:blue;">Step 2. Input agricultural animals</span> (Optional)
+    <input type="button" 
+    style="width:240px;height:30px;cursor:hand" 
+    value="Tetratech Online Database" 
+    onclick="tetratechLink()">
+  <table border="1" style="margin: 0 auto; width:1000px;">
+    <tbody>
+    <tr class="center">
+      <td class="greytd2">Watershed</td>
+      <td class="greytd2">Beef Cattle</td>
+      <td class="greytd2">Dairy Cattle</td>
+      <td class="greytd2">Swine (Hog)</td>
+      <td class="greytd2">Sheep</td>
+      <td class="greytd2">Horse</td>
+      <td class="greytd2">Chicken</td>
+      <td class="greytd2">Turkey</td>
+      <td class="greytd2">Duck</td>
+      <td class="greytd2"># of months<br>manure applied</td>
+    </tr>
+    {% for k in ctx.rangeWSD %}
+  <tr>
+    <td class="center"> W{{k}} </td>
+    <td class="center"><input type="text" class="inputmaintd" name="Animals_1{{k|twonum}}" size="5" value="0"></td>
+    <td class="center"><input type="text" class="inputmaintd" name="Animals_2{{k|twonum}}" size="5" value="0"></td>
+    <td class="center"><input type="text" class="inputmaintd" name="Animals_3{{k|twonum}}" size="5" value="0"></td>
+    <td class="center"><input type="text" class="inputmaintd" name="Animals_4{{k|twonum}}" size="5" value="0"></td>
+    <td class="center"><input type="text" class="inputmaintd" name="Animals_5{{k|twonum}}" size="5" value="0"></td>
+    <td class="center"><input type="text" class="inputmaintd" name="Animals_6{{k|twonum}}" size="5" value="0"></td>
+    <td class="center"><input type="text" class="inputmaintd" name="Animals_7{{k|twonum}}" size="5" value="0"></td>
+    <td class="center"><input type="text" class="inputmaintd" name="Animals_8{{k|twonum}}" size="5" value="0"></td>
+    <td class="center"><input type="text" class="inputmaintd" name="NumMonManure_{{k|twonum}}" size="5" value="0"></td>
+  </tr>
+  {%endfor%}
+</tbody>
+</table>
+<hr><br><br>
+<!-- end of step2 -->
+
+  <!-- begin of step3 -->
+  <span style="font-weight:bold; color:blue;">Step 3. Input septic system and illegal direct wastewater discharge data</span> (Optional)
+    <input type="button" 
+    style="width:240px;height:30px;cursor:hand" 
+    value="Tetratech Online Database" 
+    onclick="tetratechLink()">
+  <table border="1" style="margin: 0 auto; width:1000px">
+    <tbody><tr class="center">
+      <td class="greytd2">Watershed</td>
+      <td class="greytd2">No. of Septic Systems</td>
+      <td class="greytd2">Population per Septic System</td>
+      <td class="greytd2">Septic Failure Rate, %</td>
+      <td class="greytd2">Wastewater Direct Discharge, # of People</td>
+      <td class="greytd2">Direct Discharge Reduction, %</td>
+    </tr>
+
+    {% for k in ctx.rangeWSD%}
+    <tr>
+      <td class="center"> W{{k}} </td>
+      <td align="center"><input type="text" class="inputmaintd" name="NumSpSys_{{k|twonum}}" size="5" value="0"></td>
+      <td align="center"><input type="text" class="inputmaintd" name="PpSpSys_{{k|twonum}}" size="5" value="0"></td>
+      <td align="center"><input type="text" class="inputmaintd" name="SpFailRate_{{k|twonum}}" size="5" value="0"></td>
+      <td align="center"><input type="text" class="inputmaintd" name="NumPpDrtDc_{{k|twonum}}" size="5" value="0"></td>
+      <td align="center"><input type="text" class="inputmaintd" name="RdcDrtDc_{{k|twonum}}" size="5" value="0"></td>
+    </tr>
+    {%endfor%}
+  </tbody></table>
+<hr><br><br>
+  <!-- end of step3 -->
+
+  <!-- begin of step4-->
+  <span style="font-weight:bold; color:blue;">Step 4. Modify the Universal Soil Loss Equation (USLE) parameters</span>
+    <input type="button" style="width:240px;height:30px;cursor:hand" 
+    value="County Data" 
+    onclick="openCountyLink()"> 
+    <span style=" font-size:0.82em; color:red;"> *The state and county of the CLIGEN station will be the default for soil data properties. 
+    </span> <br> 
+
+  <table border="1" style="margin: 0 auto; width:1000px">
+    <tbody><tr style="text-align:middle">
+      <td style="text-align:center; background-color:#BDBDBD; width:50px" rowspan="2">Watershed</td>
+      <td class="greytd2" colspan="5">Cropland</td>
+      <td class="greytd2" colspan="5">Pastureland</td>
+      <td class="greytd2" colspan="5">Forest</td>
+      <td class="greytd2" colspan="5">User Defined</td>
+    </tr>
+    <tr>
+      <td class="greytd2">R</td>
+      <td class="greytd2">K</td>
+      <td class="greytd2">LS</td>
+      <td class="greytd2">C</td>
+      <td class="greytd2">P</td>
+      <td class="greytd2">R</td>
+      <td class="greytd2">K</td>
+      <td class="greytd2">LS</td>
+      <td class="greytd2">C</td>
+      <td class="greytd2">P</td>
+      <td class="greytd2">R</td>
+      <td class="greytd2">K</td>
+      <td class="greytd2">LS</td>
+      <td class="greytd2">C</td>
+      <td class="greytd2">P</td>
+      <td class="greytd2">R</td>
+      <td class="greytd2">K</td>
+      <td class="greytd2">LS</td>
+      <td class="greytd2">C</td>
+      <td class="greytd2">P</td>
+    </tr>
+    {% for k in ctx.rangeWSD %}
+    <tr>
+      <td class="center"> W{{k}} </td>
+      {% for i in ctx.range5 %}
+        <td align="center"><input type="text" class="chemicaltd" name="usleCropland_{{i}}{{k|twonum}}" size="3" value="0.0"></td>
+      {%endfor%}
+      {% for i in ctx.range5 %}
+        <td align="center"><input type="text" class="chemicaltd" name="uslePasture_{{i}}{{k|twonum}}" size="3" value="0.0"></td>
+      {%endfor%}
+      {% for i in ctx.range5 %}
+        <td align="center"><input type="text" class="chemicaltd" name="usleForest_{{i}}{{k|twonum}}" size="3" value="0.0"></td>
+      {%endfor%}
+      {% for i in ctx.range5 %}
+        <td align="center"><input type="text" class="chemicaltd" name="usleUser_{{i}}{{k|twonum}}" size="3" value="0.0"></td>
+      {%endfor%}
+    </tr>
+    {%endfor%}
+  </tbody></table>
+<hr><br><br>
+  <!-- endof step4-->
+
+  <!-- begin of optional -->
+  <span style="color:blue; font-style:italic">If you want to change Optional Input Data, click this button . 
+  </span>
+    <input type="button" style="width:250x;height:30px;cursor:hand;" 
+    value="Change soil type and CN inputs" 
+    onclick="javascript:window.open('./optMain','STEPL_DB_online','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=1000,width=900');">
+<hr>
+
+  <div style="color:blue; font-style:italic">If you want to change DBs, click button. </div>
+  
+  <table style="margin: 0 auto; border:0">
+    <tbody><tr>
+      <td class="center">
+        <input type="button" 
+        style="width:240px;height:30px;cursor:hand" 
+        value="Soil Infiltration Fraction for Precipitation" 
+        onclick="javascript:window.open('./otherTables?t=soilInfiltrationRatio',
+        'Groundwater_Infiltration_Rate','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
+      </td>
+      <td class="center">
+        <input type="button" 
+        style="width:240px;height:30px;cursor:hand" 
+        value="Wildlife density in cropland" 
+        onclick="javascript:window.open('./otherTables?t=wildlife',
+        'Wildlife_Density','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
+      </td>
+      <td class="center">
+        <input type="button" 
+        style="width:240px;height:30px;cursor:hand" 
+        value="Standard Animal Weight Table" 
+        onclick="javascript:window.open('./otherTables?t=animalWeight',
+        'Reference','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
+      </td>
+    </tr>
+    <tr>
+      <td class="center">
+        <input type="button" 
+        style="width:240px;height:30px;cursor:hand" 
+        value="Septic DB Table" 
+        onclick="javascript:window.open('./otherTables?t=septic',
+        'Septic_Table','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
+      </td>
+      <td>
+        <input type="button" 
+        style="width:240px;height:30px;cursor:hand" 
+        value="Feedlot DB Table" 
+        onclick="javascript:window.open('./otherTables?t=feedlot',
+        'Feedlot','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
+      </td>
+      <td>
+        <input type="button" 
+        style="width:240px;height:30px;cursor:hand" 
+        value="Gully&amp;Streambank DB Table" onclick="javascript:window.open('./otherTables?t=gullyDB',
+        'Gully','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=550,width=900');">
+      </td>
+    </tr>
+  </tbody></table>
+
+
+
+  <hr>
+  <span style="color:blue; font-style:italic">If you want to input Gully and Streambank Erosion, click the button.</span>
+  <input type="button" style="width:240px;height:30px;cursor:hand" value="Gully &amp; Streambank Erosion" 
+    onclick="javascript:window.open('./otherTables?t=gullyNstreambankErosion',
+    'Gully_Streambank','status=0,toolbar=1,location=0,menubar=0,scrollbars=1,scrolling=1,height=600,width=900');">
+    <hr>
+
+<!-- submit buttons -->
+<br><br>
+<div class="center">
+<!--
+<input style="WIDTH:200px;height:30px;CURSOR:hand" type="button" onclick="reloadPage()" value="Clear the fields">
+-->
+<input style="WIDTH:200px;height:30px;CURSOR:hand;background-color:lightyellow"  type="button" onclick="complete()" value="Next">
+</div><br><br>
+
+
+<!-- hidden form data for js ajax-->
+<input type="hidden" name="State" value="None">
+<input type="hidden" name="CountyName" value="None">
+<input type="hidden" name="LocFileName" value="None">
+
+<!-- to make life easier, the static hidden data is stored and loaded from DB!-->
+
+</form>
+
+<form name="cleanForm" method="POST" action="inputMain" target="_self">
+  {% csrf_token %}
+<input type="hidden" name="numWSD" value="{{req.POST.numWSD}}">
+<input type="hidden" name="numGLY" value="{{req.POST.numGLY}}">
+<input type="hidden" name="numSTR" value="{{req.POST.numSTR}}">
+</form>
+
+{% include "footer.html" %}
+
+
+
+</body></html>

@@ -28,3 +28,10 @@ def get(o, index):
         return o[index]
     except:
         return settings.TEMPLATE_STRING_IF_INVALID
+
+@register.filter(name='geti')
+def geti(o, index):
+    try:
+        return o[str(index)]
+    except:
+        return settings.TEMPLATE_STRING_IF_INVALID

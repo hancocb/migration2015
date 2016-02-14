@@ -1,0 +1,87 @@
+/* 
+CSS tabs is licensed under Creative Commons Attribution 3.0 (http://creativecommons.org/licenses/by/3.0/)
+
+The original css stylesheet was created by:
+Joshua Kaufman, unraveled
+28 January, 2007
+
+
+This stylesheet has been edited by:
+Karl Theller
+24 May 2011
+Edited for ease of use and  the use of classes instead of ids
+Also, javascript can be used to easily change between tabs
+
+
+begin css tabs */
+
+ul.tbnav { /* general settings */
+text-align: left; /* set to left, right or center */
+margin: 1em 0 1em 0; /* set margins */
+font: bold 11px verdana, arial, sans-serif; /* set font as desired */
+border-bottom: 1px solid #6c6; /* set border COLOR*/
+list-style-type: none;
+padding: 3px 10px 3px 10px; /* THIRD number must change with respect to padding-top (X) below */
+height: 19px;
+}
+
+ul.tbnav>li { /* do not change */
+display: inline;
+margin-right: 4px;
+float: left;
+}
+
+
+
+ul.tbnav>li.ontb>a  { /* settings for selected tab link */
+padding: 3px 4px; /* set padding (tab size); FIRST number must change with respect to padding-top (X) above */
+border: 1px solid #6c6; /* set border COLOR; usually matches border color specified in #tbnav */
+background-color: #fff; /* set selected tab background color */
+color: #000; /* set selected tab link color */
+top: 1px;
+height: 15px;
+padding-top: 4px; /* must change with respect to padding (X) above and below */
+display: block;
+cursor: pointer;
+border-bottom: none;
+border-bottom: none;
+}
+
+ul.tbnav>li.offtb>a { /* settings for all tab links */
+padding: 3px 4px; /* set padding (tab size); FIRST number must change with respect to padding-top (X) above */
+border: 1px solid #6c6; /* set border COLOR; usually matches border color specified in #tbnav */
+background-color: #cfc; /* set unselected tab background color */
+color: #666; /* set unselected tab link color */
+margin-right: 0px; /* set additional spacing between tabs */
+border-bottom: none;
+border-bottom: none;
+cursor: pointer;
+display: block;
+height: 15px;
+}
+
+ul.tbnav>li.distb>a { /* settings for all disabled tab links */
+padding: 3px 4px; /* set padding (tab size); FIRST number must change with respect to padding-top (X) above */
+border: 1px solid #444; /* set border COLOR; usually matches border color specified in #tbnav */
+background-color: #aaa; /* set unselected tab background color */
+color: #666; /* set unselected tab link color */
+margin-right: 0px; /* set additional spacing between tabs */
+text-decoration: none;
+border-bottom: none;
+cursor: auto;
+display: block;
+}
+
+div[class*='utab']>li.ontb { /* settings for selected tab */
+border-bottom: 1px solid #fff; /* set border color to page background color */
+background-color: #fff; /* set background color to match above border color */
+}
+
+ul.tbnav>li.offtb>a:hover { /* settings for hover effect */
+background: #fff; /* set desired hover color */
+}
+li.distb>a:hover { /* settings for hover effect */
+background: #aaa; /* set desired hover color */
+}
+
+/* end css tabs */
