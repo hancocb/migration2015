@@ -80,7 +80,8 @@ class ImportMainView(View):
 
         #save the session under this user
         userSession = UserSession(username=context['username'],session_id=i.id,hucid=context['fromLthia']['hucid'])
-
+        userSession.save()
+        
         context['IndexInput'] = {}
         context['IndexInput']['id'] = i.id
 
