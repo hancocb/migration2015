@@ -28,6 +28,9 @@ class RerunStep1View(View):
         context['rangeSTR'] = range( 1 , int( indexInput.num_steambank ) + 1 )
 
 
+        for i in range(2,10):
+            context['range' + str(i)] = range( 1, i + 1 )
+
         #process through STPEL api to run fortran
         from_id = URL_RUN_FROM_ID + str(request.GET['session_id'])
         run1_url = FORTRAN_SERVER + URL_RUN_STEP_1
