@@ -16,9 +16,10 @@ class RerunStep1View(View):
 
         #all saved to session
         context = request.session
+        session_id = request.GET['session_id']
         
         context['IndexInput'] = {}
-        context['IndexInput']['id'] = request.GET['session_id']
+        context['IndexInput']['id'] = session_id 
 
         indexInput = IndexInput.objects.get(id=session_id)
 
