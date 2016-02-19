@@ -57,10 +57,10 @@ class ImportMainView(View):
         ret['landUse'] = {}
 
         for wsd in range(1,ret['numWSD']+1):
-            ret['landUse'][''+wsd] = {}
+            ret['landUse'][str(wsd)] = {}
 
         for wsd in range(1,ret['numWSD']+1):
-            ret['landUse'][''+wsd]['HSG'] = soidlistArr[wsd-1]
+            ret['landUse'][str(wsd)]['HSG'] = soidlistArr[wsd-1]
                 
         for i in range(1,5):
             for k in range(1,7):
