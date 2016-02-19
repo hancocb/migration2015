@@ -62,7 +62,7 @@ class ImportMainView(View):
         for wsd in range(1,ret['numWSD']+1):
             ret['landUse'][str(wsd)]['HSG'] = soidlistArr[wsd-1]
                 
-        for i in range(1,5):
+        for i in range(1,ret['numWSD']+1):
             for k in range(1,7):
                 ret['landUse'][str(i)][str(k)] = float(lanuserArr[ (i-1)*8+k-1 ] )
         
