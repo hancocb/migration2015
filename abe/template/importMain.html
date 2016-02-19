@@ -236,7 +236,7 @@
           var ret = response.ret;
           CountyDataInput_id = response.CountyDataInput_id
 
-          for (var i = 0; i < {{ req.POST.numWSD }}; i++) {      
+          for (var i = 0; i < {{ ctx.fromLthia.numWSD }}; i++) {      
             
             {% for i in ctx.range5 %} 
             document.getElementsByName("usleCropland_{{i}}" + ("0" + ( i + 1)) .slice(-2))[0].value = ret[ {{i}} - 1 ];  
@@ -480,9 +480,9 @@
 
 <form name="cleanForm" method="POST" action="inputMain" target="_self">
   {% csrf_token %}
-<input type="hidden" name="numWSD" value="{{req.POST.numWSD}}">
-<input type="hidden" name="numGLY" value="{{req.POST.numGLY}}">
-<input type="hidden" name="numSTR" value="{{req.POST.numSTR}}">
+<input type="hidden" name="numWSD" value="{{ctx.fromLthia.numWSD}}">
+<input type="hidden" name="numGLY" value="{{ctx.fromLthia.numGLY}}">
+<input type="hidden" name="numSTR" value="{{ctx.fromLthia.numSTR}}">
 </form>
 
 {% include "footer.html" %}

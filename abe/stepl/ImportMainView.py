@@ -52,17 +52,16 @@ class ImportMainView(View):
         ret['numSTR'] = int(postData['numSTR'])
 
         lanuserArr = postData['land_list'].split(" ")
+        soidlistArr = postData['soil_list:'].split(" ")
+
         ret['landUse'] = {}
-        ret['landUse']['1'] = {}
-        ret['landUse']['2'] = {}
-        ret['landUse']['3'] = {}
-        ret['landUse']['4'] = {}
 
-        ret['landUse']['1']['HSG'] = 'A'
-        ret['landUse']['2']['HSG'] = 'B'
-        ret['landUse']['3']['HSG'] = 'C'
-        ret['landUse']['4']['HSG'] = 'D'
+        for wsd in range(1,ret['numWSD']+1):
+            ret['landUse'][''+wsd] = {}
 
+        for wsd in range(1,ret['numWSD']+1):
+            ret['landUse'][''+wsd]['HSG'] = soidlistArr[wsd-1]
+                
         for i in range(1,5):
             for k in range(1,7):
                 ret['landUse'][str(i)][str(k)] = float(lanuserArr[ (i-1)*8+k-1 ] )
