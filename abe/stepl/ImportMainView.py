@@ -52,7 +52,7 @@ class ImportMainView(View):
         ret['numSTR'] = int(postData['numSTR'])
 
         lanuserArr = postData['land_list'].split(" ")
-        soidlistArr = postData['soil_list:'].split(" ")
+        soidlistArr = postData['soil_list'].split(" ")
 
         ret['landUse'] = {}
 
