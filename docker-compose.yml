@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  web:
+    build: ./abe
+    command: bash -c 'python2 manage.py migrate --noinput && python2 manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - ./abe:/usr/src/abe
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+  db:
+    image: postgres:9.6
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: qweewq
+      POSTGRES_USER: abe
+      POSTGRES_DB: abe

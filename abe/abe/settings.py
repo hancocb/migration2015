@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'django.contrib.gis',
+    # 'django.contrib.gis',
     'stepl',
     'adminDisplayManage',
     'inwater',
@@ -81,14 +81,14 @@ WSGI_APPLICATION = 'abe.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'abe',
         'USER': 'abe',
         'PASSWORD': 'qweewq',
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
